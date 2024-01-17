@@ -1,25 +1,32 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![Black Friday Sale](https://github.com/JuanPiPem/BoxDeliveryFrontend/assets/89758759/97ae590f-60ab-4006-a309-43c65a523d89)
 
-## Getting Started
 
-First, run the development server:
+# Box Delivery App 💻
+
+A last mile logistics company has hundreds of delivery drivers who at the beginning of the day receive ~10 packages each and who must distribute throughout the 
+The company must be able to monitor the operation of delivery people, assign or reassign packages and intervene if necessary to edit a shipment to modify the address or reassign the shipment to another delivery person.
+
+
+## 🛵 Getting Started
+
+This project uses Docker. <br/>
+To run the project use the following command: 
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+$ docker compose up
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# 
+![carbon (6)](https://github.com/JuanPiPem/BoxDeliveryFrontend/assets/89758759/8e4a1b90-d6eb-403b-beed-26ae7a2fa26a)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Authors 👨‍💻
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- [@FabiolaLutrario](https://github.com/FabiolaLutrario)
+- [@BautistaGorchs](https://github.com/bautistagorchs)
+- [@Rosm08](https://github.com/Rosm08)
+- [@JuanPiPem](https://github.com/JuanPiPem)
 
+<br/><br/>
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
