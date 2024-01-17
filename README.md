@@ -6,6 +6,7 @@
 A last mile logistics company has hundreds of delivery drivers who at the beginning of the day receive ~10 packages each and who must distribute throughout the 
 The company must be able to monitor the operation of delivery people, assign or reassign packages and intervene if necessary to edit a shipment to modify the address or reassign the shipment to another delivery person.
 
+
 ## 🛵 Getting Started
 
 This project uses Docker. <br/>
@@ -14,6 +15,9 @@ To run the project use the following command:
 ```bash
 $ docker compose up
 ```
+
+# 
+![carbon (6)](https://github.com/JuanPiPem/BoxDeliveryFrontend/assets/89758759/8e4a1b90-d6eb-403b-beed-26ae7a2fa26a)
 
 ## Authors 👨‍💻
 
