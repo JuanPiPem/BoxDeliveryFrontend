@@ -3,7 +3,7 @@ services:
   appbox:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     ports:
       - $PORT_LOCAL_APP:$PORT_PROD_APP
     volumes:
