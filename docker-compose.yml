@@ -1,6 +1,0 @@
-version: "3.8"
-services:
-  appbox:
-    build: .
-    ports:
-      - $PORT_LOCAL_APP:$PORT_PROD_APP
