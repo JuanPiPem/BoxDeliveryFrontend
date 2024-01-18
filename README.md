@@ -9,7 +9,8 @@ The company must be able to monitor the operation of delivery people, assign or 
 
 ## 🛵 Getting Started
 > [!IMPORTANT]
-> This project uses <a href="https://www.docker.com/" target="_blank" >Docker</a>. <br/>
+> This project uses <a href="https://www.docker.com/" target="_blank" >Docker</a>.
+<br/><br/>
 
 1. You need to `fork` this repository.
 2. `Clone` the repository in some directory.
@@ -66,14 +67,14 @@ Continuous Integration (CI) and Continuous Deployment (CD) are practices that au
 
 <br/><br/>
 
-<h2 align="center">Authors 👨‍💻</h2>
+<h2 align="center">👨‍💻 Developers 👨‍💻</h2>
 
-![giphy (1)](https://github.com/JuanPiPem/BoxDeliveryFrontend/assets/89758759/825e82d7-7795-461e-9dab-59f7ca76e1e5)
-<img align="right" height="240"  src="./giphy.gif"  />
+<img align="right" height="200"  src="./giphy (1).gif"  />
 
-- [@FabiolaLutrario](https://github.com/FabiolaLutrario) 
-- [@BautistaGorchs](https://github.com/bautistagorchs) 
-- [@Rosm08](https://github.com/Rosm08) 
+- [@FabiolaLutrario](https://github.com/FabiolaLutrario)
+
+- [@BautistaGorchs](https://github.com/bautistagorchs)
+- [@Rosm08](https://github.com/Rosm08)
 - [@JuanPiPem](https://github.com/JuanPiPem)
 
 
