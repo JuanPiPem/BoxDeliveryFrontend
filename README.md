@@ -1,7 +1,7 @@
 ![Black Friday Sale](https://github.com/JuanPiPem/BoxDeliveryFrontend/assets/89758759/97ae590f-60ab-4006-a309-43c65a523d89)
 
 
-# Box Delivery App 💻
+# Box Delivery App (Frontend) 💻
 
 A last mile logistics company has hundreds of delivery drivers who at the beginning of the day receive ~10 packages each and who must distribute throughout the 
 The company must be able to monitor the operation of delivery people, assign or reassign packages and intervene if necessary to edit a shipment to modify the address or reassign the shipment to another delivery person.
@@ -9,11 +9,14 @@ The company must be able to monitor the operation of delivery people, assign or 
 
 ## 🛵 Getting Started
 
-This project uses Docker. <br/>
-To run the project use the following command: 
+This project uses <a href="https://www.docker.com/" target="_blank" >Docker</a>. <br/>
+
+1. You need to `fork` this repository.
+2. `Clone` the repository in some directory.
+3. Run the project with the following command: 
 
 ```bash
-$ docker compose up
+$ docker compose -f docker-compose-dev.yml up
 ```
 
 # 
