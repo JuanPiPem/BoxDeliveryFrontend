@@ -1,0 +1,60 @@
+.loginContainer {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #24424d;
+  background-color: #24424d;
+}
+.loginContentContainer {
+  height: 265px;
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0px 15px 15px 15px;
+  background-color: #80cf8b;
+}
+.content {
+  width: 85%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.input {
+  all: unset;
+  width: 100%;
+  font-size: 12px;
+  font-style: normal;
+  margin-top: 17px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.15px;
+  border-bottom: 0.1px solid #24424d9c;
+  &::placeholder {
+    color: #24424d;
+  }
+}
+.buttonLogin {
+  all: unset;
+  margin: 38px 0 17px 0;
+  border-radius: 10px;
+  line-height: 25px;
+  color: #cef169;
+  font-size: 12px;
+  padding: 4.5px;
+  width: 100%;
+  text-align: center;
+  font-weight: 400;
+  text-transform: uppercase;
+  background-color: #24424d;
+}
+.buttonRecoverPassword {
+  all: unset;
+  font-size: 12px;
+  font-weight: 400;
+  color: #24424d;
+  font-size: 12px;
+  text-decoration-line: underline;
+}
