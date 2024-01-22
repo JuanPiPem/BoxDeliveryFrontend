@@ -1,0 +1,25 @@
+@import "../../app/globals.scss";
+
+.headerContainer {
+  width: 300px;
+  height: 40px;
+}
+.contentContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  background: $light-yellow;
+}
+.content {
+  width: 100%;
+  margin: 0 23px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: $dark-green;
+  font-size: 18px;
+  text-transform: uppercase;
+}
