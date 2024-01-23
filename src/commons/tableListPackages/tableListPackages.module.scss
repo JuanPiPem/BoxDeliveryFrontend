@@ -1,0 +1,67 @@
+@import "../../app/globals.scss";
+
+.container {
+  color: $dark-green;
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.div1 {
+  display: flex;
+}
+
+.txt {
+  font-size: 12px;
+  font-style: normal;
+  line-height: 15px; /* 125% */
+}
+
+.fontNormal {
+  font-weight: 400;
+}
+
+.fontBold {
+  font-weight: 600;
+}
+
+.div2 p {
+  margin-left: 12px;
+  margin-right: 12px;
+  margin-bottom: 0px;
+  margin-top: 0px; /* Puedes ajustar este valor según tus necesidades */
+}
+
+.div3Aling {
+  margin-bottom: 0px;
+  margin-top: 0px; /* Elimina el margen predeterminado del párrafo */
+  text-align: right; /* Alinea el texto a la derecha */
+}
+
+.statusContainer {
+  display: flex;
+  align-items: center;
+}
+
+.statusText {
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 15px; /* 150% */
+  text-transform: uppercase;
+  margin-left: 5px;
+}
+
+.button {
+  background-color: transparent;
+  border-radius: 5px;
+  width: 62px;
+  height: 20px;
+  flex-shrink: 0;
+  border: 1 px solid $dark-green;
+  font-feature-settings: "clig" off, "liga" off;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  text-transform: uppercase;
+}
