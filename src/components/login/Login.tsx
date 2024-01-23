@@ -3,7 +3,7 @@ import s from "./login.module.scss";
 import LoginBoxLogo from "assets/img/LoginBoxLogo";
 import ButtonDarkBlue from "commons/buttonDarkBlue/ButtonDarkBlue";
 
-/* Si el login es de tipo repartidor(state Redux): hacer un classList.remove de la clase "s.heigthContentContainer1" y un classList.toggle de "s.heigthContentContainer2"; y también hacer un display block del button que tiene la clase "s.buttonSignUp" */
+/* Si el login es de tipo repartidor(state Redux): hacer un classList.remove de la clase "s.heigthContentContainer1" y un classList.toggle de "s.heigthContentContainer2"; y también hacer un classList.remove del button que tiene la clase "s.displayNone" */
 
 const Login = () => {
   return (
@@ -26,7 +26,7 @@ const Login = () => {
             <ButtonDarkBlue text="Ingresar" />
           </div>
           <div>
-            <button className={s.buttonSignUp} style={{ display: "none" }}>
+            <button className={`${s.buttonSignUp} ${s.displayNone}`}>
               Crear Cuenta
             </button>
           </div>
