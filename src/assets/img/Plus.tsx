@@ -14,7 +14,7 @@ export default function Plus(props: { width?: number; height?: number }) {
         id="Vector"
         d="M13 7.00005L7 7.00005M7 7.00005L1 7.00005M7 7.00005L7 1M7 7.00005L7 13"
         stroke="#CEF169"
-        stroke-linecap="round"
+        strokeLinecap="round"
       />
     </svg>
   );
