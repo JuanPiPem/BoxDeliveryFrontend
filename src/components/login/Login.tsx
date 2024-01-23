@@ -14,12 +14,12 @@ const Login = () => {
         <div className={s.content}>
           <input
             type="email"
-            className={`${s.input} ${s.marginFirstInput}`}
+            className={`${s.input}`}
             placeholder="Email@example.com"
           />
           <input
             type="password"
-            className={`${s.input} ${s.marginSecondtInput}`}
+            className={`${s.input}`}
             placeholder="*******"
           />
           <div className={s.buttonLogin}>
