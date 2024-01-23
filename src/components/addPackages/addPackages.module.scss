@@ -1,0 +1,81 @@
+@import "../../app/globals.scss";
+
+.addPackagesContainer {
+  width: 100%;
+  height: 100vh;
+  color: $dark-green;
+  font-size: 12px;
+  background-color: $light-green;
+}
+
+.navBar {
+  padding-top: 12px;
+}
+
+.addPackagesContentContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  margin-top: 28px;
+}
+
+.form {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-top: 13px;
+  width: 300px;
+  height: 450px;
+  flex-shrink: 0;
+  border-radius: 15px;
+  background: $white;
+}
+
+.content {
+  margin-left: 14px;
+  margin-right: 14px;
+}
+
+.input {
+  all: unset;
+  width: 100%;
+  margin-top: 20px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 0.15px;
+  border-bottom: 0.1px solid #24424d9c;
+  &::placeholder {
+    color: $dark-green;
+  }
+}
+
+.divDate {
+  margin-top: 55px;
+}
+
+.labelInputDate {
+  all: unset;
+  width: 100%;
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: 0.15px;
+}
+
+.inputDate {
+  all: unset;
+  width: 96%;
+  margin-top: 3px;
+  padding: 3px 5px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 0.15px;
+  border-radius: 5px;
+  border: 0.5px solid $dark-green;
+  &::placeholder {
+    color: $dark-green;
+  }
+}
