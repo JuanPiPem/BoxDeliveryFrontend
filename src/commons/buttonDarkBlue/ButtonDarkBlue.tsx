@@ -6,11 +6,7 @@ type Prop = {
 };
 
 const ButtonDarkBlue = (prop: Prop) => {
-  return (
-    <div>
-      <button className={`${s.buttonStyle}`}>{prop.text}</button>
-    </div>
-  );
+  return <button className={`${s.buttonStyle}`}>{prop.text}</button>;
 };
 
 export default ButtonDarkBlue;
