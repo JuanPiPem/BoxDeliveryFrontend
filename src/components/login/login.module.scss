@@ -11,15 +11,23 @@
   background-color: $dark-green;
 }
 .loginContentContainer {
-  height: 275px;
   width: 300px;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 0px 15px 15px 15px;
-  background-color: $ligth-green;
+  background-color: $light-green;
 }
+
+.heigthContentContainer1 {
+  height: 275px;
+}
+
+.heigthContentContainer2 {
+  height: 310px;
+}
+
 .logoContainer {
   width: 204px;
   height: 69px;
@@ -30,7 +38,6 @@
   justify-content: center;
   align-items: center;
   border-radius: 15px 15px 15px 0px;
-
   background: $light-yellow;
 }
 .content {
@@ -39,6 +46,7 @@
   flex-direction: column;
   align-items: center;
 }
+
 .input {
   all: unset;
   width: 100%;
@@ -51,18 +59,36 @@
     color: $dark-green;
   }
 }
+
 .buttonLogin {
-  all: unset;
-  width: 85%;
   margin: 38px 0 17px 0;
   height: 16px;
   padding: 8px 22px;
-  color: $light-yellow;
-  text-align: center;
-  text-transform: uppercase;
-  background-color: $dark-green;
-  border-radius: 10px;
 }
+
+.buttonSignUp {
+  margin-bottom: 17px;
+  display: flex;
+  width: 270px;
+  height: 30px;
+  padding: 8px 22px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  background: transparent;
+  border-radius: 10px;
+  color: $dark-green;
+  font-feature-settings: "clig" off, "liga" off;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+.displayNone {
+  display: none;
+}
+
 .buttonRecoverPassword {
   all: unset;
   text-decoration-line: underline;

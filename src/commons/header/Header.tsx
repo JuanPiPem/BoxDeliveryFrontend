@@ -1,24 +1,28 @@
 import React from "react";
 import s from "./header.module.scss";
 import { Saira } from "next/font/google";
-import PropTypes from "prop-types";
 import LeftArrow from "assets/img/LeftArrow";
 
 const saira = Saira({ weight: "700", subsets: ["latin"] });
 
-const Header = ({ text = "" }): JSX.Element => {
+const Header: React.FC<Props> = ({ text, showArrow = true }): JSX.Element => {
+  const contentStyles = showArrow
+    ? { justifyContent: "space-between" }
+    : { justifyContent: "center" };
   return (
     <div className={`${s.headerContainer} ${saira.className}`}>
       <div className={s.contentContainer}>
-        <div className={s.content}>
+        <div className={s.content} style={contentStyles}>
           {text}
-          <LeftArrow />
+          {showArrow && <LeftArrow />}
         </div>
       </div>
     </div>
   );
 };
-Header.propTypes = {
-  text: PropTypes.string.isRequired,
+
+type Props = {
+  text: string;
+  showArrow?: boolean;
 };
 export default Header;
