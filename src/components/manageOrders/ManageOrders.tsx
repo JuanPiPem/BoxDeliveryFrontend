@@ -3,6 +3,7 @@ import s from "./manageOrders.module.scss";
 import Navbar from "commons/navbar/Navbar";
 import Header from "commons/header/Header";
 import DeployArrowDown from "assets/img/DeployArrowDown";
+import Plus from "assets/img/Plus";
 
 const ManageOrders = () => {
   return (
@@ -32,8 +33,33 @@ const ManageOrders = () => {
             <DeployArrowDown />
           </div>
         </div>
-        <div className={s.info}></div>
+        <div className={s.info}>
+          <div className={s.deliveryCard}>
+            <div className={s.graphic}></div>
+            <div className={s.text}>
+              <h6>Repartidores</h6>
+              <p>2/10 Habilitados</p>
+            </div>
+            <div className={s.button}>
+              <button className={s.button}>VER</button>
+            </div>
+          </div>
+          <hr />
+          <div className={s.deliveryCard}>
+            <div className={s.graphic}></div>
+            <div className={s.text}>
+              <h6>Paquetes</h6>
+              <p>16/20 Habilitados</p>
+            </div>
+            <div className={s.buttonContainer}>
+              <button className={s.button}>VER</button>
+            </div>
+          </div>
+        </div>
       </div>
+      <button className={s.bottomButton}>
+        Nuevo paquete <Plus />
+      </button>
     </div>
   );
 };

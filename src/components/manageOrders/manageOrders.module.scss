@@ -7,15 +7,29 @@
   flex-direction: column;
   align-items: center;
   background-color: $light-green;
+  .bottomButton {
+    width: 270px;
+    height: 30px;
+    margin: 15px 15px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: $light-yellow;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 10px;
+    background: $dark-green;
+  }
 }
 
 .welcomeCardContainer {
   width: 300px;
-  height: 100px;
+  height: 90px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 45px 0 10px;
+  margin: 44px 0 10px;
   border-radius: 15px;
   background-color: #fefefe;
 }
@@ -38,7 +52,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  color: #24424d;
+  color: $dark-green;
   h5 {
     all: unset;
     margin: 5px 0;
@@ -69,7 +83,7 @@
     h5 {
       all: unset;
       margin-left: 20px;
-      color: #24424d;
+      color: $dark-green;
       font-size: 14px;
       font-weight: 700;
       letter-spacing: 0.15px;
@@ -93,7 +107,7 @@
     h5 {
       all: unset;
       margin-left: 20px;
-      color: #24424d;
+      color: $dark-green;
       font-size: 14px;
       font-weight: 700;
       letter-spacing: 1px;
@@ -104,13 +118,66 @@
       h6 {
         all: unset;
         margin-right: 9px;
-        color: #24424d;
+        color: $dark-green;
         font-size: 14px;
         font-weight: 500;
         letter-spacing: 0.15px;
       }
     }
   }
-  // .info {
-  // }
+  .info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .deliveryCard {
+      height: 102px;
+      width: calc(100% - 30px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      // border-bottom: 0.5px solid $dark-green;
+    }
+    .graphic {
+      width: 71px;
+      height: 71px;
+      border-radius: 15px;
+      background-color: lightblue;
+    }
+    .text {
+      width: 120px;
+      h6,
+      p {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        color: $dark-green;
+      }
+      h6 {
+        margin-bottom: 3px;
+        font-size: 14px;
+        font-weight: 500;
+        // letter-spacing: 0.4px;
+      }
+      p {
+        font-size: 12px;
+      }
+    }
+    .button {
+      all: unset;
+      width: 52px;
+      height: 26px;
+      color: $light-yellow;
+      font-size: 12px;
+      text-align: center;
+      background-color: $dark-green;
+      border-radius: 10px;
+    }
+    hr {
+      border: 0;
+      margin: 0;
+      height: 0.5px;
+      width: 270px;
+      background: #24424d91;
+    }
+  }
 }
