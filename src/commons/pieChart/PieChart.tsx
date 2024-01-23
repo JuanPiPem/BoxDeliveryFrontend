@@ -3,17 +3,21 @@ import s from "./pieChart.module.scss";
 import { ChakraProvider } from "@chakra-ui/react";
 import { CircularProgress, CircularProgressLabel } from "@chakra-ui/react";
 
-const PieChart = () => {
+type Prop = {
+  percent: number;
+};
+
+const PieChart = (prop: Prop) => {
   return (
     <ChakraProvider>
       <CircularProgress
-        value={20}
+        value={prop.percent}
         color="#dcd8f1"
         className={`${s.container}`}
         size="71px"
       >
         <CircularProgressLabel className={`${s.percent}`}>
-          20%
+          {prop.percent}%
         </CircularProgressLabel>
       </CircularProgress>
     </ChakraProvider>
