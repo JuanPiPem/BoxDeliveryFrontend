@@ -53,15 +53,19 @@
 }
 
 .button {
+  all: unset;
+  color: $dark-green;
   background-color: transparent;
-  border-radius: 5px;
   width: 62px;
   height: 20px;
   flex-shrink: 0;
-  border: 1 px solid $dark-green;
+  margin-left: 4px;
+  border-radius: 5px;
+  border: 1px solid $dark-green;
   font-feature-settings: "clig" off, "liga" off;
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
   text-transform: uppercase;
+  text-align: center;
 }

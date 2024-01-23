@@ -3,8 +3,20 @@ import s from "./tableListPackages.module.scss";
 import Package from "assets/img/Package";
 import Trash from "assets/img/Trash";
 import StatusInProgress from "assets/img/StatusInProgress";
+import StatusPending from "assets/img/StatusPending";
+import StatusDelivered from "assets/img/StatusDelivered";
 
-const TableListPackages = () => {
+type Prop = {
+  viewType: string;
+  section: string;
+  status: string;
+};
+//The viewType can be: "paquetes-admin", "perfil-repartidor" o "home-repartidor"
+//The sections can be: "repartos-pendientes"
+//The status can be: "pendiente", "en-curso" o "entregado"
+//Example: <TableListPackages viewType="paquetes-admin" section="repartos-pendientes" status="en-curso"/>
+
+const TableListPackages = (prop: Prop) => {
   return (
     <>
       <div className={`${s.container}`}>
@@ -17,16 +29,41 @@ const TableListPackages = () => {
           </div>
         </div>
         <div className={`${s.div3}`}>
-          <div className={`${s.statusContainer}`}>
-            <StatusInProgress />
-            <p className={`${s.div3Aling} ${s.statusText}`}>EN CURSO</p>
-          </div>
-          <div className={`${s.div3Aling}`}>
-            <Trash />
-          </div>
-          <div style={{ display: "none" }}>
-            <button className={`${s.button}`}>Iniciar</button>
-          </div>
+          {prop.viewType === "home-repartidor" ||
+          prop.viewType === "perfil-repartidor" ? (
+            <div className={`${s.statusContainer}`}>
+              {prop.status === "pendiente" ? (
+                <StatusPending />
+              ) : prop.status === "en-curso" ? (
+                <StatusInProgress />
+              ) : (
+                <StatusDelivered />
+              )}
+              <p className={`${s.div3Aling} ${s.statusText}`}>
+                {prop.status === "pendiente"
+                  ? "PENDIENTE"
+                  : prop.status === "en-curso"
+                  ? "EN CURSO"
+                  : "ENTREGADO"}
+              </p>
+            </div>
+          ) : null}
+          {(prop.viewType === "home-repartidor" &&
+            prop.section === "repartos-pendientes" &&
+            prop.status === "en-curso") ||
+          prop.viewType === "paquetes-admin" ||
+          prop.viewType === "perfil-repartidor" ? (
+            <div className={`${s.div3Aling}`}>
+              <Trash />
+            </div>
+          ) : null}
+          {prop.viewType === "home-repartidor" &&
+          prop.section === "repartos-pendientes" &&
+          prop.status === "pendiente" ? (
+            <div>
+              <button className={`${s.button}`}>Iniciar</button>
+            </div>
+          ) : null}
         </div>
       </div>
     </>
