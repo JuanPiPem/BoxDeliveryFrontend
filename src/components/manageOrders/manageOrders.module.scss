@@ -88,6 +88,42 @@
       text-transform: uppercase;
     }
   }
+  .dates {
+    height: calc(84px - 30px);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+  .today {
+    width: 34px;
+    height: 34px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #cef169;
+  }
+  .future {
+    opacity: 0.5;
+  }
+  .specificDate {
+    display: flex;
+    flex-direction: column;
+    .day,
+    .num {
+      all: unset;
+      color: $dark-green;
+    }
+    .day {
+      font-size: 12px;
+      font-weight: 400;
+    }
+    .num {
+      font-size: 16px;
+      font-weight: 700;
+    }
+  }
 }
 .detailsContainer {
   width: 300px;
