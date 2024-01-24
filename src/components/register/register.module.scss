@@ -1,0 +1,59 @@
+@import "../../app/globals.scss";
+
+.registerContainer {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $light-green;
+}
+.contentContainer {
+  width: 300px;
+  height: 505px;
+  margin-top: 10px;
+  border-radius: 15px;
+  background: #fefefe;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .iconContainer {
+    width: 96px;
+    height: 95px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    background: #ebecef;
+    border-radius: 30px;
+  }
+  .registerForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    input {
+      border: none;
+      width: 260px;
+      border-bottom: 0.5px solid $dark-green;
+    }
+  }
+  button {
+    align-self: unset;
+  }
+  .loginButton {
+    width: 270px;
+    height: 30px;
+    margin: 10px 15px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: $dark-green;
+    text-transform: uppercase;
+    background-color: transparent;
+    border: 1px solid #24424d;
+    border-radius: 10px;
+  }
+}
