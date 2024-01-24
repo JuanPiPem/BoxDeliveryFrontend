@@ -29,6 +29,9 @@
   height: 35px;
   border-radius: 15px 15px 0px 0px;
   background-color: $light-violet;
+  .bold {
+    font-weight: 600;
+  }
 }
 .headList > div {
   display: flex;
@@ -53,6 +56,7 @@
 
 .day {
   margin-right: 20px;
+  font-weight: 400;
 }
 
 .packagesNumber {
@@ -63,6 +67,7 @@
 
 .hr {
   width: 270px;
+  border: none;
   height: 0.5px;
   background: #24424d;
 }
@@ -76,6 +81,7 @@
 .lastHr {
   width: 300px;
   margin-top: 30px;
+  border: none;
   height: 0.5px;
   background: #24424d;
 }
