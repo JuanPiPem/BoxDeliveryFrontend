@@ -8,7 +8,6 @@ import Plus from "assets/img/Plus";
 const ManageOrders = () => {
   return (
     <div className={s.outerContainer}>
-      <Navbar />
       <Header text="Gestionar pedidos" showArrow={false} />
       <div className={s.welcomeCardContainer}>
         <div className={s.welcomeCard}>
