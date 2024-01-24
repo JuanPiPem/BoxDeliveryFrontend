@@ -3,16 +3,24 @@ import s from "./packages-admin.module.scss";
 import Navbar from "commons/navbar/Navbar";
 import Header from "commons/header/Header";
 import TableListPackages from "commons/tableListPackages/TableListPackages";
+import Vector from "assets/img/Vector";
 
 const getFormattedDate = () => {
   const currentDate = new Date();
   const day = currentDate.getDate();
-  const month = currentDate.toLocaleString("default", { month: "long" });
-  return { month, day };
+  const month = currentDate
+    .toLocaleString("es-ES", {
+      month: "long",
+    })
+    .toUpperCase();
+  const dayOfWeek = currentDate
+    .toLocaleString("es-ES", { weekday: "short" })
+    .slice(0, 3);
+  return { month, day, dayOfWeek };
 };
 
 const Packages = () => {
-  const { month, day } = getFormattedDate();
+  const { month, day, dayOfWeek } = getFormattedDate();
 
   return (
     <div className={s.addPackagesContainer}>
@@ -26,13 +34,33 @@ const Packages = () => {
         <div className={s.packagesList}>
           <div className={s.dateContainer}>
             <span>{month}</span>
-            <span>{`mie/${day}`}</span>
+            <span>{`${dayOfWeek} / ${day}`}</span>
           </div>
-          <TableListPackages
-            viewType="paquetes-admin"
-            section="repartos-pendientes"
-            status=""
-          />
+          <div className={s.packagesNumber}>58 paquetes entregados</div>
+          <hr className={s.hr} />
+          <div className={s.boxTrash}>
+            <TableListPackages viewType="paquetes-admin" section="" status="" />
+          </div>
+          <hr className={s.hr} />
+          <div className={s.boxTrash}>
+            <TableListPackages viewType="paquetes-admin" section="" status="" />
+          </div>
+          <hr className={s.hr} />
+          <div className={s.boxTrash}>
+            <TableListPackages viewType="paquetes-admin" section="" status="" />
+          </div>
+          <hr className={s.hr} />
+          <div className={s.boxTrash}>
+            <TableListPackages viewType="paquetes-admin" section="" status="" />
+          </div>
+          <hr className={s.hr} />
+          <div className={s.boxTrash}>
+            <TableListPackages viewType="paquetes-admin" section="" status="" />
+          </div>
+          <hr className={s.lastHr} />
+          <div className={s.vector}>
+            <Vector />
+          </div>
         </div>
       </div>
     </div>
