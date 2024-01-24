@@ -1,12 +1,11 @@
 import React from "react";
 import s from "./deliverymenAdmin.module.scss";
-import Navbar from "commons/navbar/Navbar";
 import Header from "commons/header/Header";
 import ColorPoint from "assets/img/ColorPoint";
 import PercentageGraph from "assets/img/PercentageGraph";
 import Vector from "assets/img/Vector";
 
-const DeliverymenAdmin = () => {
+const DeliveryManAdmin = () => {
   interface FakeData {
     name: string;
     state: string;
@@ -57,4 +56,4 @@ const DeliverymenAdmin = () => {
   );
 };
 
-export default DeliverymenAdmin;
+export default DeliveryManAdmin;
