@@ -1,5 +1,5 @@
 import React from "react";
-import s from "./deliverymenAdmin.module.scss";
+import s from "./deliveryManAdmin.module.scss";
 import Header from "commons/header/Header";
 import ColorPoint from "assets/img/ColorPoint";
 import PercentageGraph from "assets/img/PercentageGraph";
