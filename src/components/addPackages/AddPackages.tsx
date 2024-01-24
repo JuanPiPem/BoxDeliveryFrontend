@@ -1,7 +1,6 @@
 import React from "react";
 import s from "./addPackages.module.scss";
 import ButtonDarkBlue from "commons/buttonDarkBlue/ButtonDarkBlue";
-import Navbar from "commons/navbar/Navbar";
 import Header from "commons/header/Header";
 
 const AddPackages = () => {

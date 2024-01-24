@@ -1,6 +1,5 @@
 import React from "react";
 import s from "./packages-admin.module.scss";
-import Navbar from "commons/navbar/Navbar";
 import Header from "commons/header/Header";
 import TableListPackages from "commons/tableListPackages/TableListPackages";
 import Vector from "assets/img/Vector";
@@ -20,7 +19,8 @@ const getFormattedDate = () => {
 };
 
 const Packages = () => {
-  const { month, day, dayOfWeek } = getFormattedDate();
+  // const { month, day, dayOfWeek } = getFormattedDate();
+  getFormattedDate();
 
   return (
     <div className={s.addPackagesContainer}>
@@ -32,7 +32,10 @@ const Packages = () => {
           <div className={s.headList}>
             <div>
               <h1 className={s.month}>Enero </h1>
-              <h1 className={s.day}> mie / 03</h1>
+              <h1 className={s.day}>
+                {" "}
+                mie <span className={s.bold}>/ 03</span>
+              </h1>
             </div>
           </div>
           <div className={s.packagesNumber}>58 paquetes entregados</div>

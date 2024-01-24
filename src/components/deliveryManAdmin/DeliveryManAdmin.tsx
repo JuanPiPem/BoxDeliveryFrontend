@@ -38,7 +38,7 @@ const DeliveryManAdmin = () => {
               </div>
 
               <div className={s.nameAndState}>
-                <div>{objeto.name}</div>
+                <div id={s.objetoName}>{objeto.name}</div>
                 <div className={s.ProfileState}>
                   {" "}
                   <ColorPoint state={objeto.state} /> {objeto.state}

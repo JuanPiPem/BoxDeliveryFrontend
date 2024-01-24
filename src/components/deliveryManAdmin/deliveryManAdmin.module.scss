@@ -36,6 +36,7 @@
 }
 .headList > div h1:first-child {
   text-transform: uppercase;
+  font-weight: 500;
 }
 
 .month {
@@ -44,6 +45,7 @@
 
 .day {
   margin-right: 20px;
+  font-weight: 500;
 }
 
 .contentUser {
@@ -54,7 +56,7 @@
   justify-content: space-around;
   align-content: center;
   align-items: center;
-  border-bottom: 1px solid black;
+  border-bottom: 0.5px solid #24424d94;
 }
 .percentage {
   margin: auto 1px;
@@ -69,24 +71,25 @@
   margin-left: -15px;
   margin-right: 35px;
 }
-.nameAndState > div {
+.nameAndState > #objetoName {
   width: max-content;
   height: 15px;
-  padding: 0px;
   margin: 0px;
   color: #24424d;
   font-size: 14px;
   font-style: normal;
-  font-weight: 700;
-  line-height: 15px; /* 107.143% */
+  font-weight: 500;
+  line-height: 15px;
 }
 .ProfileState {
   width: max-content;
   margin-top: 5px;
-  padding: 0px 5px;
+  padding: 2px 5px;
   border-radius: 5px;
   text-transform: uppercase;
+  color: #24424d;
   font-size: 10px;
+  font-weight: 400;
   background: #ebecef;
 }
 .profilePicture {

@@ -20,7 +20,7 @@ const Login = () => {
           <input
             type="password"
             className={`${s.input}`}
-            placeholder="*******"
+            placeholder="***********"
           />
           <div className={s.buttonLogin}>
             <ButtonDarkBlue text="Ingresar" />
