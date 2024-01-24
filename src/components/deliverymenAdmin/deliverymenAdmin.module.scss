@@ -1,95 +1,88 @@
 @import "../../app/globals.scss";
 
-.body{
-margin: 0;
-padding: 0;
-width: 360px;
-height: 640px;
-background-color: $light-green;
+.repartidores {
+  width: 300px;
+  height: 490px;
+  border-radius: 15px;
+  background: #fefefe;
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 30px;
 }
-.repartidores{
-width: 300px;
-height: 490px;
-border-radius: 15px;
-background: #FEFEFE;
-margin: 0 auto;
-margin-top: 10px;
-margin-bottom: 30px;
+.headList {
+  width: 300px;
+  height: 35px;
+  border-radius: 15px 15px 0px 0px;
+  background-color: $light-violet;
 }
-.headList{
-width: 300px;
-height: 35px;
-border-radius: 15px 15px 0px 0px;
-background-color: $light-violet;
-}
-.headList > div{
-display: flex;
-flex-direction: row;
-justify-content: space-around;
-padding: 0px;
-margin: 0px;
+.headList > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 0px;
+  margin: 0px;
 }
 .headList > div > h1 {
-color: $dark-green;
-font-size: 14px;
-font-style: normal;
-text-decoration: solid;
+  color: $dark-green;
+  font-size: 14px;
+  font-style: normal;
+  text-decoration: solid;
 }
 .headList > div h1:first-child {
- text-transform: uppercase;
+  text-transform: uppercase;
 }
 
-.contentUser{
+.contentUser {
   width: 300px;
   height: 100px;
   display: flex;
-  flex-direction:row;
+  flex-direction: row;
   justify-content: space-around;
   align-content: center;
   align-items: center;
   border-bottom: 1px solid black;
 }
-.percentage{
+.percentage {
   margin: auto 1px;
 }
-.nameAndState{
-width: 78px;
-height: 35px;
-display: flex;
-flex-direction: column;
-align-content: center;
-padding-left: 0px;
-margin-left: -15px;
-margin-right: 35px;
+.nameAndState {
+  width: 78px;
+  height: 35px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  padding-left: 0px;
+  margin-left: -15px;
+  margin-right: 35px;
 }
 .nameAndState > div {
   width: max-content;
   height: 15px;
   padding: 0px;
   margin: 0px;
-color: #24424D;
-font-size: 14px;
-font-style: normal;
-font-weight: 700;
-line-height: 15px; /* 107.143% */
+  color: #24424d;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 15px; /* 107.143% */
 }
-.ProfileState{
-width: max-content;
-margin-top: 5px;
-padding: 0px 5px;
-border-radius: 5px;
-text-transform: uppercase;
-font-size: 10px;
-background: #EBECEF;
+.ProfileState {
+  width: max-content;
+  margin-top: 5px;
+  padding: 0px 5px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-size: 10px;
+  background: #ebecef;
 }
-.profilePicture{
-width: 40px;
-height: 40px;
-border-radius: 40px;
-border: 2px solid #FFF;
-background-color: #24424D;
+.profilePicture {
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  border: 2px solid #fff;
+  background-color: #24424d;
 }
-.vector{
+.vector {
   width: min-content;
   margin: 0px auto;
   margin-top: 20px;
