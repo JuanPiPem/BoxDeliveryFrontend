@@ -21,33 +21,36 @@ const DeliverymenAdmin = () => {
   ];
   return (
     <>
-      <Navbar />
-      <Header text="REPARTIDORES" />
-      <div className={s.repartidores}>
-        <div className={s.headList}>
-          <div>
-            <h1>Enero </h1>
-            <h1> mie / 03</h1>
-          </div>
+      <div className={s.addPackagesContainer}>
+        <div className={s.header}>
+          <Header text="Repartidores" />
         </div>
-        {arrayFakeData.map((objeto) => (
-          <div className={s.contentUser} key={objeto.level + 1}>
-            <div className={s.percentage}>
-              <PercentageGraph level={objeto.level} />
+        <div className={s.repartidores}>
+          <div className={s.headList}>
+            <div>
+              <h1 className={s.month}>Enero </h1>
+              <h1 className={s.day}> mie / 03</h1>
             </div>
-
-            <div className={s.nameAndState}>
-              <div>{objeto.name}</div>
-              <div className={s.ProfileState}>
-                {" "}
-                <ColorPoint state={objeto.state} /> {objeto.state}
-              </div>
-            </div>
-            <div className={s.profilePicture}></div>
           </div>
-        ))}
-        <div className={s.vector}>
-          <Vector />
+          {arrayFakeData.map((objeto) => (
+            <div className={s.contentUser} key={objeto.level + 1}>
+              <div className={s.percentage}>
+                <PercentageGraph level={objeto.level} />
+              </div>
+
+              <div className={s.nameAndState}>
+                <div>{objeto.name}</div>
+                <div className={s.ProfileState}>
+                  {" "}
+                  <ColorPoint state={objeto.state} /> {objeto.state}
+                </div>
+              </div>
+              <div className={s.profilePicture}></div>
+            </div>
+          ))}
+          <div className={s.vector}>
+            <Vector />
+          </div>
         </div>
       </div>
     </>

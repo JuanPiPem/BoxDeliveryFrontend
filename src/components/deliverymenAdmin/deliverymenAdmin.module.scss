@@ -1,5 +1,11 @@
 @import "../../app/globals.scss";
 
+.addPackagesContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .repartidores {
   width: 300px;
   height: 490px;
@@ -18,7 +24,7 @@
 .headList > div {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   padding: 0px;
   margin: 0px;
 }
@@ -30,6 +36,14 @@
 }
 .headList > div h1:first-child {
   text-transform: uppercase;
+}
+
+.month {
+  margin-left: 20px;
+}
+
+.day {
+  margin-right: 20px;
 }
 
 .contentUser {

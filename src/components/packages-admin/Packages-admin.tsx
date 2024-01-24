@@ -24,17 +24,16 @@ const Packages = () => {
 
   return (
     <div className={s.addPackagesContainer}>
-      <div className={s.navBar}>
-        <Navbar />
-      </div>
       <div className={s.addPackagesContentContainer}>
         <div className={s.header}>
           <Header text="Paquetes" />
         </div>
         <div className={s.packagesList}>
-          <div className={s.dateContainer}>
-            <span>{month}</span>
-            <span>{`${dayOfWeek} / ${day}`}</span>
+          <div className={s.headList}>
+            <div>
+              <h1 className={s.month}>Enero </h1>
+              <h1 className={s.day}> mie / 03</h1>
+            </div>
           </div>
           <div className={s.packagesNumber}>58 paquetes entregados</div>
           <hr className={s.hr} />

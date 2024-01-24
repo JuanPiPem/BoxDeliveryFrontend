@@ -7,7 +7,6 @@ import Header from "commons/header/Header";
 const AddPackages = () => {
   return (
     <div className={s.addPackagesContainer}>
-      <Navbar />
       <div className={s.addPackagesContentContainer}>
         <Header text="Agregar Paquetes" />
         <div className={s.form}>
@@ -35,7 +34,7 @@ const AddPackages = () => {
             <input type="date" id="deadLine" className={`${s.inputDate}`} />
           </div>
         </div>
-        <div>
+        <div className={`${s.button}`}>
           <ButtonDarkBlue text="Agregar" />
         </div>
       </div>

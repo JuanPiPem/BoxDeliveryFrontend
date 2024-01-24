@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import React from "react";
 import "./globals.scss";
+import Navbar from "commons/navbar/Navbar";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -18,9 +19,14 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const isLogged = true;
+
   return (
     <html lang="en">
-      <body className={`${roboto.className} body`}>{children}</body>
+      <body className={`${roboto.className} body`}>
+        {isLogged ? <Navbar /> : null}
+        {children}
+      </body>
     </html>
   );
 }
