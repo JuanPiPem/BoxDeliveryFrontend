@@ -2,6 +2,7 @@ import React from "react";
 import s from "./packages-admin.module.scss";
 import Navbar from "commons/navbar/Navbar";
 import Header from "commons/header/Header";
+import TableListPackages from "commons/tableListPackages/TableListPackages";
 
 const getFormattedDate = () => {
   const currentDate = new Date();
@@ -27,6 +28,11 @@ const Packages = () => {
             <span>{month}</span>
             <span>{`mie/${day}`}</span>
           </div>
+          <TableListPackages
+            viewType="paquetes-admin"
+            section="repartos-pendientes"
+            status=""
+          />
         </div>
       </div>
     </div>
