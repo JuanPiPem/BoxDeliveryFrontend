@@ -7,13 +7,9 @@ import Header from "commons/header/Header";
 const AddPackages = () => {
   return (
     <div className={s.addPackagesContainer}>
-      <div className={s.navBar}>
-        <Navbar />
-      </div>
+      <Navbar />
       <div className={s.addPackagesContentContainer}>
-        <div className={s.header}>
-          <Header text="Agregar Paquetes" />
-        </div>
+        <Header text="Agregar Paquetes" />
         <div className={s.form}>
           <div className={s.content}>
             <input
