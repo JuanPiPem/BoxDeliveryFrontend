@@ -8,19 +8,10 @@
   background-color: $light-green;
 }
 
-.navBar {
-  padding-top: 12px;
-}
-
 .addPackagesContentContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.header {
-  margin-top: 28px;
-  margin-bottom: 10px;
 }
 
 .packagesList {
@@ -29,6 +20,10 @@
   flex-shrink: 0;
   border-radius: 15px;
   background-color: #fefefe;
+  padding-top: 30px;
+  margin-top: -28px;
+  margin-bottom: 10px;
+  z-index: 1;
 }
 
 .packagesNumber {
@@ -40,6 +35,7 @@
 .hr {
   width: 270px;
   height: 0.5px;
+  margin-left: 10px;
   background: #24424d;
 }
 
@@ -73,6 +69,8 @@
   background-color: #fefefe;
 }
 .welcomeCard {
+  display: flex;
+  justify-content: space-between;
   height: 90%;
   width: 90%;
   display: flex;
@@ -85,6 +83,12 @@
   background-color: $dark-green;
 }
 
+.deliveryManData {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
 .textContainer {
   margin-left: 15px;
   height: 100%;
@@ -95,14 +99,56 @@
   h5 {
     all: unset;
     margin: 5px 0;
-    font-weight: 600;
+    font-weight: 700;
     font-size: 14px;
-    letter-spacing: 0.4px;
   }
   p {
     all: unset;
+    width: 67px;
+    text-align: center;
     margin: 0px 0;
-    font-weight: 400;
-    font-size: 13.5px;
+    font-weight: 600;
+    font-size: 10px;
+    text-transform: uppercase;
+    border-radius: 5px;
+    background: $light-green;
   }
+}
+
+.divDeliveryHistory {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 300px;
+  height: 43px;
+  flex-shrink: 0;
+  background: $light-yellow;
+  border-radius: 15px;
+  z-index: 2;
+}
+
+.divDeliveryHistoryTexts {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: -10px;
+}
+
+.textDeliveryHistory {
+  all: unset;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.15px;
+  text-transform: uppercase;
+}
+
+.textDeliveryHistoryNotFound {
+  all: unset;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.arrowDown {
+  margin-right: -10px;
 }

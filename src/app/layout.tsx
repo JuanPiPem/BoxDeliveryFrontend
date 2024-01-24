@@ -3,6 +3,7 @@ import { Roboto } from "next/font/google";
 import React from "react";
 import "./globals.scss";
 import Navbar from "commons/navbar/Navbar";
+import { Provider } from "react-redux";
 
 const roboto = Roboto({
   subsets: ["latin"],
