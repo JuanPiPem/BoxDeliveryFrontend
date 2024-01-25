@@ -11,7 +11,10 @@ import DeployArrowRight from "assets/img/DeployArrowRight";
 import { ChakraProvider } from "@chakra-ui/react";
 import { Switch } from "@chakra-ui/react";
 
-const saira = Saira({ weight: "700", subsets: ["latin"] });
+const saira = Saira({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+});
 
 const deliveryHistory = true;
 const deliveryPending = false;
