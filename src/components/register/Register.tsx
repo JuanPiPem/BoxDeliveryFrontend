@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import s from "./register.module.scss";
-import Navbar from "commons/navbar/Navbar";
 import Header from "commons/header/Header";
 import UploadImage from "assets/img/UploadImage";
 import ButtonDarkBlue from "commons/buttonDarkBlue/ButtonDarkBlue";
@@ -14,7 +13,6 @@ const Register = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   return (
     <div className={s.registerContainer}>
-      <Navbar />
       <Header text="Creá tu cuenta" />
       <div className={s.contentContainer}>
         <div className={s.content}>
