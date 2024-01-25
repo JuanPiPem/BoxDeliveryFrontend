@@ -45,6 +45,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  .inputPasswordContainer {
+    width: 100%;
+    position: relative;
+    .eyeContainer {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
+  }
 }
 
 .input {
