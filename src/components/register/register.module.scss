@@ -19,6 +19,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: $dark-green;
   .iconContainer {
     width: 96px;
     height: 95px;
@@ -34,13 +35,40 @@
     flex-direction: column;
     align-items: center;
     input {
-      border: none;
+      height: 20px;
       width: 260px;
-      border-bottom: 0.5px solid $dark-green;
+      margin: 0px 0px 22px;
+      color: #162a31;
+      border: none;
+      border-bottom: 1px solid #24424d91;
+      &::placeholder {
+        color: #24424d;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 24px;
+        letter-spacing: 0.15px;
+      }
+      &:focus {
+        outline: none;
+      }
     }
+    .inputPasswordContainer {
+      position: relative;
+      .eyeContainer {
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+    }
+  }
+  .registerForm > input:first-of-type {
+    margin-top: 20px;
   }
   button {
     align-self: unset;
+  }
+  .firstButtonContainer {
+    margin-top: calc(50px - 22px);
   }
   .loginButton {
     width: 270px;
@@ -53,7 +81,19 @@
     color: $dark-green;
     text-transform: uppercase;
     background-color: transparent;
-    border: 1px solid #24424d;
     border-radius: 10px;
+    border: 1px solid #24424d;
+  }
+  a {
+    all: unset;
+  }
+  .link {
+    color: $dark-green;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 20px;
+    text-decoration-line: underline;
+    text-decoration-color: $dark-green;
   }
 }
