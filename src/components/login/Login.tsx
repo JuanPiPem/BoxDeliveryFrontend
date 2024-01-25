@@ -5,6 +5,7 @@ import s from "./login.module.scss";
 import LoginBoxLogo from "assets/img/LoginBoxLogo";
 import ButtonDarkBlue from "commons/buttonDarkBlue/ButtonDarkBlue";
 import Eye from "assets/img/Eye";
+import ClosedEye from "assets/img/ClosedEye";
 
 /* Si el login es de tipo repartidor(state Redux): hacer un classList.remove de la clase "s.heigthContentContainer1" y un classList.toggle de "s.heigthContentContainer2"; y también hacer un classList.remove del button que tiene la clase "s.displayNone" */
 
@@ -31,7 +32,7 @@ const Login = () => {
               className={s.eyeContainer}
               onClick={() => setShowPassword(!showPassword)}
             >
-              <Eye />
+              {showPassword ? <ClosedEye /> : <Eye />}
             </div>
           </div>
           <div className={s.buttonLogin}>

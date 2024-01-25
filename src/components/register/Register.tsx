@@ -7,6 +7,7 @@ import UploadImage from "assets/img/UploadImage";
 import ButtonDarkBlue from "commons/buttonDarkBlue/ButtonDarkBlue";
 import Link from "next/link";
 import Eye from "assets/img/Eye";
+import ClosedEye from "assets/img/ClosedEye";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -33,7 +34,7 @@ const Register = () => {
                 className={s.eyeContainer}
                 onClick={() => setShowPassword(!showPassword)}
               >
-                <Eye />
+                {showPassword ? <ClosedEye /> : <Eye />}{" "}
               </div>
             </div>
             <div className={s.inputPasswordContainer}>
@@ -46,7 +47,7 @@ const Register = () => {
                 className={s.eyeContainer}
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
               >
-                <Eye />
+                {showConfirmPassword ? <ClosedEye /> : <Eye />}
               </div>
             </div>
           </form>
