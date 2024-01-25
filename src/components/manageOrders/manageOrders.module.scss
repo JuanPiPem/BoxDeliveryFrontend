@@ -195,6 +195,20 @@
       p {
         font-size: 12px;
       }
+      .circlesContainer {
+        display: flex;
+        .circle {
+          width: 25px;
+          height: 25px;
+          margin-left: -8px;
+          border-radius: 25px;
+          border: 2px solid #fff;
+          background: lightgray -13.322px 0px / 206.58% 141.91% no-repeat;
+        }
+        div:first-child {
+          margin-left: 0;
+        }
+      }
     }
     .button {
       all: unset;

@@ -106,6 +106,10 @@ const ManageOrders = () => {
             <div className={s.text}>
               <h6>Repartidores</h6>
               <p>2/10 Habilitados</p>
+              <div className={s.circlesContainer}>
+                <div className={s.circle}></div>
+                <div className={s.circle}></div>
+              </div>
             </div>
             <div className={s.button}>
               <button className={s.button}>VER</button>
@@ -117,6 +121,10 @@ const ManageOrders = () => {
             <div className={s.text}>
               <h6>Paquetes</h6>
               <p>16/20 Habilitados</p>
+              <div className={s.circlesContainer}>
+                <div className={s.circle}></div>
+                <div className={s.circle}></div>
+              </div>
             </div>
             <div className={s.buttonContainer}>
               <button className={s.button}>VER</button>
