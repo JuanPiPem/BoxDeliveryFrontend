@@ -2,7 +2,7 @@ import DeliveryManProfile from "components/deliveryManProfile/DeliveryManProfile
 
 import React from "react";
 
-const delivery = () => {
+const deliveryManProfile = () => {
   return (
     <div>
       <DeliveryManProfile />
@@ -10,4 +10,4 @@ const delivery = () => {
   );
 };
 
-export default delivery;
+export default deliveryManProfile;

@@ -54,15 +54,13 @@ const DeliveryManProfile = () => {
           </div>
         </div>
 
-        <div className={s.divDeliveryHistory}>
-          <div className={s.divDeliveryHistoryTexts}>
-            <p className={`${s.textDeliveryHistory} ${saira.className}`}>
+        <div className={s.divDelivery}>
+          <div className={s.divDeliveryTexts}>
+            <p className={`${s.textDelivery} ${saira.className}`}>
               REPARTOS PENDIENTES
             </p>
             {!deliveryPending ? (
-              <p
-                className={`${s.textDeliveryHistoryNotFound} ${saira.className}`}
-              >
+              <p className={`${s.textDeliveryNotFound} ${saira.className}`}>
                 sin repartos
               </p>
             ) : null}
@@ -103,15 +101,13 @@ const DeliveryManProfile = () => {
           </div>
         ) : null}
 
-        <div className={s.divDeliveryHistory} style={{ marginTop: "10px" }}>
-          <div className={s.divDeliveryHistoryTexts}>
-            <p className={`${s.textDeliveryHistory} ${saira.className}`}>
+        <div className={s.divDelivery} style={{ marginTop: "10px" }}>
+          <div className={s.divDeliveryTexts}>
+            <p className={`${s.textDelivery} ${saira.className}`}>
               HISTORIAL DE REPARTOS
             </p>
             {!deliveryHistory ? (
-              <p
-                className={`${s.textDeliveryHistoryNotFound} ${saira.className}`}
-              >
+              <p className={`${s.textDeliveryNotFound} ${saira.className}`}>
                 sin historial
               </p>
             ) : null}

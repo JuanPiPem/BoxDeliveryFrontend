@@ -1,8 +1,8 @@
 import ManageOrders from "components/manageOrders/ManageOrders";
 import React from "react";
 
-const page = () => {
+const manageOrders = () => {
   return <ManageOrders />;
 };
 
-export default page;
+export default manageOrders;

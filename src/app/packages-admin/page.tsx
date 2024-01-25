@@ -1,12 +1,12 @@
-import Packages from "components/packages-admin/Packages-admin";
+import PackagesAdmin from "components/packagesAdmin/PackagesAdmin";
 import React from "react";
 
-const packages = () => {
+const packagesAdmin = () => {
   return (
     <div>
-      <Packages />
+      <PackagesAdmin />
     </div>
   );
 };
 
-export default packages;
+export default packagesAdmin;

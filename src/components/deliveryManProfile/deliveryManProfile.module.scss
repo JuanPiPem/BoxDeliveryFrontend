@@ -115,7 +115,7 @@
   }
 }
 
-.divDeliveryHistory {
+.divDelivery {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -127,13 +127,13 @@
   z-index: 2;
 }
 
-.divDeliveryHistoryTexts {
+.divDeliveryTexts {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.textDeliveryHistory {
+.textDelivery {
   all: unset;
   margin-bottom: -5px;
   font-size: 14px;
@@ -142,7 +142,7 @@
   text-transform: uppercase;
 }
 
-.textDeliveryHistoryNotFound {
+.textDeliveryNotFound {
   all: unset;
   font-size: 12px;
   font-weight: 500;
