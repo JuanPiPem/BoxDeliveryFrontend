@@ -1,4 +1,4 @@
-import StartWorkDay from "components/startWorkDay/StartWorkDay";
+import StartWorkDay from "components/deliveryMan/startWorkDay/StartWorkDay";
 import React from "react";
 
 const startWorkDay = () => {

@@ -1,12 +1,12 @@
 import React from "react";
-import s from "./deliveryManAdmin.module.scss";
+import s from "./deliveryMen.module.scss";
 import Header from "commons/header/Header";
 import ColorPoint from "assets/img/ColorPoint";
 import PercentageGraph from "assets/img/PercentageGraph";
 import Vector from "assets/img/Vector";
 
-const StartWorkDay = () => {
-  /*   interface FakeData {
+const DeliveryMen = () => {
+  interface FakeData {
     name: string;
     state: string;
     level: number;
@@ -17,9 +17,9 @@ const StartWorkDay = () => {
     { name: "Luciana", state: "entregado", level: 100 },
     { name: "Dario", state: "en curso", level: 80 },
     { name: "Santiago", state: "deshabilitado", level: 0 },
-  ]; */
+  ];
   return (
-    /*     <>
+    <>
       <div className={s.addPackagesContainer}>
         <div className={s.header}>
           <Header text="Repartidores" />
@@ -53,9 +53,7 @@ const StartWorkDay = () => {
         </div>
       </div>
     </>
-    */
-    null
   );
 };
 
-export default StartWorkDay;
+export default DeliveryMen;

@@ -1,5 +1,5 @@
 import React from "react";
-import AddPackages from "components/addPackages/AddPackages";
+import AddPackages from "components/admin/addPackages/AddPackages";
 
 const addPackages = () => {
   return <AddPackages />;

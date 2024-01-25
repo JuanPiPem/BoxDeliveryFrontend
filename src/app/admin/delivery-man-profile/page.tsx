@@ -1,4 +1,4 @@
-import DeliveryManProfile from "components/deliveryManProfile/DeliveryManProfile";
+import DeliveryManProfile from "components/admin/deliveryManProfile/DeliveryManProfile";
 
 import React from "react";
 

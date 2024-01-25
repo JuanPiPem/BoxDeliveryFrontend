@@ -1,5 +1,5 @@
 import React from "react";
-import s from "./packagesAdmin.module.scss";
+import s from "./packages.module.scss";
 import Header from "commons/header/Header";
 import TableListPackages from "commons/tableListPackages/TableListPackages";
 import Vector from "assets/img/Vector";
@@ -18,7 +18,7 @@ const getFormattedDate = () => {
   return { month, day, dayOfWeek };
 };
 
-const PackagesAdmin = () => {
+const Packages = () => {
   // const { month, day, dayOfWeek } = getFormattedDate();
   getFormattedDate();
 
@@ -69,4 +69,4 @@ const PackagesAdmin = () => {
   );
 };
 
-export default PackagesAdmin;
+export default Packages;
