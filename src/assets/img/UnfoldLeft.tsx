@@ -15,7 +15,7 @@ export default function UnfoldLeft(props: { width?: number; height?: number }) {
           id="Polygon 5"
           d="M6.02937 10.7924C5.50936 10.3921 5.50936 9.6079 6.02937 9.20759L10.14 6.04322C10.7976 5.53703 11.75 6.00579 11.75 6.83563L11.75 13.1644C11.75 13.9942 10.7976 14.463 10.14 13.9568L6.02937 10.7924Z"
           stroke="#24424D"
-          stroke-linejoin="round"
+          strokeLinejoin="round"
         />
         <rect
           id="Rectangle 39549"

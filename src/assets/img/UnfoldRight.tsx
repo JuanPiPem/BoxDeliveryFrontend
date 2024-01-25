@@ -18,7 +18,7 @@ export default function UnfoldRight(props: {
           id="Polygon 5"
           d="M12.9706 10.7924C13.4906 10.3921 13.4906 9.6079 12.9706 9.20759L8.85999 6.04322C8.20243 5.53703 7.25 6.00579 7.25 6.83563L7.25 13.1644C7.25 13.9942 8.20243 14.463 8.85999 13.9568L12.9706 10.7924Z"
           stroke="#24424D"
-          stroke-linejoin="round"
+          strokeLinejoin="round"
         />
         <rect
           id="Rectangle 39549"
