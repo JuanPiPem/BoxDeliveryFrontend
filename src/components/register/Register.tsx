@@ -21,7 +21,7 @@ const Register = () => {
             <UploadImage />
           </div>
           <form action="submint" className={s.registerForm}>
-            <input type="text" placeholder="Nombre" />
+            <input type="text" placeholder="Nombre" autoFocus />
             <input type="text" placeholder="Apellido" />
             <input type="email" placeholder="ejemplo@email.com" />
             <div className={s.inputPasswordContainer}>
