@@ -20,7 +20,8 @@ const Login = () => {
           <input
             type="email"
             className={`${s.input}`}
-            placeholder="Email@example.com"
+            placeholder="ejemplo@email.com"
+            autoFocus
           />
           <div className={s.inputPasswordContainer}>
             <input
