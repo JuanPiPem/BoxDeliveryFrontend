@@ -1,0 +1,106 @@
+@import "../../../app/globals.scss";
+
+.addPackagesContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.repartidores {
+  width: 300px;
+  height: 490px;
+  border-radius: 15px;
+  background: #fefefe;
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+.headList {
+  width: 300px;
+  height: 35px;
+  border-radius: 15px 15px 0px 0px;
+  background-color: $light-violet;
+}
+.headList > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0px;
+  margin: 0px;
+}
+.headList > div > h1 {
+  color: $dark-green;
+  font-size: 14px;
+  font-style: normal;
+  text-decoration: solid;
+}
+.headList > div h1:first-child {
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.month {
+  margin-left: 20px;
+}
+
+.day {
+  margin-right: 20px;
+  font-weight: 500;
+}
+
+.contentUser {
+  width: 300px;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-content: center;
+  align-items: center;
+  border-bottom: 0.5px solid #24424d94;
+}
+.percentage {
+  margin: auto 1px;
+}
+.nameAndState {
+  width: 78px;
+  height: 35px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  padding-left: 0px;
+  margin-left: -15px;
+  margin-right: 35px;
+}
+.nameAndState > #objetoName {
+  width: max-content;
+  height: 15px;
+  margin: 0px;
+  color: #24424d;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 15px;
+}
+.ProfileState {
+  width: max-content;
+  margin-top: 5px;
+  padding: 2px 5px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  color: #24424d;
+  font-size: 10px;
+  font-weight: 400;
+  background: #ebecef;
+}
+.profilePicture {
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  border: 2px solid #fff;
+  background-color: #24424d;
+}
+.vector {
+  width: min-content;
+  margin: 0px auto;
+  margin-top: 20px;
+}

@@ -1,0 +1,93 @@
+@import "../../../app/globals.scss";
+
+.addPackagesContainer {
+  color: $dark-green;
+  font-size: 12px;
+  margin-bottom: 30px;
+}
+
+.addPackagesContentContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  margin-bottom: 10px;
+}
+
+.packagesList {
+  width: 300px;
+  height: 490px;
+  flex-shrink: 0;
+  border-radius: 15px;
+  background-color: #fefefe;
+}
+
+.headList {
+  width: 300px;
+  height: 35px;
+  border-radius: 15px 15px 0px 0px;
+  background-color: $light-violet;
+  .bold {
+    font-weight: 600;
+  }
+}
+.headList > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0px;
+  margin: 0px;
+}
+.headList > div > h1 {
+  color: $dark-green;
+  font-size: 14px;
+  font-style: normal;
+  text-decoration: solid;
+}
+.headList > div h1:first-child {
+  text-transform: uppercase;
+}
+
+.month {
+  margin-left: 20px;
+}
+
+.day {
+  margin-right: 20px;
+  font-weight: 400;
+}
+
+.packagesNumber {
+  margin-left: 15px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.hr {
+  width: 270px;
+  border: none;
+  height: 0.5px;
+  background: #24424d;
+}
+
+.boxTrash {
+  margin-left: 16px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.lastHr {
+  width: 300px;
+  margin-top: 30px;
+  border: none;
+  height: 0.5px;
+  background: #24424d;
+}
+
+.vector {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}

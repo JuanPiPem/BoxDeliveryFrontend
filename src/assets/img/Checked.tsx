@@ -22,9 +22,9 @@ export default function Checked(props: { width?: number; height?: number }) {
           id="Vector"
           d="M5 10.2L7.57143 13L14 6"
           stroke="#24424D"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </g>
     </svg>

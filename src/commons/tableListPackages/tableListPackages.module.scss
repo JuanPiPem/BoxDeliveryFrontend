@@ -29,13 +29,13 @@
   margin-left: 12px;
   margin-right: 12px;
   margin-bottom: 0px;
-  margin-top: 0px; /* Puedes ajustar este valor según tus necesidades */
+  margin-top: 0px;
 }
 
 .div3Aling {
   margin-bottom: 0px;
-  margin-top: 12px; /* Elimina el margen predeterminado del párrafo */
-  text-align: right; /* Alinea el texto a la derecha */
+  margin-top: 10px;
+  text-align: right;
 }
 
 .statusContainer {
@@ -44,12 +44,15 @@
 }
 
 .statusText {
+  all: unset;
+  text-align: right;
   font-size: 10px;
   font-style: normal;
   font-weight: 600;
   line-height: 15px; /* 150% */
   text-transform: uppercase;
   margin-left: 5px;
+  background: $light-grey;
 }
 
 .button {
@@ -60,6 +63,7 @@
   height: 20px;
   flex-shrink: 0;
   margin-left: 4px;
+  margin-top: 10px;
   border-radius: 5px;
   border: 1px solid $dark-green;
   font-feature-settings: "clig" off, "liga" off;

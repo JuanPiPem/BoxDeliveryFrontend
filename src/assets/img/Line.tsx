@@ -10,7 +10,7 @@ export default function Line(props: { width?: number; height?: number }) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <line y1="0.75" x2="270" y2="0.75" stroke="#24424D" stroke-width="0.5" />
+      <line y1="0.75" x2="270" y2="0.75" stroke="#24424D" strokeWidth="0.5" />
     </svg>
   );
 }

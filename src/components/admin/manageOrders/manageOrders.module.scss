@@ -1,0 +1,231 @@
+@import "../../../app/globals.scss";
+
+.outerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+  .bottomButton {
+    width: 270px;
+    height: 30px;
+    margin: 15px 15px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: $light-yellow;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 10px;
+    background: $dark-green;
+  }
+}
+
+.welcomeCardContainer {
+  width: 300px;
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0 10px;
+  border-radius: 15px;
+  background-color: #fefefe;
+}
+.welcomeCard {
+  height: 90%;
+  width: 90%;
+  display: flex;
+  align-items: center;
+}
+.profileImage {
+  width: 57px;
+  height: 60px;
+  border-radius: 15px;
+  background-color: $dark-green;
+}
+
+.textContainer {
+  margin-left: 15px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: $dark-green;
+  h5 {
+    all: unset;
+    margin: 5px 0;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.4px;
+  }
+  p {
+    all: unset;
+    margin: 0px 0;
+    font-weight: 400;
+    font-size: 14px;
+  }
+}
+.calendarCard {
+  width: 300px;
+  height: 84px;
+  border-radius: 15px;
+  margin-bottom: 10px;
+  background: #fefefe;
+  .header {
+    width: 300px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    border-radius: 15px 15px 0px 0px;
+    background: #cec4f4;
+    h5 {
+      all: unset;
+      margin-left: 20px;
+      color: $dark-green;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.15px;
+      text-transform: uppercase;
+    }
+  }
+  .dates {
+    height: calc(84px - 30px);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+  .today {
+    width: 34px;
+    height: 34px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #cef169;
+  }
+  .future {
+    opacity: 0.5;
+  }
+  .specificDate {
+    display: flex;
+    flex-direction: column;
+    .day,
+    .num {
+      all: unset;
+      color: $dark-green;
+    }
+    .day {
+      font-size: 12px;
+      font-weight: 400;
+    }
+    .num {
+      font-size: 16px;
+      font-weight: 700;
+    }
+  }
+}
+.detailsContainer {
+  width: 300px;
+  height: 248px;
+  border-radius: 15px;
+  background: #fefefe;
+  .header {
+    width: 300px;
+    height: 43px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 15px;
+    background: #cef169;
+    h5 {
+      all: unset;
+      margin-left: 20px;
+      color: $dark-green;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .dateContainer {
+      margin-right: 20px;
+      h6 {
+        all: unset;
+        margin-right: 9px;
+        color: $dark-green;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0.15px;
+      }
+    }
+  }
+  .info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .deliveryCard {
+      height: 102px;
+      width: calc(100% - 30px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      // border-bottom: 0.5px solid $dark-green;
+    }
+    .graphic {
+      width: 71px;
+      height: 71px;
+      border-radius: 15px;
+      background-color: lightblue;
+    }
+    .text {
+      width: 120px;
+      h6,
+      p {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        color: $dark-green;
+      }
+      h6 {
+        margin-bottom: 3px;
+        font-size: 14px;
+        font-weight: 500;
+        // letter-spacing: 0.4px;
+      }
+      p {
+        font-size: 12px;
+      }
+      .circlesContainer {
+        display: flex;
+        .circle {
+          width: 25px;
+          height: 25px;
+          margin-left: -8px;
+          border-radius: 25px;
+          border: 2px solid #fff;
+          background: lightgray -13.322px 0px / 206.58% 141.91% no-repeat;
+        }
+        div:first-child {
+          margin-left: 0;
+        }
+      }
+    }
+    .button {
+      all: unset;
+      width: 52px;
+      height: 26px;
+      color: $light-yellow;
+      font-size: 12px;
+      text-align: center;
+      background-color: $dark-green;
+      border-radius: 10px;
+    }
+    hr {
+      border: 0;
+      margin: 0;
+      height: 0.5px;
+      width: 270px;
+      background: #24424d91;
+    }
+  }
+}
