@@ -4,6 +4,7 @@ import Header from "commons/header/Header";
 import ColorPoint from "assets/img/ColorPoint";
 import PercentageGraph from "assets/img/PercentageGraph";
 import Vector from "assets/img/Vector";
+import Link from "next/link";
 
 const DeliveryMen = () => {
   interface FakeData {
@@ -32,20 +33,24 @@ const DeliveryMen = () => {
             </div>
           </div>
           {arrayFakeData.map((objeto) => (
-            <div className={s.contentUser} key={objeto.level + 1}>
-              <div className={s.percentage}>
-                <PercentageGraph level={objeto.level} />
-              </div>
+            <>
+              <Link href={"/admin/delivery-man-profile"}>
+                <div className={s.contentUser} key={objeto.level + 1}>
+                  <div className={s.percentage}>
+                    <PercentageGraph level={objeto.level} />
+                  </div>
 
-              <div className={s.nameAndState}>
-                <div id={s.objetoName}>{objeto.name}</div>
-                <div className={s.ProfileState}>
-                  {" "}
-                  <ColorPoint state={objeto.state} /> {objeto.state}
+                  <div className={s.nameAndState}>
+                    <div id={s.objetoName}>{objeto.name}</div>
+                    <div className={s.ProfileState}>
+                      {" "}
+                      <ColorPoint state={objeto.state} /> {objeto.state}
+                    </div>
+                  </div>
+                  <div className={s.profilePicture}></div>
                 </div>
-              </div>
-              <div className={s.profilePicture}></div>
-            </div>
+              </Link>
+            </>
           ))}
           <div className={s.vector}>
             <Vector />

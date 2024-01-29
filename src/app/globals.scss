@@ -10,4 +10,8 @@ body.body {
   margin: 0;
   padding: 0;
   background-color: $light-green;
+  a {
+    text-decoration: unset;
+    color: unset;
+  }
 }
