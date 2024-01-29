@@ -5,6 +5,7 @@ import DeployArrowDown from "assets/img/DeployArrowDown";
 import Plus from "assets/img/Plus";
 import PercentageGraph from "assets/img/PercentageGraph";
 import { Saira } from "next/font/google";
+import Link from "next/link";
 
 const saira = Saira({ subsets: ["latin"], weight: "700" });
 const ManageOrders = () => {
@@ -112,7 +113,9 @@ const ManageOrders = () => {
               </div>
             </div>
             <div className={s.button}>
-              <button className={s.button}>VER</button>
+              <Link href={"/admin/delivery-men"}>
+                <button className={s.button}>VER</button>
+              </Link>
             </div>
           </div>
           <hr />
@@ -127,14 +130,18 @@ const ManageOrders = () => {
               </div>
             </div>
             <div className={s.buttonContainer}>
-              <button className={s.button}>VER</button>
+              <Link href={"/admin/packages"}>
+                <button className={s.button}>VER</button>
+              </Link>
             </div>
           </div>
         </div>
       </div>
-      <button className={s.bottomButton}>
-        Nuevo paquete <Plus />
-      </button>
+      <Link href={"/admin/add-packages"}>
+        <button className={s.bottomButton}>
+          Nuevo paquete <Plus />
+        </button>
+      </Link>
     </div>
   );
 };
