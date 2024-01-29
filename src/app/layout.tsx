@@ -3,11 +3,11 @@ import { Roboto } from "next/font/google";
 import React from "react";
 import "./globals.scss";
 import Navbar from "commons/navbar/Navbar";
-import { Provider } from "react-redux";
+// import { Provider } from "react-redux";
 
 const roboto = Roboto({
   subsets: ["latin"],
-  weight: ["100", "300", "400", "500"],
+  weight: ["100", "700", "300", "400", "500"],
 });
 
 export const metadata: Metadata = {

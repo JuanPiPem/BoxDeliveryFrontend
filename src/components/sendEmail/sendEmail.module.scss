@@ -1,0 +1,123 @@
+@import "../../app/globals.scss";
+
+.loginContainer {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $dark-green;
+  font-size: 12px;
+  background-color: $dark-green;
+}
+.loginContentContainer {
+  height: 270px;
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  border-radius: 15px 15px 15px 15px;
+  background-color: $light-green;
+}
+
+.content {
+  width: 85%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .header {
+    text-align: center;
+  }
+  #first {
+    .title {
+      margin: 27px 0px -5px;
+      font-size: 19px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-decoration: underline;
+    }
+    p {
+      font-size: 14px;
+    }
+  }
+}
+
+.input {
+  all: unset;
+  width: 100%;
+  margin-top: 30px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.15px;
+  border-bottom: 0.1px solid #24424d9c;
+  &::placeholder {
+    color: $dark-green;
+  }
+}
+
+.buttonLogin {
+  margin-top: 15px;
+  height: 16px;
+  padding: 8px 22px;
+}
+.loaderContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // justify-content: center;
+  gap: 5vh;
+  .headerLoading {
+    margin-top: 26px;
+    h4 {
+      color: $dark-green;
+      font-size: 17px;
+    }
+  }
+}
+.loader {
+  width: 70px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(farthest-side, #0d4d58 94%, #0000) top/8px 8px
+      no-repeat,
+    conic-gradient(#0000 30%, #0d4d58);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
+  mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
+
+  animation: l13 1s infinite linear;
+}
+@keyframes l13 {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+.successContainer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .header {
+    margin-bottom: 20px;
+    .title {
+      margin-bottom: 0;
+      font-size: 18px;
+      letter-spacing: 1.5px;
+    }
+    p {
+      margin-top: 8px;
+      font-size: 13px;
+    }
+  }
+  a {
+    all: unset;
+  }
+}
+.buttonRecoverPassword {
+  all: unset;
+  letter-spacing: 1px;
+  font-size: 14.5px;
+  text-transform: uppercase;
+  text-decoration-line: underline;
+}

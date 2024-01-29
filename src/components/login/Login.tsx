@@ -6,6 +6,7 @@ import LoginBoxLogo from "assets/img/LoginBoxLogo";
 import ButtonDarkBlue from "commons/buttonDarkBlue/ButtonDarkBlue";
 import Eye from "assets/img/Eye";
 import ClosedEye from "assets/img/ClosedEye";
+import Link from "next/link";
 
 /* Si el login es de tipo repartidor(state Redux): hacer un classList.remove de la clase "s.heigthContentContainer1" y un classList.toggle de "s.heigthContentContainer2"; y también hacer un classList.remove del button que tiene la clase "s.displayNone" */
 
@@ -20,14 +21,14 @@ const Login = () => {
           <input
             type="email"
             className={`${s.input}`}
-            placeholder="ejemplo@email.com"
+            placeholder="Correo electronico"
             autoFocus
           />
           <div className={s.inputPasswordContainer}>
             <input
               type={showPassword ? `text` : `password`}
               className={`${s.input}`}
-              placeholder="***********"
+              placeholder="Contraseña"
             />
             <div
               className={s.eyeContainer}
@@ -44,9 +45,11 @@ const Login = () => {
               Crear Cuenta
             </button>
           </div>
-          <button className={s.buttonRecoverPassword}>
-            Olvidé mi contraseña
-          </button>
+          <Link href={"/send-email"}>
+            <button className={s.buttonRecoverPassword}>
+              Olvidé mi contraseña
+            </button>
+          </Link>
         </div>
         <div className={s.logoContainer}>
           <LoginBoxLogo />
