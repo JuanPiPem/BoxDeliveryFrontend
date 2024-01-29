@@ -39,7 +39,7 @@ const TableListPackages = (prop: Prop) => {
               ) : (
                 <StatusDelivered />
               )}
-              <p className={`${s.div3Aling} ${s.statusText}`}>
+              <p className={`${s.statusText}`}>
                 {prop.status === "pendiente"
                   ? "PENDIENTE"
                   : prop.status === "en-curso"
