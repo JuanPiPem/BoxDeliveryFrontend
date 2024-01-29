@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "watch:sass": "nodemon -e scss -w src -x \"npm run compile:sass\"",
+    "compile:sass": "node-sass src/**/*.scss -o dist/css"
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",
@@ -33,6 +35,8 @@
     "eslint-plugin-react": "^7.33.2",
     "husky": "^8.0.0",
     "lint-staged": "^15.2.0",
+    "node-sass": "^9.0.0",
+    "nodemon": "^3.0.3",
     "sass": "^1.69.7",
     "typescript": "5.3.3"
   }
