@@ -41,7 +41,7 @@ const GetPackages = () => {
       checked: false,
     },
     {
-      address: ";ar del Plata",
+      address: "Mar del Plata",
       checked: false,
     },
     {
