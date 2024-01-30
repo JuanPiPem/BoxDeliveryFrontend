@@ -7,6 +7,7 @@ import ButtonDarkBlue from "commons/buttonDarkBlue/ButtonDarkBlue";
 import VectorDown from "assets/img/VectorDown";
 import VectorUp from "assets/img/VectorUp";
 import SelectPackage from "commons/selectPackage/SelectPackage";
+import Link from "next/link";
 
 const GetPackages = () => {
   interface FakeData {
@@ -133,7 +134,9 @@ const GetPackages = () => {
         >
           {arrayFakeData.map((item, index) => (
             <div key={index}>
-              <SelectPackage address={item.address} checked={item.checked} />
+              <Link href={"/delivery-man/delivery-in-progress"}>
+                <SelectPackage address={item.address} checked={item.checked} />
+              </Link>
             </div>
           ))}
         </div>
@@ -151,7 +154,9 @@ const GetPackages = () => {
           </div>
         ) : null}
         <div className={`${s.button}`}>
-          <ButtonDarkBlue text="Iniciar Jornada" />
+          <Link href={"/delivery-man/start-work-day"}>
+            <ButtonDarkBlue text="Iniciar Jornada" />
+          </Link>
         </div>
       </div>
     </div>

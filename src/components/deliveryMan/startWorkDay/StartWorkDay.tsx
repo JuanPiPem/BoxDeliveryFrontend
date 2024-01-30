@@ -5,6 +5,7 @@ import s from "./startWorkDay.module.scss";
 import ButtonDarkBlue from "commons/buttonDarkBlue/ButtonDarkBlue";
 import DeliveriesHistory from "commons/deliveriesHistory/DeliveriesHistory";
 import PendingDeliveries from "commons/pendingDeliveries/PendingDeliveries";
+import Link from "next/link";
 
 const StartWorkDay = () => {
   interface FakeData {
@@ -88,9 +89,11 @@ const StartWorkDay = () => {
           <DeliveriesHistory arrayPackages={arrayFakeData} />
           {/*           Corregir el botón para que siempre que pegado al final de la 
           página a 10px de separación */}
-          <div className={s.buttonGetPackages}>
-            <ButtonDarkBlue text="Obtener Paquetes" />
-          </div>
+          <Link href={"/delivery-man/get-packages"}>
+            <div className={s.buttonGetPackages}>
+              <ButtonDarkBlue text="Obtener Paquetes" />
+            </div>
+          </Link>
         </div>
       </div>
     </>
