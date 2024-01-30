@@ -1,0 +1,27 @@
+@import "../../app/globals.scss";
+
+.addressList {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 14px;
+  margin-bottom: 14px;
+  margin-left: 15px;
+}
+
+.address {
+  margin-left: 10px;
+  color: #24424d;
+  font-family: Roboto;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  // line-height: 15px;
+}
+
+.lastHr {
+  width: 300px;
+  border: none;
+  height: 0.5px;
+  background: #24424d;
+}
