@@ -63,6 +63,7 @@ const Login = () => {
           <LoginBoxLogo />
         </div>
       </div>
+      <div className={s.background}></div>
     </div>
   );
 };
