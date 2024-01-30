@@ -4,7 +4,7 @@
   width: 300px;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
-  max-height: 215px;
+  max-height: 145px;
   margin-top: 1px;
   overflow-x: hidden;
   overflow-y: auto;
@@ -53,8 +53,8 @@
 .vector {
   display: flex;
   justify-content: center;
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin-top: 13px;
+  margin-bottom: 13px;
 }
 
 .vectorContainer {
@@ -102,7 +102,7 @@
   justify-content: space-between;
   align-items: center;
   width: 300px;
-  height: 48px;
+  height: 47px;
   background: $light-yellow;
   border-radius: 15px;
   z-index: 3;
@@ -140,4 +140,5 @@
   all: unset;
   font-size: 12px;
   font-weight: 500;
+  margin-top: -3px;
 }
