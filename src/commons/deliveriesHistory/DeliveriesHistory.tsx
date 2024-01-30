@@ -1,0 +1,153 @@
+"use client";
+
+import React, { useRef, useEffect, useState } from "react";
+import s from "./deliveriesHistory.module.scss";
+import { Saira } from "next/font/google";
+import TableListPackages from "commons/tableListPackages/TableListPackages";
+import VectorDown from "assets/img/VectorDown";
+import VectorUp from "assets/img/VectorUp";
+import DeployArrowDown from "assets/img/DeployArrowDown";
+import DeployArrowRight from "assets/img/DeployArrowRight";
+
+const saira = Saira({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+});
+
+type Prop = {
+  arrayPackages: Array<any>;
+};
+
+function DeliveriesHistory(prop: Prop) {
+  const [show, setShow] = useState(true);
+  const [isScrollable, setIsScrollable] = useState(false);
+  const [atBottom, setAtBottom] = useState(false);
+
+  const toggle = () => {
+    setShow((prevState) => !prevState);
+  };
+
+  const packagesListRef = useRef<HTMLDivElement>(null);
+
+  const handleVectorContainerClick = () => {
+    if (packagesListRef.current) {
+      packagesListRef.current.scrollTop += 50;
+
+      const scrollBottom = Math.round(
+        packagesListRef.current.scrollHeight -
+          (packagesListRef.current.scrollTop +
+            packagesListRef.current.clientHeight)
+      );
+
+      const atBottom =
+        scrollBottom <= 1 &&
+        packagesListRef.current.scrollTop +
+          packagesListRef.current.clientHeight >=
+          packagesListRef.current.scrollHeight - 10;
+
+      setAtBottom(atBottom);
+    }
+  };
+
+  const handleVectorUpClick = () => {
+    if (atBottom && packagesListRef.current) {
+      packagesListRef.current.scrollTop = 0;
+      setAtBottom(false);
+    }
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (packagesListRef.current) {
+        const scrolled =
+          packagesListRef.current.scrollHeight >
+          packagesListRef.current.clientHeight;
+        setIsScrollable(scrolled);
+
+        // Verifica si se llegó al final del scroll
+        const atBottom =
+          packagesListRef.current.scrollTop +
+            packagesListRef.current.clientHeight ===
+          packagesListRef.current.scrollHeight;
+
+        setAtBottom(atBottom);
+      }
+    };
+
+    const currentRef = packagesListRef.current;
+
+    if (currentRef) {
+      currentRef.addEventListener("scroll", handleScroll);
+    }
+
+    return () => {};
+  }, []); // El efecto se ejecuta solo al montar y desmontar el componente
+
+  return (
+    <>
+      <div
+        className={s.divDelivery}
+        onClick={toggle}
+        style={{ marginTop: "10px" }}
+      >
+        <div className={s.divDeliveryTexts}>
+          <p className={`${s.textDelivery} ${saira.className}`}>
+            HISTORIAL DE REPARTOS
+          </p>
+          {!prop.arrayPackages.length ? (
+            <p className={`${s.textDeliveryNotFound} ${saira.className}`}>
+              sin historial
+            </p>
+          ) : null}
+        </div>
+        <div className={s.arrowDown}>
+          {show ? <DeployArrowDown /> : <DeployArrowRight />}
+        </div>
+      </div>
+      {show && prop.arrayPackages.length ? (
+        <>
+          <div className={s.backgronudPaddingTop}></div>
+          <div
+            id="start"
+            className={`${s.packagesList} ${isScrollable ? s.scrolled : ""}`}
+            ref={packagesListRef}
+          >
+            <div>
+              <div className={s.packagesNumber}>58 paquetes entregados</div>
+              {prop.arrayPackages.map((item) => (
+                <div key={item.packageNumber}>
+                  <hr className={s.hr} />
+                  <div className={s.boxTrash}>
+                    <TableListPackages
+                      packageNumber={item.packageNumber}
+                      address={item.address}
+                      city={item.city}
+                      viewType="home-repartidor"
+                      section="repartos-pendientes"
+                      status={item.status}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          {prop.arrayPackages.length > 3 ? (
+            <div
+              className={s.vectorContainer}
+              onClick={
+                atBottom ? handleVectorUpClick : handleVectorContainerClick
+              }
+            >
+              <hr className={s.lastHr} />
+              <div className={s.vector}>
+                {atBottom ? <VectorUp /> : <VectorDown />}
+              </div>
+            </div>
+          ) : null}
+        </>
+      ) : null}
+    </>
+  );
+}
+
+export default DeliveriesHistory;
