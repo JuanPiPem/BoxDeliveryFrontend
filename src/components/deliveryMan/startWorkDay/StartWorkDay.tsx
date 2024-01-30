@@ -1,16 +1,10 @@
 "use client";
 
-import React, { useRef, useEffect, useState, MouseEvent } from "react";
+import React from "react";
 import s from "./startWorkDay.module.scss";
-import { Saira } from "next/font/google";
 import ButtonDarkBlue from "commons/buttonDarkBlue/ButtonDarkBlue";
 import DeliveriesHistory from "commons/deliveriesHistory/DeliveriesHistory";
 import PendingDeliveries from "commons/pendingDeliveries/PendingDeliveries";
-
-const saira = Saira({
-  weight: ["400", "500", "600", "700"],
-  subsets: ["latin"],
-});
 
 const StartWorkDay = () => {
   interface FakeData {

@@ -100,7 +100,7 @@ function DeliveriesHistory(prop: Prop) {
             </p>
           ) : null}
         </div>
-        <div className={s.arrowDown}>
+        <div className={s.arrow}>
           {show ? <DeployArrowDown /> : <DeployArrowRight />}
         </div>
       </div>

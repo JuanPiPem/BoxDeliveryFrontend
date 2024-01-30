@@ -1,35 +1,86 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import s from "./deliveryManProfile.module.scss";
-import { Saira } from "next/font/google";
 import Header from "commons/header/Header";
-import TableListPackages from "commons/tableListPackages/TableListPackages";
-import VectorDown from "assets/img/VectorDown";
-import DeployArrowDown from "assets/img/DeployArrowDown";
-import DeployArrowRight from "assets/img/DeployArrowRight";
 import { ChakraProvider } from "@chakra-ui/react";
 import { Switch } from "@chakra-ui/react";
-
-const saira = Saira({
-  weight: ["400", "500", "600", "700"],
-  subsets: ["latin"],
-});
-
-const deliveryHistory = true;
-const deliveryPending = false;
+import PendingDeliveries from "commons/pendingDeliveries/PendingDeliveries";
+import DeliveriesHistory from "commons/deliveriesHistory/DeliveriesHistory";
 
 const DeliveryManProfile = () => {
-  const [showHistory, setShowHistory] = useState(true);
-  const [showPending, setShowPending] = useState(false);
+  interface FakeData {
+    packageNumber: string;
+    address: string;
+    city: string;
+    status: string;
+  }
 
-  const toggleHistory = () => {
-    setShowHistory((prevState) => !prevState);
-  };
+  const arrayFakeDataPendingPackages: FakeData[] = [
+    /*     {
+      packageNumber: "#0H167",
+      address: "Av. Carabobo y Rivadavia",
+      city: "CABA",
+      status: "en-curso",
+    },
+    {
+      packageNumber: "#0A903",
+      address: "Las Heras 5678",
+      city: "CABA",
+      status: "pendiente",
+    },
+    {
+      packageNumber: "#0H167",
+      address: "Av. Carabobo y Rivadavia",
+      city: "CABA",
+      status: "en-curso",
+    },
+    {
+      packageNumber: "#0A903",
+      address: "Las Heras 5678",
+      city: "CABA",
+      status: "pendiente",
+    }, */
+  ];
 
-  const toggleDeliveryPending = () => {
-    setShowPending((prevState) => !prevState);
-  };
+  const arrayFakeData: FakeData[] = [
+    {
+      packageNumber: "#0H167",
+      address: "Av. Carabobo y Rivadavia",
+      city: "CABA",
+      status: "entregado",
+    },
+    {
+      packageNumber: "#0A903",
+      address: "Las Heras 5678",
+      city: "CABA",
+      status: "entregado",
+    },
+    {
+      packageNumber: "#0H167",
+      address: "Av. Carabobo y Rivadavia",
+      city: "CABA",
+      status: "entregado",
+    },
+    {
+      packageNumber: "#0H167",
+      address: "Av. Carabobo y Rivadavia",
+      city: "CABA",
+      status: "entregado",
+    },
+    {
+      packageNumber: "#0A903",
+      address: "Las Heras 5678",
+      city: "CABA",
+      status: "entregado",
+    },
+    {
+      packageNumber: "#0A903",
+      address: "Las Heras 5678",
+      city: "CABA",
+      status: "entregado",
+    },
+  ];
 
   return (
     <div className={s.addPackagesContainer}>
@@ -54,110 +105,15 @@ const DeliveryManProfile = () => {
           </div>
         </div>
 
-        <div className={s.divDelivery}>
-          <div className={s.divDeliveryTexts}>
-            <p className={`${s.textDelivery} ${saira.className}`}>
-              REPARTOS PENDIENTES
-            </p>
-            {!deliveryPending ? (
-              <p className={`${s.textDeliveryNotFound} ${saira.className}`}>
-                sin repartos
-              </p>
-            ) : null}
-          </div>
-          <div className={s.arrowDown} onClick={toggleDeliveryPending}>
-            {showPending ? <DeployArrowDown /> : <DeployArrowRight />}
-          </div>
-        </div>
-        {showPending ? (
-          <div className={s.packagesList}>
-            <div className={s.boxTrash}>
-              <TableListPackages
-                viewType="paquetes-admin"
-                section=""
-                status=""
-                packageNumber="#2125"
-                address="Cabimas"
-                city="New York"
-              />
-            </div>
-            <hr className={s.hr} />
-            <div className={s.boxTrash}>
-              <TableListPackages
-                viewType="paquetes-admin"
-                section=""
-                status=""
-                packageNumber="#2125"
-                address="Cabimas"
-                city="New York"
-              />
-            </div>
-            <hr className={s.hr} />
-            <div className={s.boxTrash}>
-              <TableListPackages
-                viewType="paquetes-admin"
-                section=""
-                status=""
-                packageNumber="#2125"
-                address="Córdoba"
-                city="Rio de Janeiro"
-              />
-            </div>
-            <hr className={s.lastHr} />
-            <div className={s.vector}>
-              <VectorDown />
+        <>
+          <div className={s.addPackagesContainer}>
+            <div className={s.addPackagesContentContainer}>
+              <PendingDeliveries arrayPackages={arrayFakeDataPendingPackages} />
+              <DeliveriesHistory arrayPackages={arrayFakeData} />
+              <hr className={s.packages} />
             </div>
           </div>
-        ) : null}
-
-        <div className={s.divDelivery} style={{ marginTop: "10px" }}>
-          <div className={s.divDeliveryTexts}>
-            <p className={`${s.textDelivery} ${saira.className}`}>
-              HISTORIAL DE REPARTOS
-            </p>
-            {!deliveryHistory ? (
-              <p className={`${s.textDeliveryNotFound} ${saira.className}`}>
-                sin historial
-              </p>
-            ) : null}
-          </div>
-          <div className={s.arrowDown} onClick={toggleHistory}>
-            {showHistory ? <DeployArrowDown /> : <DeployArrowRight />}
-          </div>
-        </div>
-        {showHistory ? (
-          <div className={s.packagesList}>
-            <div className={s.packagesNumber}>58 paquetes entregados</div>
-            <hr className={s.hr} />
-            <div className={s.boxTrash}>
-              <TableListPackages
-                viewType="paquetes-admin"
-                section=""
-                status=""
-              />
-            </div>
-            <hr className={s.hr} />
-            <div className={s.boxTrash}>
-              <TableListPackages
-                viewType="paquetes-admin"
-                section=""
-                status=""
-              />
-            </div>
-            <hr className={s.hr} />
-            <div className={s.boxTrash}>
-              <TableListPackages
-                viewType="paquetes-admin"
-                section=""
-                status=""
-              />
-            </div>
-            <hr className={s.lastHr} />
-            <div className={s.vector}>
-              <VectorDown />
-            </div>
-          </div>
-        ) : null}
+        </>
       </div>
     </div>
   );
