@@ -85,8 +85,16 @@ const StartWorkDay = () => {
     <>
       <div className={s.packagesContainer}>
         <div className={s.packagesContentContainer}>
-          <PendingDeliveries arrayPackages={arrayFakeDataPendingPackages} />
-          <DeliveriesHistory arrayPackages={arrayFakeData} />
+          <PendingDeliveries
+            arrayPackages={arrayFakeDataPendingPackages}
+            view="home-repartidor"
+            section="repartos-pendientes"
+          />
+          <DeliveriesHistory
+            arrayPackages={arrayFakeData}
+            view="home-repartidor"
+            section="historial-repartos"
+          />
           {/*           Corregir el botón para que siempre que pegado al final de la 
           página a 10px de separación */}
           <Link href={"/delivery-man/get-packages"}>

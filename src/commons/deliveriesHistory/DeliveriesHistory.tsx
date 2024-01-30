@@ -16,6 +16,8 @@ const saira = Saira({
 
 type Prop = {
   arrayPackages: Array<any>;
+  view: string;
+  section: string;
 };
 
 function DeliveriesHistory(prop: Prop) {
@@ -122,8 +124,8 @@ function DeliveriesHistory(prop: Prop) {
                       packageNumber={item.packageNumber}
                       address={item.address}
                       city={item.city}
-                      viewType="home-repartidor"
-                      section="repartos-pendientes"
+                      viewType={prop.view}
+                      section={prop.section}
                       status={item.status}
                     />
                   </div>
@@ -131,7 +133,7 @@ function DeliveriesHistory(prop: Prop) {
               ))}
             </div>
           </div>
-          {prop.arrayPackages.length > 3 ? (
+          {prop.arrayPackages.length > 2 ? (
             <div
               className={s.vectorContainer}
               onClick={

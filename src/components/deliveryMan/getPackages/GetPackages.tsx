@@ -133,11 +133,17 @@ const GetPackages = () => {
           ref={packagesListRef}
         >
           {arrayFakeData.map((item, index) => (
-            <div key={index}>
-              <Link href={"/delivery-man/delivery-in-progress"}>
-                <SelectPackage address={item.address} checked={item.checked} />
-              </Link>
-            </div>
+            <>
+              <div key={index}>
+                <Link href={"/delivery-man/delivery-in-progress"}>
+                  <SelectPackage
+                    address={item.address}
+                    checked={item.checked}
+                  />
+                </Link>
+              </div>
+              {index < arrayFakeData.length - 1 && <hr className={s.lastHr} />}
+            </>
           ))}
         </div>
         {arrayFakeData.length > 8 ? (

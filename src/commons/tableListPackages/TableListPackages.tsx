@@ -15,7 +15,7 @@ type Prop = {
   city: string;
 };
 //The viewType can be: "paquetes-admin", "perfil-repartidor" o "home-repartidor"
-//The sections can be: "repartos-pendientes"
+//The sections can be: "repartos-pendientes" "historial-repartos"
 //The status can be: "pendiente", "en-curso" o "entrecgado"
 //Example: <TableListPackages packageNumber="#0A235" address="Amenabar2356" city="CABA" viewType="paquetes-admin" section="repartos-pendientes" status="en-curso"/>
 

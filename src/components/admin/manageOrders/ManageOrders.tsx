@@ -1,14 +1,24 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import s from "./manageOrders.module.scss";
 import Header from "commons/header/Header";
 import DeployArrowDown from "assets/img/DeployArrowDown";
+import DeployArrowRight from "assets/img/DeployArrowRight";
 import Plus from "assets/img/Plus";
 import PercentageGraph from "assets/img/PercentageGraph";
 import { Saira } from "next/font/google";
 import Link from "next/link";
 
 const saira = Saira({ subsets: ["latin"], weight: "700" });
+
 const ManageOrders = () => {
+  const [show, setShow] = useState(true);
+
+  const toggle = () => {
+    setShow((prevState) => !prevState);
+  };
+
   return (
     <div className={s.outerContainer}>
       <Header text="Gestionar pedidos" showArrow={false} />
@@ -91,52 +101,55 @@ const ManageOrders = () => {
           </svg>
         </div>
       </div>
-      <div className={s.detailsContainer}>
-        <div className={s.header}>
-          <h5>Detalles</h5>
-          <div className={s.dateContainer}>
-            <h6>03/01/23</h6>
-            <DeployArrowDown />
-          </div>
-        </div>
-        <div className={s.info}>
-          <div className={s.deliveryCard}>
-            <div>
-              <PercentageGraph level={50} />
-            </div>
-            <div className={s.text}>
-              <h6>Repartidores</h6>
-              <p>2/10 Habilitados</p>
-              <div className={s.circlesContainer}>
-                <div className={s.circle}></div>
-                <div className={s.circle}></div>
-              </div>
-            </div>
-            <div className={s.button}>
-              <Link href={"/admin/delivery-men"}>
-                <button className={s.button}>VER</button>
-              </Link>
-            </div>
-          </div>
-          <hr />
-          <div className={s.deliveryCard}>
-            <PercentageGraph level={32} />
-            <div className={s.text}>
-              <h6>Paquetes</h6>
-              <p>16/20 Habilitados</p>
-              <div className={s.circlesContainer}>
-                <div className={s.circle}></div>
-                <div className={s.circle}></div>
-              </div>
-            </div>
-            <div className={s.buttonContainer}>
-              <Link href={"/admin/packages"}>
-                <button className={s.button}>VER</button>
-              </Link>
-            </div>
-          </div>
+
+      <div className={s.header} onClick={toggle}>
+        <h5>Detalles</h5>
+        <div className={s.dateContainer}>
+          <h6>03/01/23</h6>
+          {show ? <DeployArrowDown /> : <DeployArrowRight />}
         </div>
       </div>
+      {show ? (
+        <div className={s.detailsContainer}>
+          <div className={s.info}>
+            <div className={s.deliveryCard}>
+              <div>
+                <PercentageGraph level={50} />
+              </div>
+              <div className={s.text}>
+                <h6>Repartidores</h6>
+                <p>2/10 Habilitados</p>
+                <div className={s.circlesContainer}>
+                  <div className={s.circle}></div>
+                  <div className={s.circle}></div>
+                </div>
+              </div>
+              <div className={s.button}>
+                <Link href={"/admin/delivery-men"}>
+                  <button className={s.button}>VER</button>
+                </Link>
+              </div>
+            </div>
+            <hr />
+            <div className={s.deliveryCard}>
+              <PercentageGraph level={32} />
+              <div className={s.text}>
+                <h6>Paquetes</h6>
+                <p>16/20 Habilitados</p>
+                <div className={s.circlesContainer}>
+                  <div className={s.circle}></div>
+                  <div className={s.circle}></div>
+                </div>
+              </div>
+              <div className={s.buttonContainer}>
+                <Link href={"/admin/packages"}>
+                  <button className={s.button}>VER</button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
       <Link href={"/admin/add-packages"}>
         <button className={s.bottomButton}>
           Nuevo paquete <Plus />

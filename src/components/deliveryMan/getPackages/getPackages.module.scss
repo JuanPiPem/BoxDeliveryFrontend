@@ -3,7 +3,6 @@
 .addPackagesContainer {
   color: $dark-green;
   font-size: 12px;
-  margin-bottom: 30px;
 }
 
 .addPackagesContentContainer {
@@ -18,7 +17,7 @@
 
 .packagesList {
   width: 300px;
-  max-height: 420px;
+  max-height: 375px;
   flex-shrink: 0;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
@@ -107,8 +106,8 @@
 .vector {
   display: flex;
   justify-content: center;
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin-top: 13px;
+  margin-bottom: 13px;
 }
 
 .vectorContainer {
@@ -127,5 +126,4 @@
 
 .button {
   margin-top: 15px;
-  margin-bottom: 30px;
 }

@@ -16,7 +16,6 @@ function SelectPackage(prop: Prop) {
 
         <div className={s.address}>{prop.address}</div>
       </div>
-      <hr className={s.lastHr} />
     </>
   );
 }
