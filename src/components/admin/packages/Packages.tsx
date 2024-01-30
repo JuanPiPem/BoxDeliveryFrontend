@@ -2,7 +2,7 @@ import React from "react";
 import s from "./packages.module.scss";
 import Header from "commons/header/Header";
 import TableListPackages from "commons/tableListPackages/TableListPackages";
-import Vector from "assets/img/Vector";
+import VectorDown from "assets/img/VectorDown";
 
 const getFormattedDate = () => {
   const currentDate = new Date();
@@ -41,27 +41,62 @@ const Packages = () => {
           <div className={s.packagesNumber}>58 paquetes entregados</div>
           <hr className={s.hr} />
           <div className={s.boxTrash}>
-            <TableListPackages viewType="paquetes-admin" section="" status="" />
+            <TableListPackages
+              viewType="paquetes-admin"
+              section=""
+              status=""
+              packageNumber="#2125"
+              address="Cabimas"
+              city="New York"
+            />
           </div>
           <hr className={s.hr} />
           <div className={s.boxTrash}>
-            <TableListPackages viewType="paquetes-admin" section="" status="" />
+            <TableListPackages
+              viewType="paquetes-admin"
+              section=""
+              status=""
+              packageNumber="#2125"
+              address="Mar del Plata"
+              city="Bs Aires"
+            />
           </div>
           <hr className={s.hr} />
           <div className={s.boxTrash}>
-            <TableListPackages viewType="paquetes-admin" section="" status="" />
+            <TableListPackages
+              viewType="paquetes-admin"
+              section=""
+              status=""
+              packageNumber="#2125"
+              address="Cabimas"
+              city="New York"
+            />
           </div>
           <hr className={s.hr} />
           <div className={s.boxTrash}>
-            <TableListPackages viewType="paquetes-admin" section="" status="" />
+            <TableListPackages
+              viewType="paquetes-admin"
+              section=""
+              status=""
+              packageNumber="#154854"
+              address="Ojeda"
+              city="Canadá"
+            />
           </div>
           <hr className={s.hr} />
           <div className={s.boxTrash}>
-            <TableListPackages viewType="paquetes-admin" section="" status="" />
+            <TableListPackages
+              viewType="paquetes-admin"
+              section=""
+              status=""
+              packageNumber="#2125"
+              address="Cabimas"
+              city="New York"
+            />
           </div>
           <hr className={s.lastHr} />
           <div className={s.vector}>
-            <Vector />
+            <VectorDown />
           </div>
         </div>
       </div>

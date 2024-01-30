@@ -2,7 +2,7 @@ import React from "react";
 import s from "./getPackages.module.scss";
 import Header from "commons/header/Header";
 import ButtonDarkBlue from "commons/buttonDarkBlue/ButtonDarkBlue";
-import Vector from "assets/img/Vector";
+import VectorDown from "assets/img/VectorDown";
 import Checked from "assets/img/Checked";
 import Unchecked from "assets/img/Unchecked";
 
@@ -60,7 +60,7 @@ const GetPackages = () => {
           <hr className={s.lastHr} />
 
           <div className={s.vector}>
-            <Vector />
+            <VectorDown />
           </div>
         </div>
         <div className={`${s.button}`}>

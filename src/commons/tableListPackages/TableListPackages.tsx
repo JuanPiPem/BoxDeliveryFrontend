@@ -10,11 +10,14 @@ type Prop = {
   viewType: string;
   section: string;
   status: string;
+  packageNumber: string;
+  address: string;
+  city: string;
 };
 //The viewType can be: "paquetes-admin", "perfil-repartidor" o "home-repartidor"
 //The sections can be: "repartos-pendientes"
-//The status can be: "pendiente", "en-curso" o "entregado"
-//Example: <TableListPackages viewType="paquetes-admin" section="repartos-pendientes" status="en-curso"/>
+//The status can be: "pendiente", "en-curso" o "entrecgado"
+//Example: <TableListPackages packageNumber="#0A235" address="Amenabar2356" city="CABA" viewType="paquetes-admin" section="repartos-pendientes" status="en-curso"/>
 
 const TableListPackages = (prop: Prop) => {
   return (
@@ -23,9 +26,12 @@ const TableListPackages = (prop: Prop) => {
         <div className={`${s.div1}`}>
           <Package />
           <div className={`${s.div2}`}>
-            <p className={`${s.txt} ${s.fontBold}`}>#0A235</p>
+            <p className={`${s.txt} ${s.fontBold}`}>{prop.packageNumber}</p>
+            <p className={`${s.txt} ${s.fontNormal}`}>{prop.address},</p>
+            <p className={`${s.txt} ${s.fontNormal}`}>{prop.city}</p>
+            {/*             <p className={`${s.txt} ${s.fontBold}`}>#0A235,</p>
             <p className={`${s.txt} ${s.fontNormal}`}>Amenabar2356,</p>
-            <p className={`${s.txt} ${s.fontNormal}`}>CABA</p>
+            <p className={`${s.txt} ${s.fontNormal}`}>CABA</p> */}
           </div>
         </div>
         <div className={`${s.div3}`}>
@@ -60,9 +66,7 @@ const TableListPackages = (prop: Prop) => {
           {prop.viewType === "home-repartidor" &&
           prop.section === "repartos-pendientes" &&
           prop.status === "pendiente" ? (
-            <div>
-              <button className={`${s.button}`}>Iniciar</button>
-            </div>
+            <button className={`${s.button}`}>Iniciar</button>
           ) : null}
         </div>
       </div>

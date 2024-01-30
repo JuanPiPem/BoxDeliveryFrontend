@@ -5,7 +5,7 @@ import s from "./deliveryManProfile.module.scss";
 import { Saira } from "next/font/google";
 import Header from "commons/header/Header";
 import TableListPackages from "commons/tableListPackages/TableListPackages";
-import Vector from "assets/img/Vector";
+import VectorDown from "assets/img/VectorDown";
 import DeployArrowDown from "assets/img/DeployArrowDown";
 import DeployArrowRight from "assets/img/DeployArrowRight";
 import { ChakraProvider } from "@chakra-ui/react";
@@ -73,30 +73,39 @@ const DeliveryManProfile = () => {
           <div className={s.packagesList}>
             <div className={s.boxTrash}>
               <TableListPackages
-                viewType="home-repartidor"
+                viewType="paquetes-admin"
                 section=""
-                status="en-curso"
+                status=""
+                packageNumber="#2125"
+                address="Cabimas"
+                city="New York"
               />
             </div>
             <hr className={s.hr} />
             <div className={s.boxTrash}>
               <TableListPackages
-                viewType="home-repartidor"
+                viewType="paquetes-admin"
                 section=""
-                status="pendiente"
+                status=""
+                packageNumber="#2125"
+                address="Cabimas"
+                city="New York"
               />
             </div>
             <hr className={s.hr} />
             <div className={s.boxTrash}>
               <TableListPackages
-                viewType="home-repartidor"
+                viewType="paquetes-admin"
                 section=""
-                status="pendiente"
+                status=""
+                packageNumber="#2125"
+                address="Córdoba"
+                city="Rio de Janeiro"
               />
             </div>
             <hr className={s.lastHr} />
             <div className={s.vector}>
-              <Vector />
+              <VectorDown />
             </div>
           </div>
         ) : null}
@@ -145,7 +154,7 @@ const DeliveryManProfile = () => {
             </div>
             <hr className={s.lastHr} />
             <div className={s.vector}>
-              <Vector />
+              <VectorDown />
             </div>
           </div>
         ) : null}

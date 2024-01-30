@@ -3,7 +3,7 @@ import s from "./deliveryMen.module.scss";
 import Header from "commons/header/Header";
 import ColorPoint from "assets/img/ColorPoint";
 import PercentageGraph from "assets/img/PercentageGraph";
-import Vector from "assets/img/Vector";
+import VectorDown from "assets/img/VectorDown";
 import Link from "next/link";
 
 const DeliveryMen = () => {
@@ -53,7 +53,7 @@ const DeliveryMen = () => {
             </>
           ))}
           <div className={s.vector}>
-            <Vector />
+            <VectorDown />
           </div>
         </div>
       </div>

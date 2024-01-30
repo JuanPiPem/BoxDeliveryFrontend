@@ -2,7 +2,7 @@
 
 .container {
   color: $dark-green;
-  width: 270px;
+  width: 282px;
   display: flex;
   justify-content: space-between;
 }
@@ -26,10 +26,14 @@
 }
 
 .div2 p {
-  margin-left: 12px;
+  margin-left: 5px;
   margin-right: 12px;
   margin-bottom: 0px;
   margin-top: 0px;
+}
+
+.div3 {
+  margin-right: 15px;
 }
 
 .div3Aling {
@@ -51,7 +55,7 @@
   font-weight: 600;
   line-height: 15px; /* 150% */
   text-transform: uppercase;
-  margin-left: 5px;
+  margin-left: 3px;
   background: $light-grey;
 }
 
@@ -62,7 +66,6 @@
   width: 62px;
   height: 20px;
   flex-shrink: 0;
-  margin-left: 4px;
   margin-top: 10px;
   border-radius: 5px;
   border: 1px solid $dark-green;
