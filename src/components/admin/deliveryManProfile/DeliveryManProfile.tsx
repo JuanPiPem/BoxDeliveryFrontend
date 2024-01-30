@@ -108,8 +108,16 @@ const DeliveryManProfile = () => {
         <>
           <div className={s.addPackagesContainer}>
             <div className={s.addPackagesContentContainer}>
-              <PendingDeliveries arrayPackages={arrayFakeDataPendingPackages} />
-              <DeliveriesHistory arrayPackages={arrayFakeData} />
+              <PendingDeliveries
+                arrayPackages={arrayFakeDataPendingPackages}
+                view="perfil-repartidor"
+                section="repartos-pendientes"
+              />
+              <DeliveriesHistory
+                arrayPackages={arrayFakeData}
+                view="perfil-repartidor"
+                section="historial-repartos"
+              />
               <hr className={s.packages} />
             </div>
           </div>
