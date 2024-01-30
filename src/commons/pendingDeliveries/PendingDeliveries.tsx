@@ -60,7 +60,7 @@ function PendingDeliveries(prop: Prop) {
           packagesListRef.current.clientHeight;
         setIsScrollable(scrolled);
 
-        // Verifica si el scroll está cerca del final (ajustar el margen según sea necesario)
+        // Verifica si el scroll está cerca del final
         const atBottom =
           packagesListRef.current.scrollTop +
             packagesListRef.current.clientHeight >=
@@ -77,7 +77,7 @@ function PendingDeliveries(prop: Prop) {
     }
 
     return () => {};
-  }, []);
+  }, [isScrollable, show, atBottom]);
 
   return (
     <>

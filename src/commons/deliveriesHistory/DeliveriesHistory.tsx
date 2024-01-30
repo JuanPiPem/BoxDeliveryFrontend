@@ -64,11 +64,11 @@ function DeliveriesHistory(prop: Prop) {
           packagesListRef.current.clientHeight;
         setIsScrollable(scrolled);
 
-        // Verifica si se llegó al final del scroll
+        // Verifica si el scroll está cerca del final
         const atBottom =
           packagesListRef.current.scrollTop +
-            packagesListRef.current.clientHeight ===
-          packagesListRef.current.scrollHeight;
+            packagesListRef.current.clientHeight >=
+          packagesListRef.current.scrollHeight - 1; // Cambiado a "-1" para que se considere inmediatamente al llegar al final
 
         setAtBottom(atBottom);
       }
@@ -81,7 +81,7 @@ function DeliveriesHistory(prop: Prop) {
     }
 
     return () => {};
-  }, []); // El efecto se ejecuta solo al montar y desmontar el componente
+  }, [isScrollable, show, atBottom]);
 
   return (
     <>
