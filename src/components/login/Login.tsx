@@ -15,13 +15,12 @@ const Login = () => {
   const isAdmin = true;
   return (
     <div className={s.loginContainer}>
-      <div
-        className={`${s.loginContentContainer} ${s.heigthContentContainer1}`}
-      >
+      <div className={s.loginContentContainer}>
         <div className={s.content}>
           <input
             type="email"
-            className={`${s.input}`}
+            className={s.input}
+            id={s.margin1}
             placeholder="Correo electronico"
             autoFocus
           />
@@ -29,6 +28,7 @@ const Login = () => {
             <input
               type={showPassword ? `text` : `password`}
               className={`${s.input}`}
+              id={s.margin2}
               placeholder="Contraseña"
             />
             <div
@@ -44,11 +44,11 @@ const Login = () => {
               <ButtonDarkBlue text="Ingresar" />
             </div>
           </Link>
-          <div>
-            <button className={`${s.buttonSignUp} ${s.displayNone}`}>
-              Crear Cuenta
-            </button>
-          </div>
+          <Link href={"/"}>
+            <div style={{ width: "100%" }}>
+              <button className={s.buttonSignUp}>Crear Cuenta</button>
+            </div>
+          </Link>
           <Link href={"/send-email"}>
             <button className={s.buttonRecoverPassword}>
               Olvidé mi contraseña

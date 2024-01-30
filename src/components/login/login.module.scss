@@ -12,20 +12,13 @@
 }
 .loginContentContainer {
   width: 300px;
+  height: 305px;
+  margin-top: 38px;
   position: relative;
   display: flex;
   justify-content: center;
-  align-items: center;
   border-radius: 0px 15px 15px 15px;
   background-color: $light-green;
-}
-
-.heigthContentContainer1 {
-  height: 275px;
-}
-
-.heigthContentContainer2 {
-  height: 310px;
 }
 
 .logoContainer {
@@ -35,16 +28,31 @@
   top: -34.5px;
   left: 0;
   display: flex;
-  justify-content: center;
-  align-items: center;
   border-radius: 15px 15px 15px 0px;
   background: $light-yellow;
 }
 .content {
-  width: 85%;
+  width: 87%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  #margin1 {
+    margin-top: 64px;
+  }
+  #margin2 {
+    margin-top: 18px;
+  }
+  .input {
+    all: unset;
+    width: 100%;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.15px;
+    border-bottom: 0.1px solid #24424d9c;
+    &::placeholder {
+      color: $dark-green;
+    }
+  }
   .inputPasswordContainer {
     width: 100%;
     position: relative;
@@ -56,52 +64,34 @@
   }
   a {
     all: unset;
-  }
-}
-
-.input {
-  all: unset;
-  width: 100%;
-  margin-top: 17px;
-  font-weight: 400;
-  line-height: 24px;
-  letter-spacing: 0.15px;
-  border-bottom: 0.1px solid #24424d9c;
-  &::placeholder {
-    color: $dark-green;
+    width: 100%;
+    display: inherit;
+    flex-direction: inherit;
+    align-items: inherit;
   }
 }
 
 .buttonLogin {
-  margin: 38px 0 17px 0;
-  height: 16px;
-  padding: 8px 22px;
+  width: 100%;
+  margin-top: 42px;
 }
 
 .buttonSignUp {
-  margin-bottom: 17px;
-  display: flex;
-  width: 270px;
-  height: 30px;
-  padding: 8px 22px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  align-self: stretch;
-  background: transparent;
-  border-radius: 10px;
+  all: unset;
+  height: 28px;
+  width: 100%;
+  margin-top: 10px;
   color: $dark-green;
-  font-feature-settings: "clig" off, "liga" off;
   font-size: 12px;
-  font-style: normal;
   font-weight: 400;
+  text-align: center;
   text-transform: uppercase;
-}
-.displayNone {
-  display: none;
+  border-radius: 10px;
+  border: 1px solid $dark-green;
 }
 
 .buttonRecoverPassword {
   all: unset;
+  margin-top: 15px;
   text-decoration-line: underline;
 }
