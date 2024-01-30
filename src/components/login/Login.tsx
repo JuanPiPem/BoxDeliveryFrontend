@@ -12,7 +12,7 @@ import Link from "next/link";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const isAdmin = true;
+  const isAdmin = false;
   return (
     <div className={s.loginContainer}>
       <div className={s.loginContentContainer}>
@@ -39,12 +39,16 @@ const Login = () => {
             </div>
           </div>
           {/* Hardcodeado la redireccion a la siguiente vista por que esto va a depender de la rspuesta del back e ira con un handleSubmit */}
-          <Link href={isAdmin ? "/admin/manage-orders" : "/"}>
+          <Link
+            href={
+              isAdmin ? "/admin/manage-orders" : "/delivery-man/start-work-day"
+            }
+          >
             <div className={s.buttonLogin}>
               <ButtonDarkBlue text="Ingresar" />
             </div>
           </Link>
-          <Link href={"/"}>
+          <Link href={"/delivery-man/register"}>
             <div style={{ width: "100%" }}>
               <button className={s.buttonSignUp}>Crear Cuenta</button>
             </div>

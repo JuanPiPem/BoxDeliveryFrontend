@@ -5,12 +5,16 @@ import Link from "next/link";
 
 const Navbar = () => {
   const loggedIn = true;
-  const isAdmin = true;
+  const isAdmin = false;
   return (
     <div className={s.navbarContainer}>
       <div className={s.contentContainer}>
         <div className={s.content}>
-          <Link href={isAdmin ? "/admin/manage-orders" : "/"}>
+          <Link
+            href={
+              isAdmin ? "/admin/manage-orders" : "/delivery-man/start-work-day"
+            }
+          >
             <Box />
           </Link>
           <Link href={"/login"}>
