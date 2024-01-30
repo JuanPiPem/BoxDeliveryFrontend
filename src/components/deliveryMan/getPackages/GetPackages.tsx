@@ -40,7 +40,7 @@ const GetPackages = () => {
       checked: false,
     },
     {
-      address: ";ar del Plata",
+      address: "Mar del Plata",
       checked: false,
     },
     {
@@ -132,9 +132,12 @@ const GetPackages = () => {
           ref={packagesListRef}
         >
           {arrayFakeData.map((item, index) => (
-            <div key={index}>
-              <SelectPackage address={item.address} checked={item.checked} />
-            </div>
+            <>
+              <div key={index}>
+                <SelectPackage address={item.address} checked={item.checked} />
+              </div>
+              {index < arrayFakeData.length - 1 && <hr className={s.lastHr} />}
+            </>
           ))}
         </div>
         {arrayFakeData.length > 8 ? (
