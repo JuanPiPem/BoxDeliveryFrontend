@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Vector(props: { width?: number; height?: number }) {
+export default function VectorDown(props: { width?: number; height?: number }) {
   const { width, height } = props;
   return (
     <svg
