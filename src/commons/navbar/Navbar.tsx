@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const Navbar = () => {
   const loggedIn = true;
-  const isAdmin = false;
+  const isAdmin = true;
   return (
     <div className={s.navbarContainer}>
       <div className={s.contentContainer}>
