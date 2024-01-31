@@ -4,7 +4,6 @@
   width: 300px;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
-  max-height: 145px;
   margin-top: 1px;
   overflow-x: hidden;
   overflow-y: auto;
@@ -14,6 +13,14 @@
   padding-top: 1px;
   margin-bottom: 10px;
   z-index: 2;
+}
+
+.maxHeightViewAdmin {
+  max-height: 213px;
+}
+
+.maxHeightViewDeliveryMan {
+  max-height: 148px;
 }
 
 .backgronudPaddingTop {
@@ -48,6 +55,16 @@
   width: 300px;
   height: 0.6px;
   background: #24424d;
+}
+
+.backgroundBorder {
+  background-color: $white;
+  margin-top: -22px;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  width: 300px;
+  height: 23px;
+  z-index: 1;
 }
 
 .vector {

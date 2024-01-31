@@ -14,11 +14,20 @@ const saira = Saira({
   subsets: ["latin"],
 });
 
+interface FakeData {
+  packageNumber: string;
+  address: string;
+  city: string;
+  status: string;
+}
+
 type Prop = {
-  arrayPackages: Array<any>;
+  arrayPackages: Array<FakeData>;
   view: string;
   section: string;
 };
+//The viewType can be: "paquetes-admin", "perfil-repartidor" o "home-repartidor"
+//The sections can be: "repartos-pendientes" "historial-repartos"
 
 function DeliveriesHistory(prop: Prop) {
   const [show, setShow] = useState(true);
@@ -133,7 +142,9 @@ function DeliveriesHistory(prop: Prop) {
               ))}
             </div>
           </div>
-          {prop.arrayPackages.length > 2 ? (
+          <div className={s.backgroundBorder}></div>
+          {prop.arrayPackages.length > 3 &&
+          prop.view === "perfil-repartidor" ? (
             <div
               className={s.vectorContainer}
               onClick={

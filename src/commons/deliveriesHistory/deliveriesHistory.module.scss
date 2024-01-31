@@ -4,7 +4,7 @@
   width: 300px;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
-  max-height: 172px;
+  max-height: 245px;
   margin-top: 1px;
   overflow-x: hidden;
   overflow-y: auto;
@@ -48,6 +48,16 @@
   width: 300px;
   height: 0.6px;
   background: #24424d;
+}
+
+.backgroundBorder {
+  background-color: $white;
+  margin-top: -22px;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  width: 300px;
+  height: 23px;
+  z-index: 1;
 }
 
 .vector {
