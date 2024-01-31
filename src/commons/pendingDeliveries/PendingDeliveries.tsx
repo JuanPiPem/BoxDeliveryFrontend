@@ -108,7 +108,11 @@ function PendingDeliveries(prop: Prop) {
           ) : null}
         </div>
         <div className={s.arrow}>
-          {show ? <DeployArrowDown /> : <DeployArrowRight />}
+          {show && prop.arrayPackages.length ? (
+            <DeployArrowDown />
+          ) : (
+            <DeployArrowRight />
+          )}
         </div>
       </div>
       {show && prop.arrayPackages.length ? (
