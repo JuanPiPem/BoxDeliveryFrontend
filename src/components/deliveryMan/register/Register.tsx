@@ -136,6 +136,11 @@ const Register: React.FC = () => {
               placeholder={
                 error && !formData.name ? "Ingrese su Nombre." : "Nombre"
               }
+              className={
+                error && !formData.name
+                  ? `${s.errorText} ${s.placeholderText}`
+                  : `${s.normalText} ${s.placeholderText}`
+              }
               value={formData.name}
               onChange={(e) => handleInputChange(e, "name")}
               autoFocus
@@ -207,9 +212,11 @@ const Register: React.FC = () => {
             </div>
           </form>
           <div className={s.firstButtonContainer} onClick={handleSubmit}>
-            <ButtonDarkBlue text="Crear" />
+            <Link href={"/send-email"}>
+              <ButtonDarkBlue text="Crear" />
+            </Link>
           </div>
-          <Link href={"/start-work-day"}>
+          <Link href={"/delivery-man/start-work-day"}>
             <button className={s.loginButton}>Iniciar sesión</button>
           </Link>
           <Link href={"/login"}>
