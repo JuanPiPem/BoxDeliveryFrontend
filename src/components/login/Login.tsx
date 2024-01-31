@@ -17,7 +17,7 @@ const Login = () => {
   email;
   passowrd;
   const [showPassword, setShowPassword] = useState(false);
-  const isAdmin = false;
+  const isAdmin = true;
   return (
     <div className={s.loginContainer}>
       <div className={s.loginContentContainer}>
