@@ -134,7 +134,7 @@ const Register: React.FC = () => {
             <input
               type="text"
               placeholder={
-                error && !formData.name ? "Ingrese su nombre." : "Nombre"
+                error && !formData.name ? "Ingrese su Nombre." : "Nombre"
               }
               value={formData.name}
               onChange={(e) => handleInputChange(e, "name")}
@@ -157,7 +157,7 @@ const Register: React.FC = () => {
               placeholder={
                 error && !formData.email
                   ? "Ingrese un email valido."
-                  : "ejemplo@eamil.com"
+                  : "ejemplo@email.com"
               }
               value={formData.email}
               onChange={(e) => handleInputChange(e, "email")}
