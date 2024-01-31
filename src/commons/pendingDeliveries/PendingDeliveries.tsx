@@ -8,6 +8,7 @@ import VectorDown from "assets/img/VectorDown";
 import VectorUp from "assets/img/VectorUp";
 import DeployArrowDown from "assets/img/DeployArrowDown";
 import DeployArrowRight from "assets/img/DeployArrowRight";
+import Link from "next/link";
 
 const saira = Saira({
   weight: ["400", "500", "600", "700"],
@@ -126,14 +127,29 @@ function PendingDeliveries(prop: Prop) {
               {prop.arrayPackages.map((item, index) => (
                 <div key={item.packageNumber}>
                   <div className={s.boxTrash}>
-                    <TableListPackages
-                      packageNumber={item.packageNumber}
-                      address={item.address}
-                      city={item.city}
-                      viewType={prop.view}
-                      section={prop.section}
-                      status={item.status}
-                    />
+                    {prop.view === "home-repartidor" &&
+                    prop.section === "repartos-pendientes" &&
+                    item.status === "en-curso" ? (
+                      <Link href={"/delivery-man/delivery-in-progress"}>
+                        <TableListPackages
+                          packageNumber={item.packageNumber}
+                          address={item.address}
+                          city={item.city}
+                          viewType={prop.view}
+                          section={prop.section}
+                          status={item.status}
+                        />
+                      </Link>
+                    ) : (
+                      <TableListPackages
+                        packageNumber={item.packageNumber}
+                        address={item.address}
+                        city={item.city}
+                        viewType={prop.view}
+                        section={prop.section}
+                        status={item.status}
+                      />
+                    )}
                   </div>
                   {index < prop.arrayPackages.length - 1 && (
                     <hr className={s.hr} />
