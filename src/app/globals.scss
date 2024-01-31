@@ -13,5 +13,8 @@ body.body {
   a {
     text-decoration: unset;
     color: unset;
+    display: inherit;
+    flex-direction: inherit;
+    align-items: inherit;
   }
 }

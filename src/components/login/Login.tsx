@@ -11,6 +11,11 @@ import Link from "next/link";
 /* Si el login es de tipo repartidor(state Redux): hacer un classList.remove de la clase "s.heigthContentContainer1" y un classList.toggle de "s.heigthContentContainer2"; y también hacer un classList.remove del button que tiene la clase "s.displayNone" */
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [passowrd, setPassword] = useState("");
+  // para que no me salte error de eslint las use asi
+  email;
+  passowrd;
   const [showPassword, setShowPassword] = useState(false);
   const isAdmin = false;
   return (
@@ -23,6 +28,7 @@ const Login = () => {
             id={s.margin1}
             placeholder="Correo electronico"
             autoFocus
+            onChange={(e) => setEmail(e.target.value)}
           />
           <div className={s.inputPasswordContainer}>
             <input
@@ -30,6 +36,7 @@ const Login = () => {
               className={`${s.input}`}
               id={s.margin2}
               placeholder="Contraseña"
+              onChange={(e) => setPassword(e.target.value)}
             />
             <div
               className={s.eyeContainer}
