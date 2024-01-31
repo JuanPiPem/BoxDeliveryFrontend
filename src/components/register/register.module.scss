@@ -97,3 +97,16 @@
     text-decoration-color: $dark-green;
   }
 }
+
+.errorText {
+  font-size: 11px;
+  color: lightcoral;
+}
+
+// .errorAbsolute {
+//   position: absolute;
+//   top: 100%;
+//   left: 0;
+//   font-size: 11px;
+//   color: lightcoral;
+// }
