@@ -65,7 +65,6 @@ const GetPackages = () => {
 
   const handleVectorContainerClick = () => {
     if (packagesListRef.current) {
-      console.log("acacacacac");
       const currentScrollTop = packagesListRef.current.scrollTop;
       packagesListRef.current.scrollTop = currentScrollTop + 50;
 

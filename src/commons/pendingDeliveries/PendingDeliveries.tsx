@@ -13,12 +13,20 @@ const saira = Saira({
   weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
 });
+interface FakeData {
+  packageNumber: string;
+  address: string;
+  city: string;
+  status: string;
+}
 
 type Prop = {
-  arrayPackages: Array<any>;
+  arrayPackages: Array<FakeData>;
   view: string;
   section: string;
 };
+//The viewType can be: "paquetes-admin", "perfil-repartidor" o "home-repartidor"
+//The sections can be: "repartos-pendientes" "historial-repartos"
 
 function PendingDeliveries(prop: Prop) {
   const [show, setShow] = useState(true);
@@ -107,7 +115,11 @@ function PendingDeliveries(prop: Prop) {
           <div className={s.backgronudPaddingTop}></div>
           <div
             id="start"
-            className={`${s.packagesList} ${isScrollable ? s.scrolled : ""}`}
+            className={`${s.packagesList} ${isScrollable ? s.scrolled : ""} ${
+              prop.view === "home-repartidor"
+                ? s.maxHeightViewDeliveryMan
+                : s.maxHeightViewAdmin
+            }`}
             ref={packagesListRef}
           >
             <div>
@@ -130,7 +142,9 @@ function PendingDeliveries(prop: Prop) {
               ))}
             </div>
           </div>
-          {prop.arrayPackages.length > 2 ? (
+          <div className={s.backgroundBorder}></div>
+          {prop.arrayPackages.length > 2 &&
+          prop.view === "perfil-repartidor" ? (
             <div
               className={s.vectorContainer}
               onClick={
