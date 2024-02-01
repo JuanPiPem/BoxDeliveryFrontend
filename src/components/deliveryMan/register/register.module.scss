@@ -69,16 +69,15 @@
   }
   .firstButtonContainer {
     width: 90%;
-    margin-top: calc(50px - 22px);
+    margin-top: calc(55px);
   }
   .loginButton {
     width: 270px;
     height: 30px;
-    margin: 10px 15px 0;
+    margin-top: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
     color: $dark-green;
     text-transform: uppercase;
     background-color: transparent;
@@ -87,15 +86,6 @@
   }
   a {
     all: unset;
-  }
-  .link {
-    color: $dark-green;
-    text-align: center;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 20px;
-    text-decoration-line: underline;
-    text-decoration-color: $dark-green;
   }
 }
 
