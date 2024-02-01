@@ -204,12 +204,11 @@ const Register: React.FC = () => {
               )}
               {!/^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$/.test(
                 formData.password
-              ) &&
-                ""
-                // <div className={s.errorText}>
-                //   Las contraseña debe contener 8 caracteres.
-                // </div>
-              }
+              ) && (
+                <div className={s.errorText}>
+                  Las contraseña debe contener 8 caracteres.
+                </div>
+              )}
             </div>
           </form>
           <div className={s.firstButtonContainer} onClick={handleSubmit}>
@@ -219,9 +218,6 @@ const Register: React.FC = () => {
           </div>
           <Link href={"/delivery-man/start-work-day"}>
             <button className={s.loginButton}>Iniciar sesión</button>
-          </Link>
-          <Link href={"/login"}>
-            <p className={s.link}>¿Ya tenés una cuenta?</p>
           </Link>
         </div>
       </div>

@@ -4,6 +4,11 @@ import ButtonDarkBlue from "commons/buttonDarkBlue/ButtonDarkBlue";
 import Header from "commons/header/Header";
 
 const AddPackages = () => {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const day = date.getDate().toString().padStart(2, "0");
+
   return (
     <div className={s.addPackagesContainer}>
       <div className={s.addPackagesContentContainer}>
@@ -30,7 +35,12 @@ const AddPackages = () => {
             <label htmlFor="deadLine" className={`${s.labelInputDate}`}>
               Fecha de entrega
             </label>
-            <input type="date" id="deadLine" className={`${s.inputDate}`} />
+            <input
+              type="date"
+              id="deadLine"
+              className={`${s.inputDate}`}
+              min={`${year}-${month}-${day}`}
+            />
           </div>
         </div>
         <div className={`${s.button}`}>
