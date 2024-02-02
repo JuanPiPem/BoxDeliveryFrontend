@@ -41,13 +41,7 @@
       color: #162a31;
       border: none;
       border-bottom: 1px solid #24424d91;
-      &::placeholder {
-        color: #24424d;
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 24px;
-        letter-spacing: 0.15px;
-      }
+
       &:focus {
         outline: none;
       }
@@ -69,7 +63,7 @@
   }
   .firstButtonContainer {
     width: 90%;
-    margin-top: calc(55px);
+    margin-top: calc(20px);
   }
   .loginButton {
     width: 270px;
@@ -94,18 +88,10 @@
   color: lightcoral;
 }
 
-.normalText {
-  color: black;
+.errorText::placeholder {
+  color: lightcoral;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.15px;
 }
-
-.placeholderText {
-  color: blue;
-}
-
-// .errorAbsolute {
-//   position: absolute;
-//   top: 100%;
-//   left: 0;
-//   font-size: 11px;
-//   color: lightcoral;
-// }

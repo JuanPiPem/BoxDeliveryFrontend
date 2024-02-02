@@ -18,6 +18,8 @@ interface FormData {
   [key: string]: string;
 }
 
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 const Register: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -81,16 +83,16 @@ const Register: React.FC = () => {
 
       return;
     }
-    // Lo muestro en el return
-    // if (formData.password !== formData.rep_password) {
-    //   setError("Las contraseñas no coinciden.");
-    //   return;
-    // }
 
-    // if (!/^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$/.test(formData.password)) {
-    //   setError("La contraseña debe cumplir los requisitos.");
-    //   return;
-    // }
+    if (formData.password !== formData.rep_password) {
+      setError("Las contraseñas no coinciden.");
+      return;
+    }
+
+    if (!/^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$/.test(formData.password)) {
+      setError("La contraseña debe cumplir los requisitos.");
+      return;
+    }
 
     // Aquí puedes realizar la llamada a tu servicio de registro
     // y manejar la lógica de éxito o error como se muestra en tu código comentado.
@@ -137,9 +139,7 @@ const Register: React.FC = () => {
                 error && !formData.name ? "Ingrese su Nombre." : "Nombre"
               }
               className={
-                error && !formData.name
-                  ? `${s.errorText} ${s.placeholderText}`
-                  : `${s.normalText} ${s.placeholderText}`
+                error && !formData.name ? `${s.errorText}` : `${s.normalText}`
               }
               value={formData.name}
               onChange={(e) => handleInputChange(e, "name")}
@@ -150,8 +150,13 @@ const Register: React.FC = () => {
               type="text"
               placeholder={
                 error && !formData.last_name
-                  ? "Ingrese su Apellido"
+                  ? "Ingrese su Apellido."
                   : "Apellido"
+              }
+              className={
+                error && !formData.last_name
+                  ? `${s.errorText}`
+                  : `${s.normalText}`
               }
               value={formData.last_name}
               onChange={(e) => handleInputChange(e, "last_name")}
@@ -161,8 +166,13 @@ const Register: React.FC = () => {
               type="email"
               placeholder={
                 error && !formData.email
-                  ? "Ingrese un email valido."
-                  : "ejemplo@email.com"
+                  ? "Ingrese una direccion de email valida"
+                  : !emailRegex.test(formData.email)
+                  ? "ejemplo@email.com"
+                  : "Ingrese un direccion de email valida."
+              }
+              className={
+                error && !formData.email ? `${s.errorText}` : `${s.normalText}`
               }
               value={formData.email}
               onChange={(e) => handleInputChange(e, "email")}
@@ -207,14 +217,13 @@ const Register: React.FC = () => {
               ) && (
                 <div className={s.errorText}>
                   Las contraseña debe contener 8 caracteres.
+                  <br /> Una Mayuscula, una minuscula y un numero.
                 </div>
               )}
             </div>
           </form>
           <div className={s.firstButtonContainer} onClick={handleSubmit}>
-            <Link href={"/send-email"}>
-              <ButtonDarkBlue text="Crear" />
-            </Link>
+            <ButtonDarkBlue text="Crear" />
           </div>
           <Link href={"/delivery-man/start-work-day"}>
             <button className={s.loginButton}>Iniciar sesión</button>
