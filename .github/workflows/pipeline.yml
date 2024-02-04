@@ -97,6 +97,8 @@ jobs:
           # wait-on: http://localhost:5000
           wait-on: $PORT_LOCAL_APP
         # Agregar script para correr tests e2e en package.json
+        # Si usamos cypress para tests e2e agregar lo siguiente en el .gitignore:
+        # cypress/plugins cypress/support cypress/videos
 
   deploy:
     name: Deploy
