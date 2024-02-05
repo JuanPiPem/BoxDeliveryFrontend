@@ -9,7 +9,8 @@
     "lint": "next lint",
     "prepare": "husky install",
     "watch:sass": "nodemon -e scss -w src -x \"npm run compile:sass\"",
-    "compile:sass": "node-sass src/**/*.scss -o dist/css"
+    "compile:sass": "node-sass src/**/*.scss -o dist/css",
+    "test": "jest"
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",
@@ -23,8 +24,19 @@
     "react-redux": "^9.1.0",
     "redux": "^5.0.1"
   },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "collectCoverage": true,
+    "coveragePathIgnorePatterns": [
+      "/node_modules",
+      "/test/",
+      "/dist/"
+    ]
+  },
   "devDependencies": {
     "@chakra-ui/react": "^2.8.2",
+    "@types/jest": "^29.5.12",
     "@types/node": "20.11.5",
     "@types/react": "18.2.48",
     "@types/react-dom": "^18",
@@ -34,10 +46,12 @@
     "eslint-config-next": "14.0.4",
     "eslint-plugin-react": "^7.33.2",
     "husky": "^8.0.0",
+    "jest": "^29.7.0",
     "lint-staged": "^15.2.0",
     "node-sass": "^9.0.0",
     "nodemon": "^3.0.3",
     "sass": "^1.69.7",
+    "ts-jest": "^29.1.2",
     "typescript": "5.3.3"
   }
 }
