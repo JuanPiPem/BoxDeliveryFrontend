@@ -9,6 +9,7 @@
     "start-test": "NODE_ENV=test node app.js",
     "start-prod": "node app.js",
     "lint": "next lint",
+    "test:2e2": "npx cypress run",
     "prepare": "husky install",
     "watch:sass": "nodemon -e scss -w src -x \"npm run compile:sass\"",
     "compile:sass": "node-sass src/**/*.scss -o dist/css"
