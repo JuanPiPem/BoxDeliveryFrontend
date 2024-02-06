@@ -1,11 +1,11 @@
-// import { defineConfig } from "cypress";
+import { defineConfig } from "cypress";
 
-// export default defineConfig({
-//   video: false,
+export default defineConfig({
+  video: false,
 
-//   e2e: {
-//     setupNodeEvents() {
-//       // implement node event listeners here
-//     },
-//   },
-// });
+  e2e: {
+    setupNodeEvents() {
+      // implement node event listeners here
+    },
+  },
+});
