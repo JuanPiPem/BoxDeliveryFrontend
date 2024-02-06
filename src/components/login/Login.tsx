@@ -7,6 +7,7 @@ import ButtonDarkBlue from "commons/buttonDarkBlue/ButtonDarkBlue";
 import Eye from "assets/img/Eye";
 import ClosedEye from "assets/img/ClosedEye";
 import Link from "next/link";
+import axios from "axios";
 
 /* Si el login es de tipo repartidor(state Redux): hacer un classList.remove de la clase "s.heigthContentContainer1" y un classList.toggle de "s.heigthContentContainer2"; y también hacer un classList.remove del button que tiene la clase "s.displayNone" */
 
@@ -18,6 +19,33 @@ const Login = () => {
   passowrd;
   const [showPassword, setShowPassword] = useState(false);
   const isAdmin = true;
+  const handleSubmit = (e : React.FormEvent)=>{
+    e.currentTarget
+  axios.post('http://localhost:5000/api/login', { email, passowrd }, {
+    withCredentials: true,
+  })
+  .then(response => {
+
+    const data = response.data;
+
+    localStorage.setItem('token', data.token);
+
+    axios.get('http://localhost:5000/api/private',{
+      withCredentials: true,
+    })
+    .then(resp =>{
+      const message = resp.data;
+      console.log(message)
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+  }
   return (
     <div className={s.loginContainer}>
       <div className={s.loginContentContainer}>
@@ -51,7 +79,7 @@ const Login = () => {
               isAdmin ? "/admin/manage-orders" : "/delivery-man/start-work-day"
             }
           >
-            <div className={s.buttonLogin}>
+            <div className={s.buttonLogin} onClick={handleSubmit}>
               <ButtonDarkBlue text="Ingresar" />
             </div>
           </Link>
