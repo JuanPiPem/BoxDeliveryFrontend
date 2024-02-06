@@ -9,7 +9,8 @@
     "browser": true,
     "es2021": true,
     "node": true,
-    "commonjs": true
+    "commonjs": true,
+    "jest": true
     // "cypress/globals": true
   },
   "extends": [
