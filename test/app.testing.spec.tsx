@@ -1,5 +1,5 @@
 describe("probando los test", () => {
   test("primer test", () => {
-    expect("hola tests").toStrictEqual("hola tests");
+    expect("hola test").toStrictEqual("hola test");
   });
 });
