@@ -31,6 +31,14 @@
       "name": "typescript-plugin-css-modules"
     }
   ],
-  "include": ["src", "*.ts", ".next/types/**/*.ts", "cypress/**/*/.ts"],
+  "include": [
+    "src",
+    "*.ts",
+    "src/**/*.tsx",
+    "test/**/*.ts",
+    "test/**/*.tsx",
+    ".next/types/**/*.ts",
+    "cypress/**/*/.ts"
+  ],
   "exclude": ["node_modules"]
 }
