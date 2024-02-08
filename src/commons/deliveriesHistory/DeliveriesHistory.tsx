@@ -1,5 +1,6 @@
 "use client";
 
+// Importamos useRef y useEffect
 import React, { useRef, useEffect, useState } from "react";
 import s from "./deliveriesHistory.module.scss";
 import { Saira } from "next/font/google";
@@ -26,8 +27,6 @@ type Prop = {
   view: string;
   section: string;
 };
-//The viewType can be: "paquetes-admin", "perfil-repartidor" o "home-repartidor"
-//The sections can be: "repartos-pendientes" "historial-repartos"
 
 function DeliveriesHistory(prop: Prop) {
   const [show, setShow] = useState(true);
@@ -39,6 +38,7 @@ function DeliveriesHistory(prop: Prop) {
   };
 
   const packagesListRef = useRef<HTMLDivElement>(null);
+  const gradientRef = useRef<HTMLDivElement>(null); // Referencia al elemento que contiene el degradado
 
   const handleVectorContainerClick = () => {
     if (packagesListRef.current) {
@@ -69,11 +69,17 @@ function DeliveriesHistory(prop: Prop) {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (packagesListRef.current) {
+      if (packagesListRef.current && gradientRef.current) {
         const scrolled =
           packagesListRef.current.scrollHeight >
           packagesListRef.current.clientHeight;
         setIsScrollable(scrolled);
+
+        //Obtiene la lista visible actual
+        // const visibleList = Math.floor(
+        //   packagesListRef.current.scrollTop +
+        //     packagesListRef.current.clientHeight / 95
+        // );
 
         // Verifica si el scroll está cerca del final
         const atBottom =
@@ -82,6 +88,20 @@ function DeliveriesHistory(prop: Prop) {
           packagesListRef.current.scrollHeight - 1; // Cambiado a "-1" para que se considere inmediatamente al llegar al final
 
         setAtBottom(atBottom);
+
+        // Calcula y ajusta la altura del degradado
+        if (atBottom) {
+          const remainingHeight =
+            packagesListRef.current.scrollHeight -
+            packagesListRef.current.clientHeight;
+          const visibleHeight =
+            packagesListRef.current.clientHeight -
+            (gradientRef.current.offsetTop - packagesListRef.current.offsetTop);
+          const gradientHeight = remainingHeight - visibleHeight;
+          gradientRef.current.style.height = `${gradientHeight}px`;
+        } else {
+          gradientRef.current.style.height = "0"; // Restablece la altura del degradado si no estamos al final
+        }
       }
     };
 
@@ -147,6 +167,8 @@ function DeliveriesHistory(prop: Prop) {
             </div>
           </div>
           <div className={s.backgroundBorder}></div>
+          <div className={s.gradient} ref={gradientRef}></div>{" "}
+          {/* Agrega un div para el degradado */}
           {prop.arrayPackages.length > 3 &&
           prop.view === "perfil-repartidor" ? (
             <div
