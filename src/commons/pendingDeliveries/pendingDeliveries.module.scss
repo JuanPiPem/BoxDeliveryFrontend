@@ -88,6 +88,24 @@
   cursor: pointer;
 }
 
+.gradient {
+  margin-top: -60px;
+  margin-bottom: 20px;
+  width: 279px;
+  height: 50px;
+  background-image: linear-gradient(to bottom, transparent, $white);
+  z-index: 2;
+}
+
+.backgroundTransparent {
+  margin-top: -60px;
+  margin-bottom: 20px;
+  width: 279px;
+  height: 50px;
+  background-image: transparent;
+  z-index: 2;
+}
+
 .textContainer {
   margin-left: 12px;
   height: 100%;

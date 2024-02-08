@@ -33,6 +33,7 @@ function PendingDeliveries(prop: Prop) {
   const [show, setShow] = useState(true);
   const [isScrollable, setIsScrollable] = useState(false);
   const [atBottom, setAtBottom] = useState(false);
+  const [showGradient, setShowGradient] = useState(true);
 
   const toggle = () => {
     setShow((prevState) => !prevState);
@@ -78,6 +79,12 @@ function PendingDeliveries(prop: Prop) {
           packagesListRef.current.scrollHeight - 1; // Cambiado a "-1" para que se considere inmediatamente al llegar al final
 
         setAtBottom(atBottom);
+
+        if (atBottom) {
+          setShowGradient(false);
+        } else {
+          setShowGradient(true);
+        }
       }
     };
 
@@ -87,7 +94,11 @@ function PendingDeliveries(prop: Prop) {
       currentRef.addEventListener("scroll", handleScroll);
     }
 
-    return () => {};
+    return () => {
+      if (currentRef) {
+        currentRef.removeEventListener("scroll", handleScroll);
+      }
+    };
   }, [isScrollable, show, atBottom]);
 
   return (
@@ -163,6 +174,11 @@ function PendingDeliveries(prop: Prop) {
             </div>
           </div>
           <div className={s.backgroundBorder}></div>
+          {prop.arrayPackages.length > 3 && showGradient ? (
+            <div className={s.gradient}></div>
+          ) : (
+            <div className={s.backgroundTransparent}></div>
+          )}
           {prop.arrayPackages.length > 2 &&
           prop.view === "perfil-repartidor" ? (
             <div
