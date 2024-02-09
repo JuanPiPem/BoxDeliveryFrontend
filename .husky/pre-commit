@@ -1,9 +1,11 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
- npm run test:2e2
+npm run test:2e2
 
-npm run test && npx lint-staged
+npm run test 
 
-# lint-staged && npm run test && npm run test:2e2
+npx lint-staged
+
+
 
