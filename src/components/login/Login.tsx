@@ -8,10 +8,12 @@ import Eye from "assets/img/Eye";
 import ClosedEye from "assets/img/ClosedEye";
 import Link from "next/link";
 import axios from "axios";
-
 /* Si el login es de tipo repartidor(state Redux): hacer un classList.remove de la clase "s.heigthContentContainer1" y un classList.toggle de "s.heigthContentContainer2"; y también hacer un classList.remove del button que tiene la clase "s.displayNone" */
+import dotenv from 'dotenv';
+dotenv.config();
 
 const Login = () => {
+
   const [email, setEmail] = useState("");
   const [passowrd, setPassword] = useState("");
   // para que no me salte error de eslint las use asi
@@ -19,9 +21,10 @@ const Login = () => {
   passowrd;
   const [showPassword, setShowPassword] = useState(false);
   const isAdmin = true;
+  const apiUrl = process.env.NEXT_PUBLIC_PORT_API_BACK ;
   const handleSubmit = (e : React.FormEvent)=>{
     e.currentTarget
-  axios.post('http://localhost:5000/api/login', { email, passowrd }, {
+  axios.post(`${apiUrl}api/login`, { email, passowrd }, {
     withCredentials: true,
   })
   .then(response => {
@@ -30,7 +33,7 @@ const Login = () => {
 
     localStorage.setItem('token', data.token);
 
-    axios.get('http://localhost:5000/api/private',{
+    axios.get(`${apiUrl}api/private`,{
       withCredentials: true,
     })
     .then(resp =>{
