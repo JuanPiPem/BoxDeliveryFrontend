@@ -68,7 +68,7 @@ jobs:
           name: dist
           path: dist
       - name: Test
-        run: npm test
+        run: npm run test
         # Agregar script para correr tests en package.json
 
   e2e:
@@ -93,61 +93,6 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           command: npm run test:e2e
-          start: npm run start-test
+          start: npm run start-test:2e2
           # wait-on: http://localhost:3001
           wait-on: http://localhost:$PORT_LOCAL_APP
-
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-20.04
-    environment: production
-
-    steps:
-      - name: Checkout
-        # uses: actions/checkout@v3
-        uses: actions/checkout@v2
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-2
-
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-
-      - name: Build, tag, and push image to Amazon ECR
-        id: build-image
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          #Línea de abajo agregadada según el video de configuración AWS
-          ECR_REPOSITORY: box-delivery
-          IMAGE_TAG: ${{ github.sha }}
-        run: |
-          # Build a docker container and
-          # push it to ECR so that it can
-          # be deployed to ECS.
-          #Dockerfile ambiente de desarrollo 
-          docker build -f Dockerfile.dev -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          #Dockerfile ambiente de producción
-          #docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
-
-      - name: Fill in the new image ID in the Amazon ECS task definition
-        id: task-def
-        uses: aws-actions/amazon-ecs-render-task-definition@v1
-        with:
-          task-definition: task-definition.json
-          container-name: box-delivery
-          image: ${{ steps.build-image.outputs.image }}
-
-      - name: Deploy Amazon ECS task definition
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-        with:
-          task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: box-delivery-service
-          cluster: box-delivery-cluster
-          wait-for-service-stability: true
