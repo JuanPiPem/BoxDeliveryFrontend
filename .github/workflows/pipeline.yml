@@ -8,9 +8,8 @@ on:
     types: [opened, synchronize]
 
 jobs:
-
   lint:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
         with:
@@ -25,7 +24,7 @@ jobs:
         run: npm run lint
 
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
         with:
@@ -45,7 +44,7 @@ jobs:
 
   test:
     needs: [lint, build]
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
         with:
@@ -66,7 +65,7 @@ jobs:
 
   e2e:
     needs: [lint, build]
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
         with:
