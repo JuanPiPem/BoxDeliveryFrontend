@@ -20,11 +20,11 @@ const Login = () => {
   email;
   passowrd;
   const [showPassword, setShowPassword] = useState(false);
-  const isAdmin = true;
+  const isAdmin = false;
   const apiUrl = process.env.NEXT_PUBLIC_PORT_API_BACK ;
   const handleSubmit = (e : React.FormEvent)=>{
     e.currentTarget
-  axios.post(`${apiUrl}api/login`, { email, passowrd }, {
+  axios.post(`${apiUrl}api/login`, { email, passowrd }, {   
     withCredentials: true,
   })
   .then(response => {
