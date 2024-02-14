@@ -6,7 +6,6 @@
     "dev": "next dev --port 3001",
     "build": "next build",
     "start": "next start --port 3001",
-    "start-test": "NODE_ENV=test node app.js",
     "start-prod": "node app.js",
     "lint": "next lint",
     "test:2e2": "npx cypress run",
