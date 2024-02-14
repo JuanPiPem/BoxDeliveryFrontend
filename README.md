@@ -6,6 +6,7 @@
 A last mile logistics company has hundreds of delivery drivers who at the beginning of the day receive ~10 packages each and who must distribute throughout the 
 The company must be able to monitor the operation of delivery people, assign or reassign packages and intervene if necessary to edit a shipment to modify the address or reassign the shipment to another delivery person.
 
+[![Deployment Pipeline](https://github.com/JuanPiPem/BoxDeliveryFrontend/actions/workflows/pipeline.yml/badge.svg)](https://github.com/JuanPiPem/BoxDeliveryFrontend/actions/workflows/pipeline.yml)
 
 ## 🛵 Getting Started
 > [!IMPORTANT]
