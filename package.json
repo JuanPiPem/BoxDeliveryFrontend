@@ -6,7 +6,7 @@
     "dev": "next dev --port 3001",
     "build": "next build",
     "start": "next start --port 3001",
-    "start-prod": "node app.js",
+    "start-test": "NODE_ENV=test next dev --port 3001",
     "lint": "next lint",
     "test:2e2": "cypress run",
     "prepare": "husky install",

@@ -90,6 +90,7 @@ jobs:
       - name: E2E tests
         uses: cypress-io/github-action@v2
         with:
-          start: npm run test:e2e
-          # wait-on: http://localhost:3001
+          command: npm run test:e2e
+          start: npm run start-test
+          wait-on: http://localhost:3001
           # wait-on: http://localhost:$PORT_LOCAL_AP
