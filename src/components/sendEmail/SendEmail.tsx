@@ -13,6 +13,7 @@ const SendEmail = () => {
       return setStepper(3);
     }, 3000);
   }, [stepper]);
+
   return (
     <div className={s.loginContainer}>
       <div className={`${s.loginContentContainer}`}>
