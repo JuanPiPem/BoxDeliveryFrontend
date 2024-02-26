@@ -41,7 +41,17 @@ const TableListPackages = (prop: Prop) => {
         <div className={`${s.div3}`}>
           {prop.viewType === "home-repartidor" ||
           prop.viewType === "perfil-repartidor" ? (
-            <div className={`${s.statusContainer}`}>
+            <div
+              className={`${s.statusContainer}`}
+              id={
+                prop.status === "pendiente" && !iniciarClicked
+                  ? s.PENDIENTE
+                  : prop.status === "en-curso" ||
+                    (prop.status === "pendiente" && iniciarClicked)
+                  ? s.EN_CURSO
+                  : s.ENTREGADO
+              }
+            >
               {prop.status === "pendiente" && !iniciarClicked ? (
                 <StatusPending />
               ) : prop.status === "en-curso" ||

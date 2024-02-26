@@ -18,34 +18,38 @@ const Login = () => {
   email;
   passowrd;
   const [showPassword, setShowPassword] = useState(false);
-  const isAdmin = true;
-  const handleSubmit = (e : React.FormEvent)=>{
-    e.currentTarget
-  axios.post('http://localhost:5000/api/login', { email, passowrd }, {
-    withCredentials: true,
-  })
-  .then(response => {
+  const isAdmin = false;
+  const handleSubmit = (e: React.FormEvent) => {
+    e.currentTarget;
+    axios
+      .post(
+        "http://localhost:5000/api/login",
+        { email, passowrd },
+        {
+          withCredentials: true,
+        }
+      )
+      .then((response) => {
+        const data = response.data;
 
-    const data = response.data;
+        localStorage.setItem("token", data.token);
 
-    localStorage.setItem('token', data.token);
-
-    axios.get('http://localhost:5000/api/private',{
-      withCredentials: true,
-    })
-    .then(resp =>{
-      const message = resp.data;
-      console.log(message)
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
-
-  })
-  .catch(error => {
-    console.error('Error:', error);
-  });
-  }
+        axios
+          .get("http://localhost:5000/api/private", {
+            withCredentials: true,
+          })
+          .then((resp) => {
+            const message = resp.data;
+            console.log(message);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
   return (
     <div className={s.loginContainer}>
       <div className={s.loginContentContainer}>
