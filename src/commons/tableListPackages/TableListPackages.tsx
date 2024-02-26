@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import s from "./tableListPackages.module.scss";
 import Package from "assets/img/Package";
-import Trash from "assets/img/Trash";
 import StatusInProgress from "assets/img/StatusInProgress";
 import StatusPending from "assets/img/StatusPending";
 import StatusDelivered from "assets/img/StatusDelivered";
@@ -59,16 +58,6 @@ const TableListPackages = (prop: Prop) => {
                   ? "EN CURSO"
                   : "ENTREGADO"}
               </p>
-            </div>
-          ) : null}
-          {(prop.viewType === "home-repartidor" &&
-            prop.section === "repartos-pendientes" &&
-            prop.status === "en-curso") ||
-          prop.viewType === "paquetes-admin" ||
-          prop.viewType === "perfil-repartidor" ||
-          iniciarClicked ? (
-            <div className={`${s.div3Aling}`}>
-              <Trash />
             </div>
           ) : null}
           {prop.viewType === "home-repartidor" &&
