@@ -4,7 +4,7 @@
   width: 300px;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
-  max-height: 245px;
+  max-height: 229px;
   margin-top: 1px;
   overflow-x: hidden;
   overflow-y: auto;
@@ -28,21 +28,23 @@
 
 .packagesNumber {
   margin-left: 15px;
-  margin-top: 10px;
-  margin-bottom: 5px;
+  margin-top: 11px;
+  margin-bottom: -2px;
+  font-weight: 500;
+  font-size: 11.8px;
 }
 
 .hr {
   width: 270px;
-  height: 0.3px;
+  height: 0.01px;
   margin-left: 10px;
   background: #24424d;
 }
 
 .boxTrash {
   margin-left: 16px;
-  margin-top: 15px;
-  margin-bottom: 10px;
+  margin-top: 12px;
+  margin-bottom: 8px;
 }
 
 .lastHr {
@@ -129,7 +131,7 @@
   justify-content: space-between;
   align-items: center;
   width: 300px;
-  height: 47px;
+  height: 42.5px;
   background: $light-yellow;
   border-radius: 15px;
   z-index: 3;

@@ -6,6 +6,7 @@ import ButtonDarkBlue from "commons/buttonDarkBlue/ButtonDarkBlue";
 import DeliveriesHistory from "commons/deliveriesHistory/DeliveriesHistory";
 import PendingDeliveries from "commons/pendingDeliveries/PendingDeliveries";
 import Link from "next/link";
+import { fakeData } from "utils/fakeData";
 
 const StartWorkDay = () => {
   interface FakeData {
@@ -15,71 +16,8 @@ const StartWorkDay = () => {
     status: string;
   }
 
-  const arrayFakeDataPendingPackages: FakeData[] = [
-    {
-      packageNumber: "#0H167",
-      address: "Av. Carabobo y Rivadavia",
-      city: "CABA",
-      status: "en-curso",
-    },
-    {
-      packageNumber: "#0A903",
-      address: "Las Heras 5678",
-      city: "CABA",
-      status: "pendiente",
-    },
-    {
-      packageNumber: "#0H167",
-      address: "Av. Carabobo y Rivadavia",
-      city: "CABA",
-      status: "en-curso",
-    },
-    {
-      packageNumber: "#0A903",
-      address: "Las Heras 5678",
-      city: "CABA",
-      status: "pendiente",
-    },
-  ];
-
-  const arrayFakeData: FakeData[] = [
-    {
-      packageNumber: "#0H167",
-      address: "Av. Carabobo y Rivadavia",
-      city: "CABA",
-      status: "entregado",
-    },
-    {
-      packageNumber: "#0A903",
-      address: "Las Heras 5678",
-      city: "CABA",
-      status: "entregado",
-    },
-    {
-      packageNumber: "#0H167",
-      address: "Av. Carabobo y Rivadavia",
-      city: "CABA",
-      status: "entregado",
-    },
-    {
-      packageNumber: "#0H167",
-      address: "Av. Carabobo y Rivadavia",
-      city: "CABA",
-      status: "entregado",
-    },
-    {
-      packageNumber: "#0A903",
-      address: "Las Heras 5678",
-      city: "CABA",
-      status: "entregado",
-    },
-    {
-      packageNumber: "#0A903",
-      address: "Las Heras 5678",
-      city: "CABA",
-      status: "entregado",
-    },
-  ];
+  const arrayFakeDataPendingPackages: FakeData[] = fakeData;
+  const arrayFakeData: FakeData[] = fakeData;
 
   return (
     <>

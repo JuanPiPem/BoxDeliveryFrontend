@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import s from "./tableListPackages.module.scss";
 import Package from "assets/img/Package";
-import Trash from "assets/img/Trash";
 import StatusInProgress from "assets/img/StatusInProgress";
 import StatusPending from "assets/img/StatusPending";
 import StatusDelivered from "assets/img/StatusDelivered";
@@ -42,7 +41,17 @@ const TableListPackages = (prop: Prop) => {
         <div className={`${s.div3}`}>
           {prop.viewType === "home-repartidor" ||
           prop.viewType === "perfil-repartidor" ? (
-            <div className={`${s.statusContainer}`}>
+            <div
+              className={`${s.statusContainer}`}
+              id={
+                prop.status === "pendiente" && !iniciarClicked
+                  ? s.PENDIENTE
+                  : prop.status === "en-curso" ||
+                    (prop.status === "pendiente" && iniciarClicked)
+                  ? s.EN_CURSO
+                  : s.ENTREGADO
+              }
+            >
               {prop.status === "pendiente" && !iniciarClicked ? (
                 <StatusPending />
               ) : prop.status === "en-curso" ||
@@ -59,16 +68,6 @@ const TableListPackages = (prop: Prop) => {
                   ? "EN CURSO"
                   : "ENTREGADO"}
               </p>
-            </div>
-          ) : null}
-          {(prop.viewType === "home-repartidor" &&
-            prop.section === "repartos-pendientes" &&
-            prop.status === "en-curso") ||
-          prop.viewType === "paquetes-admin" ||
-          prop.viewType === "perfil-repartidor" ||
-          iniciarClicked ? (
-            <div className={`${s.div3Aling}`}>
-              <Trash />
             </div>
           ) : null}
           {prop.viewType === "home-repartidor" &&

@@ -37,7 +37,6 @@ const Login = () => {
         localStorage.setItem("token", data.token);
 
         axios
-          .get(`${apiUrl}api/private`, {
             withCredentials: true,
           })
           .then((resp) => {
