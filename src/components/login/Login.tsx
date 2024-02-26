@@ -8,8 +8,9 @@ import Eye from "assets/img/Eye";
 import ClosedEye from "assets/img/ClosedEye";
 import Link from "next/link";
 import axios from "axios";
-
 /* Si el login es de tipo repartidor(state Redux): hacer un classList.remove de la clase "s.heigthContentContainer1" y un classList.toggle de "s.heigthContentContainer2"; y también hacer un classList.remove del button que tiene la clase "s.displayNone" */
+import dotenv from "dotenv";
+dotenv.config();
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -19,11 +20,12 @@ const Login = () => {
   passowrd;
   const [showPassword, setShowPassword] = useState(false);
   const isAdmin = false;
+  const apiUrl = process.env.NEXT_PUBLIC_PORT_API_BACK;
   const handleSubmit = (e: React.FormEvent) => {
     e.currentTarget;
     axios
       .post(
-        "http://localhost:5000/api/login",
+        `${apiUrl}api/login`,
         { email, passowrd },
         {
           withCredentials: true,
@@ -35,7 +37,6 @@ const Login = () => {
         localStorage.setItem("token", data.token);
 
         axios
-          .get("http://localhost:5000/api/private", {
             withCredentials: true,
           })
           .then((resp) => {
@@ -77,7 +78,7 @@ const Login = () => {
               {showPassword ? <ClosedEye /> : <Eye />}
             </div>
           </div>
-          {/* Hardcodeado la redireccion a la siguiente vista por que esto va a depender de la rspuesta del back e ira con un handleSubmit */}
+          {/* Hardcodeado la redireccion a la siguiente vista por que esto va a depender de la rspuesta del back e ira con un handleSubmit. */}
           <Link
             href={
               isAdmin ? "/admin/manage-orders" : "/delivery-man/start-work-day"

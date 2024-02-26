@@ -7,10 +7,17 @@
 .inProgressMap {
   width: 300px;
   height: 396px;
-  background-color: $dark-green;
   border-radius: 15px;
   margin-top: 10px;
   margin-bottom: 24px;
+  position: relative;
+}
+.map{
+  width: 100%;
+  height: 100%; 
+  position: absolute;
+  border-radius: 15px;
+  overflow: hidden;
 }
 .deliveryDataContainer {
   width: 270px;

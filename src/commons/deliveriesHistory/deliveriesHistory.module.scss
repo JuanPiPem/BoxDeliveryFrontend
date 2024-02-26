@@ -14,6 +14,7 @@
   padding-top: 1px;
   margin-bottom: 10px;
   z-index: 2;
+  position: relative; /* Añade esta línea para establecer la posición relativa */
 }
 
 .backgronudPaddingTop {
@@ -71,7 +72,7 @@
 
 .vectorContainer {
   padding-top: 15px;
-  margin-top: -25px;
+  margin-top: -15px;
   width: 300px;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
@@ -81,6 +82,22 @@
 
 .vectorContainer:hover {
   cursor: pointer;
+}
+
+.gradient {
+  margin-top: -60px;
+  width: 279px;
+  height: 50px;
+  background-image: linear-gradient(to bottom, transparent, $white);
+  z-index: 2;
+}
+
+.backgroundTransparent {
+  margin-top: -60px;
+  width: 279px;
+  height: 50px;
+  background-image: transparent;
+  z-index: 2;
 }
 
 .textContainer {

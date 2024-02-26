@@ -1,14 +1,19 @@
+"use client"
 import React from "react";
 import s from "./deliveryInProgress.module.scss";
 import Header from "commons/header/Header";
 import ButtonDarkBlue from "commons/buttonDarkBlue/ButtonDarkBlue";
 import Link from "next/link";
+import Map from "../map/Map";
 const DeliveryInProgress = () => {
   return (
     <>
       <div className={s.inProgressConteiner}>
         <Header text="reparto en curso" />
         <div className={s.inProgressMap}>
+          <div className={s.map}>
+               <Map />
+          </div>
           <div className={s.deliveryDataContainer}>
             <div className={s.deliveryData}>
               Destino: Amenabar 2100, CABA Número de paquete: #0A235 Recibe:

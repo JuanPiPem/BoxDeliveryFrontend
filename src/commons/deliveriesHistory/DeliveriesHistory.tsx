@@ -26,13 +26,12 @@ type Prop = {
   view: string;
   section: string;
 };
-//The viewType can be: "paquetes-admin", "perfil-repartidor" o "home-repartidor"
-//The sections can be: "repartos-pendientes" "historial-repartos"
 
 function DeliveriesHistory(prop: Prop) {
   const [show, setShow] = useState(true);
   const [isScrollable, setIsScrollable] = useState(false);
   const [atBottom, setAtBottom] = useState(false);
+  const [showGradient, setShowGradient] = useState(true);
 
   const toggle = () => {
     setShow((prevState) => !prevState);
@@ -82,6 +81,12 @@ function DeliveriesHistory(prop: Prop) {
           packagesListRef.current.scrollHeight - 1; // Cambiado a "-1" para que se considere inmediatamente al llegar al final
 
         setAtBottom(atBottom);
+
+        if (atBottom) {
+          setShowGradient(false);
+        } else {
+          setShowGradient(true);
+        }
       }
     };
 
@@ -91,7 +96,11 @@ function DeliveriesHistory(prop: Prop) {
       currentRef.addEventListener("scroll", handleScroll);
     }
 
-    return () => {};
+    return () => {
+      if (currentRef) {
+        currentRef.removeEventListener("scroll", handleScroll);
+      }
+    };
   }, [isScrollable, show, atBottom]);
 
   return (
@@ -147,19 +156,26 @@ function DeliveriesHistory(prop: Prop) {
             </div>
           </div>
           <div className={s.backgroundBorder}></div>
+          {prop.arrayPackages.length > 3 && showGradient ? (
+            <div className={s.gradient}></div>
+          ) : (
+            <div className={s.backgroundTransparent}></div>
+          )}
           {prop.arrayPackages.length > 3 &&
           prop.view === "perfil-repartidor" ? (
-            <div
-              className={s.vectorContainer}
-              onClick={
-                atBottom ? handleVectorUpClick : handleVectorContainerClick
-              }
-            >
-              <hr className={s.lastHr} />
-              <div className={s.vector}>
-                {atBottom ? <VectorUp /> : <VectorDown />}
+            <>
+              <div
+                className={s.vectorContainer}
+                onClick={
+                  atBottom ? handleVectorUpClick : handleVectorContainerClick
+                }
+              >
+                <hr className={s.lastHr} />
+                <div className={s.vector}>
+                  {atBottom ? <VectorUp /> : <VectorDown />}
+                </div>
               </div>
-            </div>
+            </>
           ) : null}
         </>
       ) : null}
