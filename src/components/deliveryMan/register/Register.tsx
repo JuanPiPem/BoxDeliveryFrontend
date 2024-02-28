@@ -25,6 +25,8 @@ const Register: React.FC = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] =
     useState<boolean>(false);
+  const [visitedInput1, setVisitedInput1] = useState(false);
+  const [visitedInput2, setVisitedInput2] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     name: "",
     last_name: "",
@@ -185,6 +187,7 @@ const Register: React.FC = () => {
                 placeholder="**********"
                 value={formData.password}
                 onChange={(e) => handleInputChange(e, "password")}
+                onClick={() => setVisitedInput1(true)}
               />
               <div
                 className={s.eyeContainer}
@@ -200,6 +203,7 @@ const Register: React.FC = () => {
                 placeholder="Confirmar contraseña"
                 value={formData.rep_password}
                 onChange={(e) => handleInputChange(e, "rep_password")}
+                onClick={() => setVisitedInput2(true)}
               />
               <div
                 className={s.eyeContainer}
@@ -207,19 +211,18 @@ const Register: React.FC = () => {
               >
                 {showConfirmPassword ? <ClosedEye /> : <Eye />}
               </div>
-              {/* {error && <div className={s.errorText}>{error}</div>} */}
-
-              {formData.password !== formData.rep_password && (
+              {visitedInput2 && formData.password !== formData.rep_password && (
                 <div className={s.errorText}>Las contraseñas no coinciden.</div>
               )}
               {!/^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$/.test(
                 formData.password
-              ) && (
-                <div className={s.errorText}>
-                  Las contraseña debe contener 8 caracteres.
-                  <br /> Una Mayuscula, una minuscula y un numero.
-                </div>
-              )}
+              ) &&
+                visitedInput1 && (
+                  <div className={s.errorText}>
+                    La contraseña debe contener 8 caracteres,
+                    <br /> una Mayuscula, una minuscula y un numero.
+                  </div>
+                )}
             </div>
           </form>
           <div className={s.firstButtonContainer} onClick={handleSubmit}>
