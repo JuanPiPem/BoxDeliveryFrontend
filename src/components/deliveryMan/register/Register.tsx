@@ -8,6 +8,7 @@ import ButtonDarkBlue from "commons/buttonDarkBlue/ButtonDarkBlue";
 import Link from "next/link";
 import Eye from "assets/img/Eye";
 import ClosedEye from "assets/img/ClosedEye";
+import axios from "axios";
 
 interface FormData {
   name: string;
@@ -48,22 +49,19 @@ const Register: React.FC = () => {
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
     setError(null);
-
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailRegex.test(formData.email)) {
       setError("Ingrese un correo electrónico válido.");
       return;
     }
-
     const frontNames = {
-      name: "Nombre",
-      last_name: "Apellido",
-      email: "Email",
-      password: "Contraseña",
+      name: formData.name,
+      last_name: formData.last_name,
+      email: formData.email,
+      password: formData.password,
       rep_password: "Repetir Contraseña",
     };
-
     const mustHave = ["name", "last_name", "email", "password", "rep_password"];
     const missing = mustHave.filter((field) => !formData[field]);
 
@@ -84,6 +82,13 @@ const Register: React.FC = () => {
       setError(message);
 
       return;
+    } else {
+      axios
+        .post(`http://localhost:5000/api/users/register`, formData, {
+          withCredentials: true,
+        })
+        .then((response) => console.log(response))
+        .catch((err) => console.error(err));
     }
 
     if (formData.password !== formData.rep_password) {
@@ -95,9 +100,6 @@ const Register: React.FC = () => {
       setError("La contraseña debe cumplir los requisitos.");
       return;
     }
-
-    // Aquí puedes realizar la llamada a tu servicio de registro
-    // y manejar la lógica de éxito o error como se muestra en tu código comentado.
   };
 
   //   let temp = { ...formData };
