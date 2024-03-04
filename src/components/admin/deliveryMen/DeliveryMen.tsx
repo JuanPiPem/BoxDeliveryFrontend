@@ -30,7 +30,6 @@ const DeliveryMen = () => {
   const packagesListRef = useRef<HTMLDivElement>(null);
 
   const handleVectorContainerClick = () => {
-    console.log("Holaaaaaa");
     if (packagesListRef.current) {
       const currentScrollTop = packagesListRef.current.scrollTop;
       packagesListRef.current.scrollTop = currentScrollTop + 50;

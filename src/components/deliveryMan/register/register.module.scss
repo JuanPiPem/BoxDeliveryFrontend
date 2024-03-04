@@ -17,7 +17,7 @@
   background: #fefefe;
 }
 .blur {
-  filter: blur(1px);
+  filter: blur(1.5px) brightness(0.6);
 }
 
 .content {
@@ -103,8 +103,8 @@
 }
 
 .spinner {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   position: absolute;
   top: 40%;
   left: 40%;

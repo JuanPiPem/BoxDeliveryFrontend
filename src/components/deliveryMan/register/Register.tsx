@@ -25,7 +25,6 @@ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const Register: React.FC = () => {
   const router = useRouter();
-
   const [error, setError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] =
@@ -54,18 +53,30 @@ const Register: React.FC = () => {
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
     setError(null);
+    setVisitedInput1(true);
+    setVisitedInput2(true);
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailRegex.test(formData.email)) {
-      setError("Ingrese un correo electrónico válido.");
+      toast.error("Ingrese un correo electronico valido");
       return;
     }
+    if (formData.password !== formData.rep_password) {
+      setError("Las contraseñas no coinciden.");
+      return;
+    }
+
+    if (!/^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$/.test(formData.password)) {
+      setError("La contraseña debe cumplir los requisitos.");
+      return;
+    }
+
     const frontNames = {
       name: formData.name,
       last_name: formData.last_name,
       email: formData.email,
       password: formData.password,
-      rep_password: "Repetir Contraseña",
+      rep_password: formData.rep_password,
     };
     const mustHave = ["name", "last_name", "email", "password", "rep_password"];
     const missing = mustHave.filter((field) => !formData[field]);
@@ -90,38 +101,49 @@ const Register: React.FC = () => {
     } else {
       setLoader(true);
       axios
-        .post(`http://localhost:5000/api/users/register`, formData, {
-          withCredentials: true,
-        })
+        .post(
+          `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/users/register`,
+          formData,
+          {
+            withCredentials: true,
+          }
+        )
         .then(() => {
-          toast.success("Registro exitoso, revisa tu casilla de mail");
           setLoader(false);
+          router.push("/login");
           setTimeout(() => {
-            router.push("/login");
-          }, 2000);
+            toast.success(
+              "Registro exitoso, revisa tu casilla de mail para confirmar tu correo",
+              {
+                duration: 10000,
+              }
+            );
+          }, 200);
         })
         .catch((err) => {
           setLoader(false);
+          if (
+            err.response?.data ===
+            "Error: Account already associated with this email"
+          ) {
+            return toast.info("Ya existe una cuenta asociada a ese correo", {
+              duration: 5000,
+              action: {
+                label: "Iniciar sesion",
+                onClick: () => router.push("/login"),
+              },
+            });
+          }
           toast.error(err.response?.data);
         });
-    }
-
-    if (formData.password !== formData.rep_password) {
-      setError("Las contraseñas no coinciden.");
-      return;
-    }
-
-    if (!/^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$/.test(formData.password)) {
-      setError("La contraseña debe cumplir los requisitos.");
-      return;
     }
   };
 
   return (
     <div className={s.registerContainer}>
       <Header text="Creá tu cuenta" />
-      <div className={s.contentContainer}>
-        <div className={`${s.layer} ${loader && s.blur}`}>
+      <div className={`${s.contentContainer} ${loader && s.blur}`}>
+        <div className={s.layer}>
           <div className={s.content}>
             <div className={s.iconContainer}>
               <UploadImage />
@@ -240,12 +262,14 @@ const Register: React.FC = () => {
             </Link>
           </div>
         </div>
+      </div>
+      <div className={s.loaderContainer}>
         <div
           className={s.spinner}
           style={{ display: loader ? "block" : "none" }}
         ></div>
       </div>
-      <Toaster richColors position="top-center" expand={true} />
+      <Toaster richColors expand={true} position="top-center" />
     </div>
   );
 };
