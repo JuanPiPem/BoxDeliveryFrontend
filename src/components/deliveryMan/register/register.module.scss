@@ -11,10 +11,15 @@
 .contentContainer {
   width: 300px;
   height: 505px;
+  position: relative;
   margin-top: 10px;
   border-radius: 15px;
   background: #fefefe;
 }
+.blur {
+  filter: blur(1.5px) brightness(0.6);
+}
+
 .content {
   display: flex;
   flex-direction: column;
@@ -86,6 +91,7 @@
 .errorText {
   font-size: 11px;
   color: lightcoral;
+  text-align: center;
 }
 
 .errorText::placeholder {
@@ -94,4 +100,25 @@
   font-weight: 400;
   line-height: 24px;
   letter-spacing: 0.15px;
+}
+
+.spinner {
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  top: 40%;
+  left: 40%;
+  border-radius: 50%;
+  background: radial-gradient(farthest-side, $dark-green 94%, #0000) top/9px 9px
+      no-repeat,
+    conic-gradient(#1d352f00 30%, $dark-green);
+  mask: "";
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 9px), #000 0);
+  animation: spinner-c7wet2 1s infinite linear;
+}
+
+@keyframes spinner-c7wet2 {
+  100% {
+    transform: rotate(1turn);
+  }
 }

@@ -8,47 +8,37 @@ import Eye from "assets/img/Eye";
 import ClosedEye from "assets/img/ClosedEye";
 import Link from "next/link";
 import axios from "axios";
+import { Toaster } from "sonner";
+import { useRouter } from "next/navigation";
 /* Si el login es de tipo repartidor(state Redux): hacer un classList.remove de la clase "s.heigthContentContainer1" y un classList.toggle de "s.heigthContentContainer2"; y también hacer un classList.remove del button que tiene la clase "s.displayNone" */
-import dotenv from 'dotenv';
-dotenv.config();
 
 const Login = () => {
-
+  const router = useRouter();
   const [email, setEmail] = useState("");
-  const [passowrd, setPassword] = useState("");
-  // para que no me salte error de eslint las use asi
-  email;
-  passowrd;
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const isAdmin = false;
-  const apiUrl = process.env.NEXT_PUBLIC_PORT_API_BACK ;
-  const handleSubmit = (e : React.FormEvent)=>{
-    e.currentTarget
-  axios.post(`${apiUrl}api/login`, { email, passowrd }, {   
-    withCredentials: true,
-  })
-  .then(response => {
 
-    const data = response.data;
-
-    localStorage.setItem('token', data.token);
-
-    axios.get(`${apiUrl}api/private`,{
-      withCredentials: true,
-    })
-    .then(resp =>{
-      const message = resp.data;
-      console.log(message)
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
-
-  })
-  .catch(error => {
-    console.error('Error:', error);
-  });
-  }
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    axios
+      .post(
+        `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/users/login`,
+        { email, password },
+        {
+          withCredentials: true,
+        }
+      )
+      .then((response) => {
+        if (response.data.is_admin) {
+          return router.push("/admin/manage-orders");
+        } else {
+          return router.push("/delivery-man/start-work-day");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
   return (
     <div className={s.loginContainer}>
       <div className={s.loginContentContainer}>
@@ -76,16 +66,9 @@ const Login = () => {
               {showPassword ? <ClosedEye /> : <Eye />}
             </div>
           </div>
-          {/* Hardcodeado la redireccion a la siguiente vista por que esto va a depender de la rspuesta del back e ira con un handleSubmit */}
-          <Link
-            href={
-              isAdmin ? "/admin/manage-orders" : "/delivery-man/start-work-day"
-            }
-          >
-            <div className={s.buttonLogin} onClick={handleSubmit}>
-              <ButtonDarkBlue text="Ingresar" />
-            </div>
-          </Link>
+          <div className={s.buttonLogin} onClick={handleSubmit}>
+            <ButtonDarkBlue text="Ingresar" />
+          </div>
           <Link href={"/delivery-man/register"}>
             <div style={{ width: "100%" }}>
               <button className={s.buttonSignUp}>Crear Cuenta</button>
@@ -102,6 +85,7 @@ const Login = () => {
         </div>
       </div>
       <div className={s.background}></div>
+      <Toaster richColors position="top-center" expand={true} />
     </div>
   );
 };
