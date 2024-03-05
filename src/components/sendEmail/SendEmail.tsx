@@ -1,24 +1,61 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, {
+  //  useEffect,
+  useState,
+} from "react";
 import s from "./sendEmail.module.scss";
 import ButtonDarkBlue from "commons/buttonDarkBlue/ButtonDarkBlue";
 import Checked from "assets/img/Checked";
 import Link from "next/link";
+import Header from "commons/header/Header";
+import axios from "axios";
+import { Toaster, toast } from "sonner";
+import LeftArrow from "../../assets/img/LeftArrow";
+import { useRouter } from "next/navigation";
 
 const SendEmail = () => {
+  const router = useRouter();
   const [stepper, setStepper] = useState<number>(1);
-  useEffect(() => {
-    setTimeout(() => {
-      return setStepper(3);
-    }, 3000);
-  }, [stepper]);
+  const [email, setEmail] = useState("");
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     return setStepper(3);
+  //   }, 3000);
+  // }, [stepper]);
+  const handleSubmit = () => {
+    setStepper(2);
+    return axios
+      .put(
+        `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/users/restore-password`,
+        { email: email },
+        { withCredentials: true }
+      )
+      .then(() => setStepper(3))
+      .catch((err) => {
+        toast.error(
+          err.response.data ===
+            "We could not find an account associated with that email"
+            ? "No pudimos encontrar una cuenta asociada con ese correo electrónico"
+            : err.response.data,
+          {
+            description: "Intente nuevamente",
+            duration: 10000,
+          }
+        );
+        return setStepper(1);
+      });
+  };
   return (
     <div className={s.loginContainer}>
+      <Header text="Recuperar contraseña" showArrow={true} link="/login" />
       <div className={`${s.loginContentContainer}`}>
         <div className={s.content}>
           {stepper === 1 ? (
             <>
+              <button className={s.backButton} onClick={() => router.back()}>
+                <LeftArrow width={12} /> Volver
+              </button>
               <header id={s.first} className={s.header}>
                 <h4 className={s.title}>Recuperar contraseña</h4>
                 <p>Ingrese el correo electronico asociado a su cuenta de Box</p>
@@ -27,9 +64,10 @@ const SendEmail = () => {
                 type="email"
                 className={`${s.input}`}
                 placeholder="Correo electronico"
+                onChange={(e) => setEmail(e.target.value)}
                 autoFocus
               />
-              <div className={s.buttonLogin} onClick={() => setStepper(2)}>
+              <div className={s.buttonLogin} onClick={handleSubmit}>
                 <ButtonDarkBlue text="Enviar email" />
               </div>
             </>
@@ -59,6 +97,7 @@ const SendEmail = () => {
           )}
         </div>
       </div>
+      <Toaster richColors expand={false} position="top-center" />
     </div>
   );
 };
