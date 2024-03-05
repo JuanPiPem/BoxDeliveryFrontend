@@ -16,5 +16,13 @@ body.body {
     display: inherit;
     flex-direction: inherit;
     align-items: inherit;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  button {
+    &:hover {
+      cursor: pointer;
+    }
   }
 }

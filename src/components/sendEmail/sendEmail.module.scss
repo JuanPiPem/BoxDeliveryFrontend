@@ -4,14 +4,16 @@
   width: 100%;
   height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 2vh;
   color: $dark-green;
   font-size: 12px;
   background-color: $dark-green;
 }
 .loginContentContainer {
-  height: 270px;
+  height: 250px;
   width: 300px;
   display: flex;
   justify-content: center;
@@ -24,8 +26,23 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  position: relative;
+  .backButton {
+    all: unset;
+    width: 49px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 18px;
+    left: 0;
+    // text-decoration: underline;
+    border-bottom: 1px solid $dark-green;
+  }
   .header {
     text-align: center;
+    margin-top: -8px;
   }
   #first {
     .title {
@@ -44,7 +61,7 @@
 .input {
   all: unset;
   width: 100%;
-  margin-top: 30px;
+  margin-top: 13px;
   font-weight: 400;
   line-height: 24px;
   letter-spacing: 0.15px;
