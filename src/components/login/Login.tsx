@@ -8,7 +8,7 @@ import Eye from "assets/img/Eye";
 import ClosedEye from "assets/img/ClosedEye";
 import Link from "next/link";
 import axios from "axios";
-import { Toaster } from "sonner";
+import { Toaster, toast } from "sonner";
 import { useRouter } from "next/navigation";
 /* Si el login es de tipo repartidor(state Redux): hacer un classList.remove de la clase "s.heigthContentContainer1" y un classList.toggle de "s.heigthContentContainer2"; y también hacer un classList.remove del button que tiene la clase "s.displayNone" */
 
@@ -20,6 +20,10 @@ const Login = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!email || !password) {
+      return toast.warning("Por favor complete todos los campos");
+    }
+
     axios
       .post(
         `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/users/login`,
@@ -36,7 +40,17 @@ const Login = () => {
         }
       })
       .catch((error) => {
-        console.error("Error:", error);
+        if (error.response.data === "Please complete all the fields")
+          return toast.warning("Por favor complete todos los campos");
+        if (
+          error.response.data ===
+          "Please confirm your account before trying to log in"
+        )
+          return toast.warning(
+            "Por favor confirme su cuenta para iniciar sesion"
+          );
+        if (error.response.data === "Incorrect email or password")
+          return toast.warning("Correo o contraseña incorrectos");
       });
   };
   return (
