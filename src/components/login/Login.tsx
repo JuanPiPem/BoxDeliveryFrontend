@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState } from "react";
 import s from "./login.module.scss";
 import LoginBoxLogo from "assets/img/LoginBoxLogo";
@@ -7,36 +6,57 @@ import ButtonDarkBlue from "commons/buttonDarkBlue/ButtonDarkBlue";
 import Eye from "assets/img/Eye";
 import ClosedEye from "assets/img/ClosedEye";
 import Link from "next/link";
-import axios from "axios";
+import { AxiosError } from "axios";
 import { Toaster } from "sonner";
+import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
-/* Si el login es de tipo repartidor(state Redux): hacer un classList.remove de la clase "s.heigthContentContainer1" y un classList.toggle de "s.heigthContentContainer2"; y también hacer un classList.remove del button que tiene la clase "s.displayNone" */
+import { setUser } from "../../state/user";
+import { userServiceLogin } from "services/user.service";
 
 const Login = () => {
-  const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useRouter();
+  const [userData, setUserData] = useState({
+    email: "",
+    password: "",
+  });
   const [showPassword, setShowPassword] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [error, setError] = useState("");
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUserData({ ...userData, [name]: value });
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    axios
-      .post(
-        `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/users/login`,
-        { email, password },
-        {
-          withCredentials: true,
-        }
-      )
-      .then((response) => {
-        if (response.data.is_admin) {
-          return router.push("/admin/manage-orders");
-        } else {
-          return router.push("/delivery-man/start-work-day");
+    setError("");
+    if (!userData.email || !userData.password) {
+      setError("Por favor, complete todos los campos.");
+      return;
+    }
+    userServiceLogin(userData)
+      .then((user) => {
+        dispatch(setUser(user.data));
+        return user.data;
+      })
+      .then((user) => {
+        if (user.is_admin) {
+          navigate.push("/admin/delivery-men");
+        } else if (!user.is_admin) {
+          navigate.push("/delivery-man/start-work-day");
         }
       })
-      .catch((error) => {
-        console.error("Error:", error);
+      .catch((error: Error | AxiosError) => {
+        let errorMessage = "Error al intentar loguearse.";
+        if (
+          (error as AxiosError).response &&
+          (error as AxiosError).response?.status === 412
+        )
+          errorMessage =
+            "Esta cuenta todavía no está confirmada. Revise su correo.";
+        setError(errorMessage);
       });
   };
   return (
@@ -45,19 +65,23 @@ const Login = () => {
         <div className={s.content}>
           <input
             type="email"
+            name="email"
+            value={userData.email}
             className={s.input}
             id={s.margin1}
             placeholder="Correo electronico"
             autoFocus
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleInputChange}
           />
           <div className={s.inputPasswordContainer}>
             <input
               type={showPassword ? `text` : `password`}
+              name="password"
+              value={userData.password}
               className={`${s.input}`}
               id={s.margin2}
               placeholder="Contraseña"
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handleInputChange}
             />
             <div
               className={s.eyeContainer}
