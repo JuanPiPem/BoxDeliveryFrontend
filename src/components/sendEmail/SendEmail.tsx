@@ -18,11 +18,6 @@ const SendEmail = () => {
   const router = useRouter();
   const [stepper, setStepper] = useState<number>(1);
   const [email, setEmail] = useState("");
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     return setStepper(3);
-  //   }, 3000);
-  // }, [stepper]);
   const handleSubmit = () => {
     setStepper(2);
     return axios
