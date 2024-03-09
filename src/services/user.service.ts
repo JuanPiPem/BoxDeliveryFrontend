@@ -1,4 +1,3 @@
-// "use client";
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
@@ -90,12 +89,12 @@ export const userServiceGetAll = async () => {
   const res = await axios.get(
     `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/users/`
   );
-  return res;
+  return res.data;
 };
 
 export const userServiceGetDeliverymen = async () => {
   const res = await axios.get(
     `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/users/deliverymen`
   );
-  return res;
+  return res.data;
 };
