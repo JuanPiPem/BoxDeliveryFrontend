@@ -1,16 +1,14 @@
 "use client";
-
 import React, { useState } from "react";
 import s from "./confirmEmail.module.scss";
 import { MdEmail } from "react-icons/md";
 import { IconContext } from "react-icons";
 import { FaCheckCircle } from "react-icons/fa";
 import { BiSolidError } from "react-icons/bi";
-
 import Header from "commons/header/Header";
-import axios from "axios";
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import { userServiceConfirmEmail } from "services/user.service";
 
 const ConfirmEmail = () => {
   const params = useParams();
@@ -18,10 +16,7 @@ const ConfirmEmail = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    axios
-      .put(`http://localhost:5000/api/users/confirm-email/${params.token}`, {
-        withCredentials: true,
-      })
+    userServiceConfirmEmail(params.token.toString())
       .then(() => setStepper(2))
       .catch((err) => {
         console.error(err);

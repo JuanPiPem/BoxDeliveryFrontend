@@ -78,7 +78,7 @@ export const userServiceLogout = async () => {
   return res;
 };
 
-export const userServiceConfirmation = async (token: string) => {
+export const userServiceConfirmEmail = async (token: string) => {
   const res = await axios.put(
     `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/users/confirm-email/${token}`
   );
