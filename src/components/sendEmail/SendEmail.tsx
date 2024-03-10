@@ -1,5 +1,4 @@
 "use client";
-
 import React, {
   //  useEffect,
   useState,
@@ -9,10 +8,10 @@ import ButtonDarkBlue from "commons/buttonDarkBlue/ButtonDarkBlue";
 import Checked from "assets/img/Checked";
 import Link from "next/link";
 import Header from "commons/header/Header";
-import axios from "axios";
 import { Toaster, toast } from "sonner";
 import LeftArrow from "../../assets/img/LeftArrow";
 import { useRouter } from "next/navigation";
+import { userServiceRestorePassword } from "services/user.service";
 
 const SendEmail = () => {
   const router = useRouter();
@@ -20,12 +19,7 @@ const SendEmail = () => {
   const [email, setEmail] = useState("");
   const handleSubmit = () => {
     setStepper(2);
-    return axios
-      .put(
-        `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/users/restore-password`,
-        { email: email },
-        { withCredentials: true }
-      )
+    return userServiceRestorePassword(email)
       .then(() => setStepper(3))
       .catch((err) => {
         toast.error(
