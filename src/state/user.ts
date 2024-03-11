@@ -22,9 +22,19 @@ export const user = createSlice({
       state.is_admin = action.payload.is_admin;
       state.is_confirmed = action.payload.is_confirmed;
     },
+    removeUser: (state) => {
+      state.id = null;
+      state.email = "";
+      state.name = "";
+      state.last_name = "";
+      state.profile_photo = "";
+      state.is_admin = false;
+      state.is_confirmed = false;
+      state.is_enabled = false;
+    },
   },
 });
 
-export const { setUser } = user.actions;
+export const { setUser, removeUser } = user.actions;
 
 export default user.reducer;

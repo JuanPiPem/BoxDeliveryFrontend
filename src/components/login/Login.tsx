@@ -46,7 +46,7 @@ const Login = () => {
         if (user.is_admin) {
           navigate.push("/admin/delivery-men");
         } else if (!user.is_admin) {
-          navigate.push("/delivery-man/start-work-day");
+          navigate.push("/delivery-man/sworn-declaration");
         }
       })
       .catch((error) => {
