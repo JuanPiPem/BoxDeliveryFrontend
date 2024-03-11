@@ -1,22 +1,22 @@
 "use client";
-
 import React from "react";
 import s from "./navbar.module.scss";
 import Box from "assets/img/Box";
 import Link from "next/link";
-import axios from "axios";
 import { useRouter } from "next/navigation";
+import { userServiceLogout } from "services/user.service";
+import { removeUser } from "../../state/user";
+import { useDispatch } from "react-redux";
 
 const Navbar = () => {
-  const router = useRouter();
+  const dispatch = useDispatch();
+  const navigate = useRouter();
   const loggedIn = true;
   const isAdmin = true;
   const handleLogout = () => {
-    axios
-      .post(`${process.env.NEXT_PUBLIC_API_LOCAL_URL}/users/logout`, null, {
-        withCredentials: true,
-      })
-      .then(() => router.push("/login"))
+    dispatch(removeUser());
+    userServiceLogout()
+      .then(() => navigate.push("/login"))
       .catch((err) => console.error(err));
   };
   return (
