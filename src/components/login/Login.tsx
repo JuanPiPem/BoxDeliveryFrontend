@@ -6,10 +6,9 @@ import ButtonDarkBlue from "commons/buttonDarkBlue/ButtonDarkBlue";
 import Eye from "assets/img/Eye";
 import ClosedEye from "assets/img/ClosedEye";
 import Link from "next/link";
-import axios from "axios";
+// import axios from "axios";
 import { Toaster, toast } from "sonner";
 import { AxiosError } from "axios";
-import { Toaster } from "sonner";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { setUser } from "../../state/user";
@@ -32,41 +31,11 @@ const Login = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !password) {
-      return toast.warning("Por favor complete todos los campos");
-    }
 
-    axios
-      .post(
-        `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/users/login`,
-        { email, password },
-        {
-          withCredentials: true,
-        }
-      )
-      .then((response) => {
-        if (response.data.is_admin) {
-          return router.push("/admin/manage-orders");
-        } else {
-          return router.push("/delivery-man/start-work-day");
-        }
-      })
-      .catch((error) => {
-        if (error.response.data === "Please complete all the fields")
-          return toast.warning("Por favor complete todos los campos");
-        if (
-          error.response.data ===
-          "Please confirm your account before trying to log in"
-        )
-          return toast.warning(
-            "Por favor confirme su cuenta para iniciar sesion"
-          );
-        if (error.response.data === "Incorrect email or password")
-          return toast.warning("Correo o contraseña incorrectos");
     setError("");
     if (!userData.email || !userData.password) {
       setError("Por favor, complete todos los campos.");
-      return;
+      return toast.warning("Por favor complete todos los campos");
     }
     userServiceLogin(userData)
       .then((user) => {
@@ -80,8 +49,19 @@ const Login = () => {
           navigate.push("/delivery-man/start-work-day");
         }
       })
-      .catch((error: Error | AxiosError) => {
+      .catch((error) => {
         let errorMessage = "Error al intentar loguearse.";
+        if (error.response?.data === "Please complete all the fields")
+          return toast.warning("Por favor complete todos los campos");
+        if (
+          error.response?.data ===
+          "Please confirm your account before trying to log in"
+        )
+          return toast.warning(
+            "Por favor confirme su cuenta para iniciar sesion"
+          );
+        if (error.response?.data === "Incorrect email or password")
+          return toast.warning("Correo o contraseña incorrectos");
         if (
           (error as AxiosError).response &&
           (error as AxiosError).response?.status === 412
