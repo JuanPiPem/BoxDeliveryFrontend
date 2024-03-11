@@ -34,6 +34,7 @@
   font-size: 14px;
   line-height: 24px;
   letter-spacing: 0.15px;
+  color: $dark-green;
   border-bottom: 0.1px solid #24424d9c;
   &::placeholder {
     color: $dark-green;
@@ -41,7 +42,7 @@
 }
 
 .divDate {
-  margin-top: 55px;
+  margin-top: 20px;
   color: $dark-green;
 }
 
