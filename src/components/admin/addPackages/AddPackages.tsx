@@ -39,7 +39,6 @@ const AddPackages = () => {
 
   const handleSumbit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     if (
       formData.receiver_name === "" ||
       formData.weight === 0 ||
@@ -48,8 +47,8 @@ const AddPackages = () => {
       formData.date === ""
     )
       return toast.warning("Complete todos los campos por favor");
-    await packageServiceAddPackage(formData);
     try {
+      await packageServiceAddPackage(formData);
       toast.success("Paquete agregado exitosamente!");
       return setTimeout(() => {
         router.push("/admin/packages");
@@ -64,7 +63,7 @@ const AddPackages = () => {
         <Header text="Agregar Paquetes" />
         <div className={s.form}>
           <div className={s.content}>
-            <form action="submit">
+            <form>
               <input
                 type="text"
                 className={`${s.input}`}
@@ -88,18 +87,16 @@ const AddPackages = () => {
             </form>
           </div>
           <div className={`${s.content} ${s.divDate}`}>
-            <form action="submit">
-              <label htmlFor="deadLine" className={`${s.labelInputDate}`}>
-                Fecha de entrega
-              </label>
-              <input
-                type="date"
-                id="deadLine"
-                className={`${s.inputDate}`}
-                min={`${year}-${month}-${day}`}
-                onChange={(e) => handleInputChange(e, "date")}
-              />
-            </form>
+            <label htmlFor="deadLine" className={`${s.labelInputDate}`}>
+              Fecha de entrega
+            </label>
+            <input
+              type="date"
+              id="deadLine"
+              className={`${s.inputDate}`}
+              min={`${year}-${month}-${day}`}
+              onChange={(e) => handleInputChange(e, "date")}
+            />
           </div>
         </div>
         <div className={`${s.button}`} onClick={handleSumbit}>

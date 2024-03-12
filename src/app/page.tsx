@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../state/store";
 import SwornDeclaration from "components/deliveryMan/swornDeclaration/SwornDeclaration";
 import StartWorkDay from "components/deliveryMan/startWorkDay/StartWorkDay";
+import Navbar from "commons/navbar/Navbar";
 
 export default function Home() {
   const user = useSelector((state: RootState) => state.user);
@@ -15,11 +16,20 @@ export default function Home() {
       {!user.id ? (
         <Login />
       ) : user.is_admin ? (
-        <DeliveryMen />
-      ) : !user.is_admin && !user.is_enabled ? (
-        <SwornDeclaration />
+        <>
+          <Navbar />
+          <DeliveryMen />
+        </>
+      ) : !user.is_enabled ? (
+        <>
+          <Navbar />
+          <SwornDeclaration />
+        </>
       ) : (
-        <StartWorkDay />
+        <>
+          <Navbar />
+          <StartWorkDay />
+        </>
       )}
     </>
   );
