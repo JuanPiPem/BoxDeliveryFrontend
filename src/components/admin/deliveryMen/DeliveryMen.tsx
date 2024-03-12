@@ -4,7 +4,6 @@ import React, { useEffect, useRef, useState } from "react";
 import s from "./deliveryMen.module.scss";
 import Header from "commons/header/Header";
 import ColorPoint from "assets/img/ColorPoint";
-import { useRouter } from "next/navigation";
 import VectorDown from "assets/img/VectorDown";
 import Link from "next/link";
 import VectorUp from "assets/img/VectorUp";
@@ -27,7 +26,6 @@ const DeliveryMen = () => {
 
   const [isScrollable, setIsScrollable] = useState(false);
   const [atBottom, setAtBottom] = useState(false);
-  const navigate = useRouter();
   const packagesListRef = useRef<HTMLDivElement>(null);
 
   const handleVectorContainerClick = () => {
@@ -86,10 +84,7 @@ const DeliveryMen = () => {
   return (
     <>
       <div className={s.addPackagesContainer}>
-        <div
-          className={s.header}
-          onClick={() => navigate.push("/admin/manage-orders")}
-        >
+        <div className={s.header}>
           <Header text="Repartidores" />
         </div>
         <div className={s.headList}>
