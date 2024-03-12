@@ -1,14 +1,17 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import s from "./manageOrders.module.scss";
 import Header from "commons/header/Header";
 import DeployArrowDown from "assets/img/DeployArrowDown";
 import DeployArrowRight from "assets/img/DeployArrowRight";
 import Plus from "assets/img/Plus";
-import PercentageGraph from "assets/img/PercentageGraph";
 import { Saira } from "next/font/google";
 import Link from "next/link";
 import { formatDate } from "date-fns";
+import { useSelector } from "react-redux";
+import { userServiceGetNumberOfDeliverymenAndEnadledDeliverymen } from "services/user.service";
+import PieChart from "commons/pieChart/PieChart";
+import { RootState } from "../../../state/store";
 
 const saira = Saira({ subsets: ["latin"], weight: "700" });
 
@@ -29,9 +32,38 @@ const months = [
 ];
 
 const ManageOrders = () => {
+  const user = useSelector((state: RootState) => state.user);
   const [show, setShow] = useState(true);
   const [currentDay, setCurrentDay] = useState(0);
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [deliverymenQuantity, setDeliverymenQuantity] = useState(0);
+  const [deliverymenEnabledQuantity, setDeliverymenEnabledQuantity] =
+    useState(0);
+  const [percentDeliverymen, setPercentDeliverymen] = useState(0);
+  //const [percentPackages, setPercentPackages] = useState(0);
+  const currentDateCaptured = new Date().toLocaleDateString("es-ES", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
+
+  useEffect(() => {
+    userServiceGetNumberOfDeliverymenAndEnadledDeliverymen()
+      .then((response) => {
+        setDeliverymenQuantity(response.deliverymenQuantity);
+        setDeliverymenEnabledQuantity(response.enabledDeliverymenQuantity);
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
+  useEffect(() => {
+    setPercentDeliverymen(
+      100 -
+        ((deliverymenQuantity - deliverymenEnabledQuantity) /
+          deliverymenQuantity) *
+          100
+    );
+  }, [deliverymenQuantity, deliverymenEnabledQuantity]);
 
   const toggle = () => {
     setShow((prevState) => !prevState);
@@ -76,7 +108,7 @@ const ManageOrders = () => {
         <div className={s.welcomeCard}>
           <div className={s.profileImage} />
           <div className={s.textContainer}>
-            <h5>¡Hola Admin!</h5>
+            <h5>¡Hola {user.name}!</h5>
             <p>Estos son los pedidos del día</p>
           </div>
         </div>
@@ -117,18 +149,19 @@ const ManageOrders = () => {
             const dayOfMonth = currentDateCopy.getDate();
 
             return (
-              <div
-                key={index}
-                className={`${s.specificDate} ${
-                  index === currentDay ? s.today : s.future
-                }`}
-              >
-                <p className={s.day}>{weekday}</p>
-                <p className={`${s.num} ${saira.className}`}>{dayOfMonth}</p>
-              </div>
+              <>
+                <div
+                  key={index}
+                  className={`${s.specificDate} ${
+                    index === currentDay ? s.today : s.future
+                  }`}
+                >
+                  <p className={s.day}>{weekday}</p>
+                  <p className={`${s.num} ${saira.className}`}>{dayOfMonth}</p>
+                </div>
+              </>
             );
           })}
-
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="19"
@@ -136,7 +169,13 @@ const ManageOrders = () => {
             viewBox="0 0 19 20"
             fill="none"
             onClick={handleNextDay}
-            style={{ cursor: "pointer" }}
+            style={{
+              cursor: "pointer",
+              pointerEvents:
+                formatDate(currentDate, "dd/MM/yyyy") === currentDateCaptured
+                  ? "none"
+                  : "auto",
+            }}
           >
             <path
               d="M12.9706 10.7924C13.4906 10.3921 13.4906 9.6079 12.9706 9.20759L8.85999 6.04322C8.20243 5.53703 7.25 6.00579 7.25 6.83563L7.25 13.1644C7.25 13.9942 8.20243 14.463 8.85999 13.9568L12.9706 10.7924Z"
@@ -160,6 +199,8 @@ const ManageOrders = () => {
         <h5>Detalles</h5>
         <div className={s.dateContainer}>
           <h6>{formatDate(currentDate, "dd/MM/yyyy")}</h6>
+        </div>
+        <div className={s.arrow}>
           {show ? <DeployArrowDown /> : <DeployArrowRight />}
         </div>
       </div>
@@ -168,11 +209,22 @@ const ManageOrders = () => {
           <div className={s.info}>
             <div className={s.deliveryCard}>
               <div>
-                <PercentageGraph level={50} />
+                {formatDate(currentDate, "dd/MM/yyyy") ===
+                currentDateCaptured ? (
+                  <PieChart percent={percentDeliverymen} />
+                ) : (
+                  <PieChart percent={0} />
+                )}
               </div>
               <div className={s.text}>
                 <h6>Repartidores</h6>
-                <p>2/10 Habilitados</p>
+                {formatDate(currentDate, "dd/MM/yyyy") ===
+                currentDateCaptured ? (
+                  <p>
+                    {deliverymenEnabledQuantity}/{deliverymenQuantity}{" "}
+                    Habilitados
+                  </p>
+                ) : null}
                 <div className={s.circlesContainer}>
                   <div className={s.circle}></div>
                   <div className={s.circle}></div>
@@ -186,10 +238,28 @@ const ManageOrders = () => {
             </div>
             <hr />
             <div className={s.deliveryCard}>
-              <PercentageGraph level={32} />
+              {formatDate(currentDate, "dd/MM/yyyy") === currentDateCaptured ? (
+                <PieChart
+                  percent={
+                    100 -
+                    ((deliverymenQuantity - deliverymenEnabledQuantity) /
+                      deliverymenQuantity) *
+                      100
+                  }
+                />
+              ) : (
+                <PieChart percent={0} />
+              )}
               <div className={s.text}>
                 <h6>Paquetes</h6>
-                <p>16/20 Repartidos</p>
+                {formatDate(currentDate, "dd/MM/yyyy") ===
+                currentDateCaptured ? (
+                  <p>
+                    {" "}
+                    {deliverymenEnabledQuantity}/{deliverymenQuantity}{" "}
+                    Repartidos
+                  </p>
+                ) : null}
                 <div className={s.circlesContainer}>
                   <div className={s.circle}></div>
                   <div className={s.circle}></div>
