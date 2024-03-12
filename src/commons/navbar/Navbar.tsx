@@ -6,13 +6,14 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { userServiceLogout } from "services/user.service";
 import { removeUser } from "../../state/user";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../state/store";
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useRouter();
-  const loggedIn = true;
-  const isAdmin = true;
+  const user = useSelector((state: RootState) => state.user);
+
   const handleLogout = () => {
     dispatch(removeUser());
     userServiceLogout()
@@ -25,14 +26,18 @@ const Navbar = () => {
         <div className={s.content}>
           <Link
             href={
-              isAdmin ? "/admin/manage-orders" : "/delivery-man/start-work-day"
+              user.is_admin
+                ? "/admin/manage-orders"
+                : !user.is_admin && user.is_enabled
+                ? "/delivery-man/start-work-day"
+                : "/delivery-man/sworn-declaration"
             }
           >
             <Box />
           </Link>
           <button
             onClick={handleLogout}
-            style={{ display: loggedIn ? `block` : `none` }}
+            style={{ display: user.id ? `block` : `none` }}
           >
             Cerrar sesión
           </button>

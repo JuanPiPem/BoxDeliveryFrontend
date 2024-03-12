@@ -145,7 +145,7 @@
     text-transform: uppercase;
   }
   .dateContainer {
-    margin-right: 20px;
+    margin-left: 80px;
     h6 {
       all: unset;
       margin-right: 9px;
@@ -155,6 +155,10 @@
       letter-spacing: 0.15px;
     }
   }
+}
+
+.arrow {
+  margin-right: 20px;
 }
 
 .detailsContainer {
