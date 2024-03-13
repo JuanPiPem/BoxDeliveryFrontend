@@ -9,7 +9,7 @@ export const packageServiceAddPackage = async (formData: object) => {
   return res;
 };
 
-export const packageServiceGetAll = async () => {
+export const packageServiceGetUnassigned = async () => {
   const res = await axios.get(
     `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/packages/`
   );
@@ -20,7 +20,7 @@ export const packageServiceGetSingleById = async (id: string) => {
   const res = await axios.get(
     `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/packages/single/${id}`
   );
-  return res;
+  return res.data;
 };
 
 export const packageServiceGetPackagesByUserIdAndStatus = async (
@@ -35,7 +35,7 @@ export const packageServiceGetPackagesByUserIdAndStatus = async (
 
 export const packageServiceAssignPackage = async (
   packageId: string,
-  userId: number
+  userId: string | null
 ) => {
   const res = await axios.put(
     `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/packages/assign-package/${packageId}/${userId}`
@@ -43,9 +43,23 @@ export const packageServiceAssignPackage = async (
   return res;
 };
 
+export const packageServiceStartTrip = async (packageId: string) => {
+  const res = await axios.put(
+    `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/packages/start/${packageId}`
+  );
+  return res;
+};
+
 export const packageServiceFinishTrip = async (packageId: string) => {
   const res = await axios.put(
     `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/packages/finish-trip/${packageId}`
+  );
+  return res;
+};
+
+export const packageServiceCancelTrip = async (packageId: string) => {
+  const res = await axios.put(
+    `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/packages/cancel-trip/${packageId}`
   );
   return res;
 };

@@ -7,86 +7,73 @@ import ButtonDarkBlue from "commons/buttonDarkBlue/ButtonDarkBlue";
 import VectorDown from "assets/img/VectorDown";
 import VectorUp from "assets/img/VectorUp";
 import SelectPackage from "commons/selectPackage/SelectPackage";
-import Link from "next/link";
+import {
+  packageServiceAssignPackage,
+  packageServiceGetUnassigned,
+} from "services/package.service";
+import { useSelector } from "react-redux";
+import { RootState } from "state/store";
+import { Toaster, toast } from "sonner";
+import { useRouter } from "next/navigation";
+
+type item = {
+  id: string;
+  receiver_name: string;
+  address: string;
+  status: string;
+  date: string;
+  weight: number;
+  user_id: number;
+  checked: boolean;
+};
 
 const GetPackages = () => {
-  interface FakeData {
-    address: string;
-    checked: boolean;
-  }
-
-  const arrayFakeData: FakeData[] = [
-    {
-      address: "Av. Carabobo y Rivadavia, CABA",
-      checked: true,
-    },
-    {
-      address: "Castillo 670, CABA",
-      checked: true,
-    },
-    {
-      address: "Melian 1242, CABA",
-      checked: true,
-    },
-    {
-      address: "Av. Carabobo y Rivadavia",
-      checked: false,
-    },
-    {
-      address: "Av. Colón",
-      checked: false,
-    },
-    {
-      address: "Av. Canadá",
-      checked: false,
-    },
-    {
-      address: "Mar del Plata",
-      checked: false,
-    },
-    {
-      address: "Rio Negro",
-      checked: false,
-    },
-    {
-      address: "Av. Carabobo y Rivadavia",
-      checked: false,
-    },
-    {
-      address: "Cabimas 2425, Bs Aires",
-      checked: false,
-    },
-  ];
-
+  const router = useRouter();
+  const [packages, setPackages] = useState(Object);
   const [isScrollable, setIsScrollable] = useState(false);
   const [atBottom, setAtBottom] = useState(false);
-
   const packagesListRef = useRef<HTMLDivElement>(null);
+  const user = useSelector((state: RootState) => state.user);
+  const checkedPackageIds = useSelector(
+    (state: RootState) => state.checkedPackages
+  );
 
   const handleVectorContainerClick = () => {
     if (packagesListRef.current) {
       const currentScrollTop = packagesListRef.current.scrollTop;
       packagesListRef.current.scrollTop = currentScrollTop + 50;
-
       const atBottom =
         packagesListRef.current.scrollTop +
           packagesListRef.current.clientHeight >=
         packagesListRef.current.scrollHeight - 10;
-
       setAtBottom(atBottom);
     }
   };
 
   const handleVectorUpClick = () => {
     if (packagesListRef.current) {
-      // Utiliza scrollTo para llevar al inicio del scroll
       packagesListRef.current.scrollTo({
         top: 0,
-        behavior: "auto", // Cambiado a "auto" para un desplazamiento instantáneo
+        behavior: "auto",
       });
-
       setAtBottom(false);
     }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!user.id) throw new Error();
+    checkedPackageIds.map(async (packageId) => {
+      await packageServiceAssignPackage(packageId, user.id);
+      try {
+        router.push("/delivery-man/start-work-day");
+      } catch (error) {
+        return toast.error("Hubo un problema con la asignacion de paquetes", {
+          description: "Refresque la pagina e intente nuevamente",
+        });
+      }
+    });
   };
 
   useEffect(() => {
@@ -96,13 +83,10 @@ const GetPackages = () => {
           packagesListRef.current.scrollHeight >
           packagesListRef.current.clientHeight;
         setIsScrollable(scrolled);
-
-        // Verifica si el scroll está cerca del final
         const atBottom =
           packagesListRef.current.scrollTop +
             packagesListRef.current.clientHeight >=
-          packagesListRef.current.scrollHeight - 1; // Cambiado a "-1" para que se considere inmediatamente al llegar al final
-
+          packagesListRef.current.scrollHeight - 1;
         setAtBottom(atBottom);
       }
     };
@@ -115,6 +99,12 @@ const GetPackages = () => {
 
     return () => {};
   }, [isScrollable, atBottom]);
+
+  useEffect(() => {
+    packageServiceGetUnassigned()
+      .then((unassignedPackages) => setPackages(unassignedPackages))
+      .catch((err) => console.error(err));
+  }, []);
 
   return (
     <div className={s.addPackagesContainer}>
@@ -131,21 +121,17 @@ const GetPackages = () => {
           className={`${s.packagesList} ${isScrollable ? s.scrolled : ""}`}
           ref={packagesListRef}
         >
-          {arrayFakeData.map((item, index) => (
-            <>
-              <div key={index}>
-                <Link href={"/delivery-man/delivery-in-progress"}>
-                  <SelectPackage
-                    address={item.address}
-                    checked={item.checked}
-                  />
-                </Link>
-              </div>
-              {index < arrayFakeData.length - 1 && <hr className={s.lastHr} />}
-            </>
-          ))}
+          {packages[0] &&
+            packages.map((item: item, index: number) => (
+              <>
+                <div key={item.id}>
+                  <SelectPackage package={item} />
+                </div>
+                {index < packages?.length - 1 && <hr className={s.lastHr} />}
+              </>
+            ))}
         </div>
-        {arrayFakeData.length > 8 ? (
+        {packages?.length > 8 ? (
           <div
             className={s.vectorContainer}
             onClick={
@@ -158,12 +144,11 @@ const GetPackages = () => {
             </div>
           </div>
         ) : null}
-        <div className={`${s.button}`}>
-          <Link href={"/delivery-man/start-work-day"}>
-            <ButtonDarkBlue text="Iniciar Jornada" />
-          </Link>
+        <div className={`${s.button}`} onClick={handleSubmit}>
+          <ButtonDarkBlue text="Iniciar Jornada" />
         </div>
       </div>
+      <Toaster richColors position="top-center" />
     </div>
   );
 };

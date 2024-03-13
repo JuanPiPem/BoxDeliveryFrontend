@@ -2,7 +2,7 @@ import React from "react";
 import s from "./buttonDarkBlue.module.scss";
 
 type Prop = {
-  text: string;
+  text: string | undefined;
 };
 
 const ButtonDarkBlue = (prop: Prop) => {
