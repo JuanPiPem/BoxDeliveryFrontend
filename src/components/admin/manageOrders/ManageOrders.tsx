@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import { userServiceGetNumberOfDeliverymenAndEnadledDeliverymen } from "services/user.service";
 import PieChart from "commons/pieChart/PieChart";
 import { RootState } from "../../../state/store";
+import { packageServiceGetNumberOfPacakgesAndPackagesStatusByDate } from "services/package.service";
 
 const saira = Saira({ subsets: ["latin"], weight: "700" });
 
@@ -40,7 +41,9 @@ const ManageOrders = () => {
   const [deliverymenEnabledQuantity, setDeliverymenEnabledQuantity] =
     useState(0);
   const [percentDeliverymen, setPercentDeliverymen] = useState(0);
-  //const [percentPackages, setPercentPackages] = useState(0);
+  const [packagesQuantity, setPackagesQuantity] = useState(0);
+  const [ongoingPackagesQuantity, setOngoingPackagesQuantity] = useState(0);
+  const [percentPackages, setPercentPackages] = useState(0);
   const currentDateCaptured = new Date().toLocaleDateString("es-ES", {
     day: "2-digit",
     month: "2-digit",
@@ -48,10 +51,18 @@ const ManageOrders = () => {
   });
 
   useEffect(() => {
-    userServiceGetNumberOfDeliverymenAndEnadledDeliverymen()
-      .then((response) => {
+    userServiceGetNumberOfDeliverymenAndEnadledDeliverymen().then(
+      (response) => {
         setDeliverymenQuantity(response.deliverymenQuantity);
         setDeliverymenEnabledQuantity(response.enabledDeliverymenQuantity);
+      }
+    );
+    packageServiceGetNumberOfPacakgesAndPackagesStatusByDate(
+      formatDate(currentDate, "yyyy-MM-dd")
+    )
+      .then((response) => {
+        setPackagesQuantity(response.packagesQuantity);
+        setOngoingPackagesQuantity(response.ongoingPackagesQuantity);
       })
       .catch((err) => console.error(err));
   }, []);
@@ -64,6 +75,13 @@ const ManageOrders = () => {
           100
     );
   }, [deliverymenQuantity, deliverymenEnabledQuantity]);
+
+  useEffect(() => {
+    setPercentPackages(
+      100 -
+        ((packagesQuantity - ongoingPackagesQuantity) / packagesQuantity) * 100
+    );
+  }, [packagesQuantity, ongoingPackagesQuantity]);
 
   const toggle = () => {
     setShow((prevState) => !prevState);
@@ -239,14 +257,7 @@ const ManageOrders = () => {
             <hr />
             <div className={s.deliveryCard}>
               {formatDate(currentDate, "dd/MM/yyyy") === currentDateCaptured ? (
-                <PieChart
-                  percent={
-                    100 -
-                    ((deliverymenQuantity - deliverymenEnabledQuantity) /
-                      deliverymenQuantity) *
-                      100
-                  }
-                />
+                <PieChart percent={percentPackages} />
               ) : (
                 <PieChart percent={0} />
               )}
@@ -256,8 +267,7 @@ const ManageOrders = () => {
                 currentDateCaptured ? (
                   <p>
                     {" "}
-                    {deliverymenEnabledQuantity}/{deliverymenQuantity}{" "}
-                    Repartidos
+                    {ongoingPackagesQuantity}/{packagesQuantity} Repartidos
                   </p>
                 ) : null}
                 <div className={s.circlesContainer}>

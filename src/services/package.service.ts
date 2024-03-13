@@ -56,3 +56,12 @@ export const packageServiceRemoveAssignPackage = async (packageId: string) => {
   );
   return res;
 };
+
+export const packageServiceGetNumberOfPacakgesAndPackagesStatusByDate = async (
+  date: string
+) => {
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/packages/number-of-pacakges-and-packages-ongoing-by-date/${date}`
+  );
+  return res.data;
+};

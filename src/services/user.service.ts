@@ -102,7 +102,7 @@ export const userServiceGetDeliverymen = async () => {
 export const userServiceGetNumberOfDeliverymenAndEnadledDeliverymen =
   async () => {
     const res = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/users//number-of-deliverymen-and-enabled-deliverymen`
+      `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/users/number-of-deliverymen-and-enabled-deliverymen`
     );
     return res.data;
   };
