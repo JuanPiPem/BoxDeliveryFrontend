@@ -6,8 +6,6 @@ import Header from "commons/header/Header";
 import TableListPackages from "commons/tableListPackages/TableListPackages";
 import VectorDown from "assets/img/VectorDown";
 import VectorUp from "assets/img/VectorUp";
-import ButtonDarkBlue from "commons/buttonDarkBlue/ButtonDarkBlue";
-import Link from "next/link";
 
 const getFormattedDate = () => {
   const currentDate = new Date();
@@ -183,11 +181,6 @@ const Packages = () => {
             </div>
           </div>
         ) : null}
-        <div className={`${s.button}`}>
-          <Link href={"/admin/add-packages"}>
-            <ButtonDarkBlue text="Nuevo paquete" />
-          </Link>
-        </div>
       </div>
     </div>
   );
