@@ -13,7 +13,6 @@ type Prop = {
   status: string;
   packageNumber: string;
   address: string;
-  city: string;
 };
 //The viewType can be: "paquetes-admin", "perfil-repartidor" o "home-repartidor"
 //The sections can be: "repartos-pendientes" "historial-repartos"
@@ -33,9 +32,8 @@ const TableListPackages = (prop: Prop) => {
         <div className={`${s.div1}`}>
           <Package />
           <div className={`${s.div2}`}>
-            <p className={`${s.txt} ${s.fontBold}`}>{prop.packageNumber}</p>
+            <p className={`${s.txt} ${s.fontBold}`}>#{prop.packageNumber}</p>
             <p className={`${s.txt} ${s.fontNormal}`}>{prop.address},</p>
-            <p className={`${s.txt} ${s.fontNormal}`}>{prop.city}</p>
           </div>
         </div>
         <div className={`${s.div3}`}>

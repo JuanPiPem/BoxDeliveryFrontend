@@ -1,48 +1,82 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import s from "./startWorkDay.module.scss";
 import ButtonDarkBlue from "commons/buttonDarkBlue/ButtonDarkBlue";
 import DeliveriesHistory from "commons/deliveriesHistory/DeliveriesHistory";
 import PendingDeliveries from "commons/pendingDeliveries/PendingDeliveries";
 import Link from "next/link";
-import { fakeData } from "utils/fakeData";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../state/store";
+import { packageServiceGetPackagesByUserIdAndStatus } from "services/package.service";
 
 const StartWorkDay = () => {
-  interface FakeData {
-    packageNumber: string;
-    address: string;
-    city: string;
-    status: string;
-  }
+  const [pendingPackages, setPendingPackages] = useState([]);
+  const [deliveredPackages, setDeliverdPackages] = useState([]);
+  const user = useSelector((state: RootState) => state.user);
+  console.log(pendingPackages);
+  useEffect(() => {
+    const fetchPendingPackages = async () => {
+      try {
+        if (user.id !== null) {
+          const response = await packageServiceGetPackagesByUserIdAndStatus(
+            user.id,
+            "pending"
+          );
+          setPendingPackages(response);
+        } else {
+          console.error("User ID is null");
+        }
+      } catch (error) {
+        console.error("Error fetching pending packages:", error);
+      }
+    };
 
-  const arrayFakeDataPendingPackages: FakeData[] = fakeData;
-  const arrayFakeData: FakeData[] = fakeData;
+    fetchPendingPackages();
+  }, [user]);
+
+  useEffect(() => {
+    const fetchDeliveredPackages = async () => {
+      try {
+        if (user.id !== null) {
+          const response = await packageServiceGetPackagesByUserIdAndStatus(
+            user.id,
+            "delivered"
+          );
+          setDeliverdPackages(response);
+        } else {
+          console.error("User ID is null");
+        }
+      } catch (error) {
+        console.error("Error fetching pending packages:", error);
+      }
+    };
+
+    fetchDeliveredPackages();
+  }, [user]);
 
   return (
-    <>
-      <div className={s.packagesContainer}>
-        <div className={s.packagesContentContainer}>
-          <PendingDeliveries
-            arrayPackages={arrayFakeDataPendingPackages}
-            view="home-repartidor"
-            section="repartos-pendientes"
-          />
-          <DeliveriesHistory
-            arrayPackages={arrayFakeData}
-            view="home-repartidor"
-            section="historial-repartos"
-          />
-          {/*           Corregir el botón para que siempre que pegado al final de la 
+    <div className={s.packagesContainer}>
+      <div className={s.packagesContentContainer}>
+        <PendingDeliveries
+          arrayPackages={pendingPackages}
+          view="home-repartidor"
+          section="repartos-pendientes"
+        />
+        <DeliveriesHistory
+          arrayPackages={deliveredPackages}
+          view="home-repartidor"
+          section="historial-repartos"
+        />
+        {/*           Corregir el botón para que siempre que pegado al final de la 
           página a 10px de separación */}
-          <Link href={"/delivery-man/get-packages"}>
-            <div className={s.buttonGetPackages}>
-              <ButtonDarkBlue text="Obtener Paquetes" />
-            </div>
-          </Link>
-        </div>
+        <Link href={"/delivery-man/get-packages"}>
+          <div className={s.buttonGetPackages}>
+            <ButtonDarkBlue text="Obtener Paquetes" />
+          </div>
+        </Link>
       </div>
-    </>
+    </div>
   );
 };
 

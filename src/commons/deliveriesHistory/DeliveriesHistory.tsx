@@ -8,21 +8,21 @@ import VectorDown from "assets/img/VectorDown";
 import VectorUp from "assets/img/VectorUp";
 import DeployArrowDown from "assets/img/DeployArrowDown";
 import DeployArrowRight from "assets/img/DeployArrowRight";
+import Link from "next/link";
 
 const saira = Saira({
   weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
 });
 
-interface FakeData {
-  packageNumber: string;
+type items = {
+  id: string;
   address: string;
-  city: string;
   status: string;
-}
+};
 
 type Prop = {
-  arrayPackages: Array<FakeData>;
+  arrayPackages: Array<items>;
   view: string;
   section: string;
 };
@@ -102,7 +102,7 @@ function DeliveriesHistory(prop: Prop) {
       }
     };
   }, [isScrollable, show, atBottom]);
-
+  console.log(prop.arrayPackages);
   return (
     <>
       <div
@@ -137,19 +137,22 @@ function DeliveriesHistory(prop: Prop) {
             ref={packagesListRef}
           >
             <div>
-              <div className={s.packagesNumber}>58 paquetes entregados</div>
-              {prop.arrayPackages.map((item) => (
-                <div key={item.packageNumber}>
+              <div className={s.packagesNumber}>
+                {prop.arrayPackages.length} paquetes entregados
+              </div>
+              {prop.arrayPackages.map((item: items, index) => (
+                <div key={index}>
                   <hr className={s.hr} />
                   <div className={s.boxTrash}>
-                    <TableListPackages
-                      packageNumber={item.packageNumber}
-                      address={item.address}
-                      city={item.city}
-                      viewType={prop.view}
-                      section={prop.section}
-                      status={item.status}
-                    />
+                    <Link href={"/delivery-man/delivery-in-progress"}>
+                      <TableListPackages
+                        packageNumber={item.id}
+                        address={item.address}
+                        viewType={prop.view}
+                        section={prop.section}
+                        status={item.status}
+                      />
+                    </Link>
                   </div>
                 </div>
               ))}

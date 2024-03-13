@@ -24,7 +24,7 @@ export const packageServiceGetSingleById = async (id: string) => {
 };
 
 export const packageServiceGetPackagesByUserIdAndStatus = async (
-  userId: number,
+  userId: number | null,
   status: string
 ) => {
   const res = await axios.get(
