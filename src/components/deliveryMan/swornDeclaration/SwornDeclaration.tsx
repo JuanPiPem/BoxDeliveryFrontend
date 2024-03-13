@@ -4,11 +4,11 @@ import Header from "commons/header/Header";
 import ButtonDarkBlue from "commons/buttonDarkBlue/ButtonDarkBlue";
 import s from "./swornDeclaration.module.scss";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../../state/store";
 import { useRouter } from "next/navigation";
-import { removeUser } from "../../../state/user";
-import { userServiceLogout } from "services/user.service";
+//import { removeUser } from "../../../state/user";
+//import { userServiceLogout } from "services/user.service";
 
 const SwornDeclaration = () => {
   const [cuestionA, setCuestionA] = useState("");
@@ -17,7 +17,7 @@ const SwornDeclaration = () => {
 
   const user = useSelector((state: RootState) => state.user); // Acceder a la información del usuario
   const navigate = useRouter();
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
 
   const handleOptionChange = (
     event: ChangeEvent<HTMLInputElement>,
@@ -33,29 +33,29 @@ const SwornDeclaration = () => {
     }
   };
 
-  const handleLogout = () => {
+  /*   const handleLogout = () => {
     dispatch(removeUser());
     userServiceLogout()
       .then(() => navigate.push("/login"))
       .catch((err) => console.error(err));
-  };
+  }; */
 
   const handleSumit = () => {
     if (cuestionA === "si" || cuestionA === "")
-      alert(
-        "Usted cumple con una condicion por ende se le restringe la jornada"
+      return alert(
+        "usted cumple con una condicion por ende se le restringe la jornada"
       );
-    handleLogout();
+    //handleLogout();
     if (cuestionB === "si" || cuestionB === "")
-      alert(
-        "Usted cumple con una condicion por ende se le restringe la jornada"
+      return alert(
+        "usted cumple con una condicion por ende se le restringe la jornada"
       );
-    handleLogout();
+    //handleLogout();
     if (cuestionC === "si" || cuestionC === "")
-      alert(
-        "Usted cumple con una condicion por ende se le restringe la jornada"
+      return alert(
+        "usted cumple con una condicion por ende se le restringe la jornada"
       );
-    handleLogout();
+    //handleLogout();
 
     axios
       .put(
