@@ -12,9 +12,10 @@ import { packageServiceGetPackagesByUserIdAndStatus } from "services/package.ser
 
 const StartWorkDay = () => {
   const [pendingPackages, setPendingPackages] = useState([]);
+  const [ongoingPackages, setOngoingPackages] = useState([]);
   const [deliveredPackages, setDeliverdPackages] = useState([]);
   const user = useSelector((state: RootState) => state.user);
-  console.log(pendingPackages);
+
   useEffect(() => {
     const fetchPendingPackages = async () => {
       try {
@@ -48,18 +49,40 @@ const StartWorkDay = () => {
           console.error("User ID is null");
         }
       } catch (error) {
-        console.error("Error fetching pending packages:", error);
+        console.error("Error fetching delivered packages:", error);
       }
     };
 
     fetchDeliveredPackages();
   }, [user]);
 
+  useEffect(() => {
+    const fetchOngoingPackages = async () => {
+      try {
+        if (user.id !== null) {
+          const response = await packageServiceGetPackagesByUserIdAndStatus(
+            user.id,
+            "ongoing"
+          );
+          setOngoingPackages(response);
+        } else {
+          console.error("User ID is null");
+        }
+      } catch (error) {
+        console.error("Error fetching ongoing packages:", error);
+      }
+    };
+
+    fetchOngoingPackages();
+  }, [user]);
+
+  const combinedPackages = [...pendingPackages, ...ongoingPackages];
+
   return (
     <div className={s.packagesContainer}>
       <div className={s.packagesContentContainer}>
         <PendingDeliveries
-          arrayPackages={pendingPackages}
+          arrayPackages={combinedPackages}
           view="home-repartidor"
           section="repartos-pendientes"
         />
