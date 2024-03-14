@@ -1,11 +1,8 @@
 import Unchecked from "assets/img/Unchecked";
 import s from "./selectPackage.module.scss";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Checked from "assets/img/Checked";
 import Link from "next/link";
-import { useDispatch /*useSelector*/ } from "react-redux";
-import { setCheckedPackages } from "state/packages";
-// import { RootState } from "state/store";
 
 type Prop = {
   package: typePackage;
@@ -22,17 +19,31 @@ type typePackage = {
 };
 
 function SelectPackage(prop: Prop) {
-  // const checkedPackageIds = useSelector(
-  //   (state: RootState) => state.checkedPackages
-  // );
-  // console.log(`🚀 - checkedPackageIds:`, checkedPackageIds);
-
-  const dispatch = useDispatch();
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [checked, setChecked] = useState(false);
   const handleClick = () => {
-    setChecked(!checked);
-    dispatch(setCheckedPackages({ id: prop.package.id }));
+    if (typeof window !== "undefined") {
+      const storedIds = localStorage.getItem("selectedIds");
+      const ids = storedIds ? JSON.parse(storedIds) : [];
+      const index = ids.indexOf(prop.package.id);
+      if (index !== -1) {
+        ids.splice(index, 1);
+      } else {
+        ids.push(prop.package.id);
+      }
+      localStorage.setItem("selectedIds", JSON.stringify(ids));
+      setSelectedIds(ids);
+    }
   };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedIds = localStorage.getItem("selectedIds");
+      if (storedIds?.indexOf(prop.package.id) === -1) {
+        return setChecked(false);
+      } else return setChecked(true);
+    }
+  }, [checked, prop.package.id, selectedIds]);
 
   return (
     <div className={s.addressListContainer}>
