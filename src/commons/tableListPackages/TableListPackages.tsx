@@ -13,7 +13,6 @@ type Prop = {
   status: string;
   packageNumber: string;
   address: string;
-  city: string;
 };
 //The viewType can be: "paquetes-admin", "perfil-repartidor" o "home-repartidor"
 //The sections can be: "repartos-pendientes" "historial-repartos"
@@ -26,7 +25,8 @@ const TableListPackages = (prop: Prop) => {
   const handleIniciarClick = () => {
     setIniciarClicked(true);
   };
-
+  console.log(prop.viewType);
+  console.log(prop.status);
   return (
     <>
       <div className={`${s.container}`}>
@@ -35,7 +35,6 @@ const TableListPackages = (prop: Prop) => {
           <div className={`${s.div2}`}>
             <p className={`${s.txt} ${s.fontBold}`}>{prop.packageNumber}</p>
             <p className={`${s.txt} ${s.fontNormal}`}>{prop.address},</p>
-            <p className={`${s.txt} ${s.fontNormal}`}>{prop.city}</p>
           </div>
         </div>
         <div className={`${s.div3}`}>
@@ -44,27 +43,27 @@ const TableListPackages = (prop: Prop) => {
             <div
               className={`${s.statusContainer}`}
               id={
-                prop.status === "pendiente" && !iniciarClicked
+                prop.status === "pending" && !iniciarClicked
                   ? s.PENDIENTE
-                  : prop.status === "en-curso" ||
-                    (prop.status === "pendiente" && iniciarClicked)
+                  : prop.status === "ongoing" ||
+                    (prop.status === "pending" && iniciarClicked)
                   ? s.EN_CURSO
                   : s.ENTREGADO
               }
             >
-              {prop.status === "pendiente" && !iniciarClicked ? (
+              {prop.status === "pending" && !iniciarClicked ? (
                 <StatusPending />
-              ) : prop.status === "en-curso" ||
-                (prop.status === "pendiente" && iniciarClicked) ? (
+              ) : prop.status === "ongoing" ||
+                (prop.status === "pending" && iniciarClicked) ? (
                 <StatusInProgress />
               ) : (
                 <StatusDelivered />
               )}
               <p className={`${s.statusText}`}>
-                {prop.status === "pendiente" && !iniciarClicked
+                {prop.status === "pending" && !iniciarClicked
                   ? "PENDIENTE"
-                  : prop.status === "en-curso" ||
-                    (prop.status === "pendiente" && iniciarClicked)
+                  : prop.status === "ongoing" ||
+                    (prop.status === "pending" && iniciarClicked)
                   ? "EN CURSO"
                   : "ENTREGADO"}
               </p>
@@ -72,7 +71,7 @@ const TableListPackages = (prop: Prop) => {
           ) : null}
           {prop.viewType === "home-repartidor" &&
           prop.section === "repartos-pendientes" &&
-          prop.status === "pendiente" &&
+          prop.status === "pending" &&
           !iniciarClicked ? (
             <button className={`${s.button}`} onClick={handleIniciarClick}>
               Iniciar

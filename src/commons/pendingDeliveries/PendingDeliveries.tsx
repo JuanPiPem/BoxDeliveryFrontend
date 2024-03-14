@@ -14,15 +14,15 @@ const saira = Saira({
   weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
 });
-interface FakeData {
-  packageNumber: string;
+
+type items = {
+  id: string;
   address: string;
-  city: string;
   status: string;
-}
+};
 
 type Prop = {
-  arrayPackages: Array<FakeData>;
+  arrayPackages: Array<items>;
   view: string;
   section: string;
 };
@@ -100,7 +100,7 @@ function PendingDeliveries(prop: Prop) {
       }
     };
   }, [isScrollable, show, atBottom]);
-
+  console.log(prop.arrayPackages);
   return (
     <>
       <div
@@ -139,17 +139,17 @@ function PendingDeliveries(prop: Prop) {
             ref={packagesListRef}
           >
             <div>
-              {prop.arrayPackages.map((item, index) => (
-                <div key={item.packageNumber}>
+              {prop.arrayPackages.map((item: items, index) => (
+                <div key={index}>
                   <div className={s.boxTrash}>
-                    {prop.view === "home-repartidor" &&
-                    prop.section === "repartos-pendientes" &&
-                    item.status === "en-curso" ? (
+                    {(prop.view === "home-repartidor" &&
+                      prop.section === "repartos-pendientes" &&
+                      item.status === "pending") ||
+                    item.status === "ongoing" ? (
                       <Link href={"/delivery-man/delivery-in-progress"}>
                         <TableListPackages
-                          packageNumber={item.packageNumber}
+                          packageNumber={item.id}
                           address={item.address}
-                          city={item.city}
                           viewType={prop.view}
                           section={prop.section}
                           status={item.status}
@@ -157,9 +157,8 @@ function PendingDeliveries(prop: Prop) {
                       </Link>
                     ) : (
                       <TableListPackages
-                        packageNumber={item.packageNumber}
+                        packageNumber={item.id}
                         address={item.address}
-                        city={item.city}
                         viewType={prop.view}
                         section={prop.section}
                         status={item.status}
