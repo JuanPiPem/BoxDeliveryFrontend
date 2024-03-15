@@ -6,21 +6,18 @@ import ButtonDarkBlue from "commons/buttonDarkBlue/ButtonDarkBlue";
 import Map from "../map/Map";
 import { useParams, useRouter } from "next/navigation";
 import {
-  packageServiceAssignPackage,
   packageServiceCancelTrip,
   packageServiceFinishTrip,
   packageServiceGetSingleById,
-  packageServiceRemoveAssignPackage,
   packageServiceStartTrip,
 } from "services/package.service";
 import { Toaster, toast } from "sonner";
-import { useSelector } from "react-redux";
-import { RootState } from "state/store";
+
 const DeliveryInProgress = () => {
   const router = useRouter();
   const params = useParams();
-  const user = useSelector((state: RootState) => state.user);
   const [singlePackage, setSinglePackage] = useState(Object);
+  const [status, setStatus] = useState("");
 
   useEffect(() => {
     packageServiceGetSingleById(params.id.toString()).then((singlePackage) =>
@@ -28,11 +25,23 @@ const DeliveryInProgress = () => {
     );
   }, [params]);
 
+  useEffect(() => {
+    singlePackage.status === `pending` &&
+      singlePackage.user_id === null &&
+      setStatus("pending unassigned");
+
+    singlePackage.status === `pending` &&
+      singlePackage.user_id !== null &&
+      setStatus("pending assigned");
+
+    singlePackage.status === `ongoing` && setStatus("ongoing");
+
+    singlePackage.status === `delivered` && setStatus("delivered");
+  }, [singlePackage.status, singlePackage.user_id]);
+
   const handleClick = async () => {
-    if (singlePackage.status === `pending`) {
-      if (singlePackage.user_id !== user.id) {
-        return toast.warning("Primero debes asignarte este paquete");
-      }
+    if (status === `pending unassigned`) return router.back();
+    if (status === `pending assigned`) {
       await packageServiceStartTrip(params.id.toString());
       try {
         return toast.success("Comenzo el reparto", {
@@ -44,63 +53,48 @@ const DeliveryInProgress = () => {
         });
       }
     }
-    if (singlePackage.status === "ongoing") {
+    if (status === `ongoing`) {
       await packageServiceFinishTrip(params.id.toString());
       try {
-        return toast.success("Finalizaste el viaje exitosamente", {
+        toast.success("Finalizaste el viaje exitosamente", {
           description: "Al siguiente paquete -->",
         });
+        return setTimeout(() => {
+          router.push("/delivery-man/start-work-day");
+        }, 1200);
       } catch (error) {
         return toast.error("No se pudo finalizar el viaje", {
           description: "Refresque e intente nuevamente!",
         });
       }
     }
-    if (singlePackage.status === "delivered")
+    if (status === `delivered`)
       return router.push("/delivery-man/start-work-day");
-    singlePackage.status === `pending`
-      ? `comenzar`
-      : singlePackage.status === `ongoing`
-      ? `finalizar`
-      : "ni idea";
   };
 
   const handleCancelClick = async () => {
-    if (
-      singlePackage.user_id === user.id &&
-      singlePackage.status === "pending"
-    ) {
-      await packageServiceRemoveAssignPackage(params.id.toString());
-      try {
-        return toast.success("Liberaste el paquete");
-      } catch (error) {
-        return toast.error("Error");
-      }
+    await packageServiceCancelTrip(singlePackage.id);
+    try {
+      return router.push("/delivery-man/start-work-day");
+    } catch (error) {
+      return toast.error(`${error}`);
     }
-    if (
-      singlePackage.user_id === user.id &&
-      singlePackage.status === "ongoing"
-    ) {
-      await packageServiceCancelTrip(params.id.toString());
-      try {
-        return toast.success("Reparto cancelado");
-      } catch (error) {
-        return toast.error("Error");
-      }
-    }
-    if (singlePackage.user_id === null) {
-      await packageServiceAssignPackage(params.id.toString(), user.id);
-      try {
-        return toast.success("Se te ha asignado el paquete");
-      } catch (error) {
-        return toast.error("Error");
-      }
+  };
+  const packageStatus = () => {
+    if (status === "pending unassigned" || status === "pending assigned") {
+      return "pendiente";
+    } else if (status === "ongoing") {
+      return "en curso";
+    } else if (status === "delivered") {
+      return "entregado";
+    } else {
+      return "pendiente";
     }
   };
   return (
     <>
       <div className={s.inProgressConteiner}>
-        <Header text="reparto en curso" />
+        <Header text={`reparto ${packageStatus()}`} />
         <div className={s.inProgressMap}>
           <div className={s.map}>
             <Map />
@@ -121,24 +115,26 @@ const DeliveryInProgress = () => {
           <div className="darkblue" onClick={handleClick}>
             <ButtonDarkBlue
               text={
-                singlePackage.status === `ongoing`
-                  ? `finalizar`
-                  : singlePackage.status === `pending`
-                  ? `comenzar`
-                  : "Home"
+                status === "pending unassigned"
+                  ? "volver"
+                  : status === "pending assigned"
+                  ? "comenzar"
+                  : status === "ongoing"
+                  ? "finalizar"
+                  : status === "delivered"
+                  ? "volver"
+                  : "volver"
               }
             />
           </div>
-          <button className={s.btnCancelDelivery} onClick={handleCancelClick}>
-            {singlePackage.user_id === user.id &&
-            singlePackage.status === "pending"
-              ? "Liberar paquete a otro repartidor"
-              : singlePackage.user_id === user.id &&
-                singlePackage.status === "ongoing"
-              ? "cancelar entrega"
-              : singlePackage.user_id === null
-              ? "asignarme paquete"
-              : "reportar problema"}
+          <button
+            className={s.btnCancelDelivery}
+            onClick={handleCancelClick}
+            style={{
+              display: status === `ongoing` ? "block" : "none",
+            }}
+          >
+            cancelar entrega
           </button>
         </div>
         <Toaster richColors position="top-center" expand={true} />

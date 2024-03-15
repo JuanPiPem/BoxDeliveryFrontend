@@ -1,17 +1,17 @@
 @import "../../../app/globals.scss";
 
-.swornDeclarationContainer{
+.swornDeclarationContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.declarationContainer{
+.declarationContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
- justify-content: center;
- margin-top: 10px;
+  justify-content: center;
+  margin-top: 10px;
 }
 .declarationContainer > div {
   width: 300px;
@@ -21,7 +21,7 @@
   margin-bottom: 10px;
 }
 
-.cuestion{
+.cuestion {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,16 +29,16 @@
   padding: 15px;
 }
 
-.cuestion > text{
+.cuestion > text {
   text-align: center;
   color: #24424ddb;
   font-size: 15px;
   font-style: normal;
   font-weight: 400;
-  margin: 0 auto ;
+  margin: 0 auto;
   padding: 0 10px;
 }
-.cuestion > p{
+.cuestion > p {
   text-align: center;
   color: #24424da9;
   font-size: 10px;
@@ -49,53 +49,52 @@
   padding: 0 20px;
 }
 
-.line{
+.line {
   width: 100%;
   height: 0.5px;
   margin: 10px auto;
   background-color: rgba(0, 0, 0, 0.867);
 }
-.customRadio{
+.customRadio {
   display: flex;
   flex-direction: row;
   width: 100%;
   height: max-content;
   align-items: center;
   align-content: center;
- justify-content: center;
- margin-left: -30px;
+  justify-content: center;
+  margin-left: -30px;
 }
-.customRadio > label{
-text-transform: capitalize; 
-display: flex;
-flex-direction: row;
-align-items:end;
-align-content:center;
-margin-left:30px;
-
+.customRadio > label {
+  text-transform: capitalize;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  align-content: center;
+  margin-left: 30px;
 }
-.customRadio > label > input{
+.customRadio > label > input {
   width: 20px;
   height: 20px;
   margin-right: 6px;
 }
-.customRadio > label > input:checked{
+.customRadio > label > input:checked {
   width: 20px;
   height: 20px;
 }
-.span{
-position:relative;
-top: 8px; 
-left: 10px;
-font-size:10px;
-color: #24424d;
-width: max-content;
-height: max-content;
-border-radius: 5px;
-padding: 1px 10px;
-margin-bottom: 0px;
-background-color: $light-violet;;
+.span {
+  position: relative;
+  top: 8px;
+  left: 10px;
+  font-size: 10px;
+  color: #24424d;
+  width: max-content;
+  height: max-content;
+  border-radius: 5px;
+  padding: 1px 10px;
+  margin-bottom: 0px;
+  background-color: $light-violet;
 }
-.btnContinue{
+.btnContinue {
   margin-top: 25px;
 }

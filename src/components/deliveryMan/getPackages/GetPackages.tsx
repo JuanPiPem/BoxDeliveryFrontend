@@ -7,7 +7,10 @@ import ButtonDarkBlue from "commons/buttonDarkBlue/ButtonDarkBlue";
 import VectorDown from "assets/img/VectorDown";
 import VectorUp from "assets/img/VectorUp";
 import SelectPackage from "commons/selectPackage/SelectPackage";
-import { packageServiceGetUnassigned } from "services/package.service";
+import {
+  packageServiceAssignPackage,
+  packageServiceGetUnassigned,
+} from "services/package.service";
 import { useSelector } from "react-redux";
 import { RootState } from "state/store";
 import { Toaster, toast } from "sonner";
@@ -24,9 +27,15 @@ type item = {
   checked: boolean;
 };
 
+interface ApiError {
+  response: {
+    data: string;
+  };
+}
+
 const GetPackages = () => {
   const router = useRouter();
-  const [packages, setPackages] = useState(Object);
+  const [packages, setPackages] = useState<item[]>([]);
   const [isScrollable, setIsScrollable] = useState(false);
   const [atBottom, setAtBottom] = useState(false);
   const packagesListRef = useRef<HTMLDivElement>(null);
@@ -54,16 +63,34 @@ const GetPackages = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!user.id) throw new Error();
-    try {
-      router.push("/delivery-man/sworn-declaration");
-    } catch (error) {
-      return toast.error("Hubo un problema con la asignacion de paquetes", {
-        description: "Refresque la pagina e intente nuevamente",
-      });
+    if (typeof window !== "undefined") {
+      const checkedPackageIds = localStorage.getItem("selectedIds");
+      if (!user.id) throw new Error();
+      if (!checkedPackageIds) return console.log("no habia nada");
+      const ids: string[] = JSON.parse(checkedPackageIds);
+      try {
+        const idsCopy = [...ids];
+        for (const packageId of idsCopy) {
+          await packageServiceAssignPackage(packageId, user.id);
+          const index = ids.indexOf(packageId);
+          if (index !== -1) {
+            ids.splice(index, 1);
+            localStorage.setItem("selectedIds", JSON.stringify(ids));
+          }
+        }
+        router.push("/delivery-man/start-work-day");
+      } catch (error) {
+        const err =
+          (error as ApiError).response.data ===
+          "Error: You can't deliver more than 10 packages per day"
+            ? "Limite maximo de 10 paquetes por dia"
+            : (error as ApiError).response;
+        toast.error("Error con la asignacion de paquetes", {
+          description: `${err}`,
+        });
+      }
     }
   };
 
@@ -88,7 +115,11 @@ const GetPackages = () => {
       currentRef.addEventListener("scroll", handleScroll);
     }
 
-    return () => {};
+    return () => {
+      if (currentRef) {
+        currentRef.removeEventListener("scroll", handleScroll);
+      }
+    };
   }, [isScrollable, atBottom]);
 
   useEffect(() => {
@@ -112,17 +143,14 @@ const GetPackages = () => {
           className={`${s.packagesList} ${isScrollable ? s.scrolled : ""}`}
           ref={packagesListRef}
         >
-          {packages[0] &&
-            packages.map((item: item, index: number) => (
-              <>
-                <div key={item.id}>
-                  <SelectPackage package={item} />
-                </div>
-                {index < packages?.length - 1 && <hr className={s.lastHr} />}
-              </>
-            ))}
+          {packages.map((item: item, index: number) => (
+            <React.Fragment key={item.id}>
+              <SelectPackage package={item} />
+              {index < packages?.length - 1 && <hr className={s.lastHr} />}
+            </React.Fragment>
+          ))}
         </div>
-        {packages?.length > 8 ? (
+        {packages.length > 8 && (
           <div
             className={s.vectorContainer}
             onClick={
@@ -134,7 +162,7 @@ const GetPackages = () => {
               {atBottom ? <VectorUp /> : <VectorDown />}
             </div>
           </div>
-        ) : null}
+        )}
         <div className={`${s.button}`} onClick={handleSubmit}>
           <ButtonDarkBlue text="Iniciar Jornada" />
         </div>

@@ -12,6 +12,9 @@
   margin-bottom: 24px;
   position: relative;
 }
+.inProgressBtn {
+  width: 82%;
+}
 .map {
   width: 100%;
   height: 100%;
@@ -48,7 +51,7 @@
 }
 .btnCancelDelivery {
   display: flex;
-  width: 270px;
+  width: 100%;
   height: 30px;
   padding: 8px 22px;
   flex-direction: column;
