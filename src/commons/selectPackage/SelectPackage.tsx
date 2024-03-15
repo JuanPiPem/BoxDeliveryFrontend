@@ -39,9 +39,12 @@ function SelectPackage(prop: Prop) {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedIds = localStorage.getItem("selectedIds");
-      if (storedIds?.indexOf(prop.package.id) === -1) {
+      if (!storedIds) {
         return setChecked(false);
-      } else return setChecked(true);
+      }
+      const ids = JSON.parse(storedIds);
+      const isChecked = ids.includes(prop.package.id);
+      setChecked(isChecked);
     }
   }, [checked, prop.package.id, selectedIds]);
 

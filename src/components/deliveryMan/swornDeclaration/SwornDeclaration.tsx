@@ -3,12 +3,14 @@ import React, { useState, ChangeEvent } from "react";
 import Header from "commons/header/Header";
 import ButtonDarkBlue from "commons/buttonDarkBlue/ButtonDarkBlue";
 import s from "./swornDeclaration.module.scss";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../state/store";
 import { useRouter } from "next/navigation";
 import { removeUser } from "../../../state/user";
-import { userServiceLogout } from "services/user.service";
+import {
+  userServiceEnabledDeliveryman,
+  userServiceLogout,
+} from "services/user.service";
 import { packageServiceAssignPackage } from "services/package.service";
 
 const SwornDeclaration = () => {
@@ -71,31 +73,24 @@ const SwornDeclaration = () => {
       return;
     }
 
-    axios
-      .put(
-        `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/users/deliveryman-status`,
-        { email: user.email },
-        {
-          withCredentials: true,
-        }
-      )
-      .then(() => {
-        const checkedPackageIds = localStorage.getItem("selectedIds");
-        if (!user.id) throw new Error();
-        if (!checkedPackageIds) return console.log("no habia nada");
-        const ids: string[] = JSON.parse(checkedPackageIds);
-        console.log("te qiujxjhd maraysrta ", ids);
-        ids.map(async (id) => {
-          packageServiceAssignPackage(id, user.id);
-        });
-      })
-      .then(() => {
-        alert("usted puede iniciar su jornada");
-        navigate.push("/delivery-man/start-work-day");
-      })
-      .catch((error) => {
-        console.error("Error:", error);
+    try {
+      await userServiceEnabledDeliveryman(user.id!);
+      const checkedPackageIds = localStorage.getItem("selectedIds");
+      if (!user.id) throw new Error();
+      if (!checkedPackageIds) return console.log("no había nada");
+      const ids: string[] = JSON.parse(checkedPackageIds);
+      // Mapear las promesas y almacenarlas en un array
+      const promises = ids.map((id) => {
+        return packageServiceAssignPackage(id, user.id);
       });
+      // Esperar a que todas las promesas se resuelvan
+      await Promise.all(promises);
+      localStorage.removeItem("selectedIds");
+      alert("Usted puede iniciar su jornada");
+      navigate.push("/delivery-man/start-work-day");
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (
