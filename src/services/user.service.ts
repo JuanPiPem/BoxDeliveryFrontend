@@ -106,3 +106,17 @@ export const userServiceGetNumberOfDeliverymenAndEnadledDeliverymen =
     );
     return res.data;
   };
+
+export const userServiceEnabledDeliveryman = async (userId: number) => {
+  const res = await axios.put(
+    `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/users/enabled-deliveryman/${userId}`
+  );
+  return res;
+};
+
+export const userServiceDisabledDeliveryman = async (userId: number) => {
+  const res = await axios.put(
+    `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/users/disabled-deliveryman/${userId}`
+  );
+  return res;
+};

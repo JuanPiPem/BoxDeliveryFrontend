@@ -4,7 +4,10 @@ import s from "./navbar.module.scss";
 import Box from "assets/img/Box";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { userServiceLogout } from "services/user.service";
+import {
+  userServiceDisabledDeliveryman,
+  userServiceLogout,
+} from "services/user.service";
 import { removeUser } from "../../state/user";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../state/store";
@@ -15,8 +18,9 @@ const Navbar = () => {
   const user = useSelector((state: RootState) => state.user);
 
   const handleLogout = () => {
-    dispatch(removeUser());
-    userServiceLogout()
+    userServiceDisabledDeliveryman(user.id!)
+      .then(() => dispatch(removeUser()))
+      .then(() => userServiceLogout())
       .then(() => navigate.push("/login"))
       .catch((err) => console.error(err));
   };
