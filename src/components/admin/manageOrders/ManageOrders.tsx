@@ -228,7 +228,9 @@ const ManageOrders = () => {
             <div className={s.deliveryCard}>
               <div>
                 {formatDate(currentDate, "dd/MM/yyyy") ===
-                currentDateCaptured ? (
+                  currentDateCaptured &&
+                deliverymenQuantity &&
+                deliverymenEnabledQuantity ? (
                   <PieChart percent={percentDeliverymen} />
                 ) : (
                   <PieChart percent={0} />
@@ -256,7 +258,9 @@ const ManageOrders = () => {
             </div>
             <hr />
             <div className={s.deliveryCard}>
-              {formatDate(currentDate, "dd/MM/yyyy") === currentDateCaptured ? (
+              {formatDate(currentDate, "dd/MM/yyyy") === currentDateCaptured &&
+              packagesQuantity &&
+              ongoingPackagesQuantity ? (
                 <PieChart percent={percentPackages} />
               ) : (
                 <PieChart percent={0} />
