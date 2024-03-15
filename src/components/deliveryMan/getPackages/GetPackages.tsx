@@ -7,10 +7,7 @@ import ButtonDarkBlue from "commons/buttonDarkBlue/ButtonDarkBlue";
 import VectorDown from "assets/img/VectorDown";
 import VectorUp from "assets/img/VectorUp";
 import SelectPackage from "commons/selectPackage/SelectPackage";
-import {
-  packageServiceAssignPackage,
-  packageServiceGetUnassigned,
-} from "services/package.service";
+import { packageServiceGetUnassigned } from "services/package.service";
 import { useSelector } from "react-redux";
 import { RootState } from "state/store";
 import { Toaster, toast } from "sonner";
@@ -34,9 +31,6 @@ const GetPackages = () => {
   const [atBottom, setAtBottom] = useState(false);
   const packagesListRef = useRef<HTMLDivElement>(null);
   const user = useSelector((state: RootState) => state.user);
-  const checkedPackageIds = useSelector(
-    (state: RootState) => state.checkedPackages
-  );
 
   const handleVectorContainerClick = () => {
     if (packagesListRef.current) {
@@ -64,16 +58,13 @@ const GetPackages = () => {
     e.preventDefault();
 
     if (!user.id) throw new Error();
-    checkedPackageIds.map(async (packageId) => {
-      await packageServiceAssignPackage(packageId, user.id);
-      try {
-        router.push("/delivery-man/start-work-day");
-      } catch (error) {
-        return toast.error("Hubo un problema con la asignacion de paquetes", {
-          description: "Refresque la pagina e intente nuevamente",
-        });
-      }
-    });
+    try {
+      router.push("/delivery-man/sworn-declaration");
+    } catch (error) {
+      return toast.error("Hubo un problema con la asignacion de paquetes", {
+        description: "Refresque la pagina e intente nuevamente",
+      });
+    }
   };
 
   useEffect(() => {

@@ -46,7 +46,7 @@ const Login = () => {
         if (user.is_admin) {
           navigate.push("/admin/manage-orders");
         } else if (!user.is_admin) {
-          navigate.push("/delivery-man/sworn-declaration");
+          navigate.push("/delivery-man/start-work-day");
         }
       })
       .catch((error) => {

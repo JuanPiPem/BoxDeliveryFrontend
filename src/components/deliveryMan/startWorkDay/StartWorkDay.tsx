@@ -52,7 +52,6 @@ const StartWorkDay = () => {
         console.error("Error fetching delivered packages:", error);
       }
     };
-
     fetchDeliveredPackages();
   }, [user]);
 

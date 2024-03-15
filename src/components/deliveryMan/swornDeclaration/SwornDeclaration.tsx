@@ -9,13 +9,17 @@ import { RootState } from "../../../state/store";
 import { useRouter } from "next/navigation";
 import { removeUser } from "../../../state/user";
 import { userServiceLogout } from "services/user.service";
+import { packageServiceAssignPackage } from "services/package.service";
 
 const SwornDeclaration = () => {
   const [cuestionA, setCuestionA] = useState("");
   const [cuestionB, setCuestionB] = useState("");
   const [cuestionC, setCuestionC] = useState("");
 
-  const user = useSelector((state: RootState) => state.user); // Acceder a la información del usuario
+  const user = useSelector((state: RootState) => state.user);
+  const checkedPackageIds = useSelector(
+    (state: RootState) => state.checkedPackages
+  );
   const navigate = useRouter();
   const dispatch = useDispatch();
 
@@ -40,13 +44,18 @@ const SwornDeclaration = () => {
       .catch((err) => console.error(err));
   };
 
-  const handleSumit = () => {
+  const handleSumit = async (e: React.FormEvent) => {
+    e.preventDefault();
     if (cuestionA === "si" || cuestionA === "") {
       alert(
         "Usted cumple con una condición, por ende se le restringe la jornada"
       );
-      handleLogout();
-      return;
+      try {
+        handleLogout();
+        return;
+      } catch (error) {
+        console.error("Error fetching delivered packages:", error);
+      }
     }
 
     if (cuestionB === "si" || cuestionB === "") {
@@ -74,6 +83,11 @@ const SwornDeclaration = () => {
         }
       )
       .then(() => {
+        checkedPackageIds.map(async (packageId) => {
+          packageServiceAssignPackage(packageId, user.id);
+        });
+      })
+      .then(() => {
         alert("usted puede iniciar su jornada");
         navigate.push("/delivery-man/start-work-day");
       })
@@ -81,10 +95,11 @@ const SwornDeclaration = () => {
         console.error("Error:", error);
       });
   };
+
   return (
     <>
       <div className={s.swornDeclarationContainer}>
-        <Header text="declaración jurada" />
+        <Header text="declaración jurada" showArrow={false} />
         <div className={s.declarationContainer}>
           <div>
             <div className={s.span}>Requerido*</div>
@@ -205,5 +220,4 @@ const SwornDeclaration = () => {
     </>
   );
 };
-
 export default SwornDeclaration;

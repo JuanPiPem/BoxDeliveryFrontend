@@ -100,7 +100,6 @@ function PendingDeliveries(prop: Prop) {
       }
     };
   }, [isScrollable, show, atBottom]);
-  console.log(prop.arrayPackages);
   return (
     <>
       <div

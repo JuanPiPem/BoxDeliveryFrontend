@@ -25,8 +25,6 @@ const TableListPackages = (prop: Prop) => {
   const handleIniciarClick = () => {
     setIniciarClicked(true);
   };
-  console.log(prop.viewType);
-  console.log(prop.status);
   return (
     <>
       <div className={`${s.container}`}>

@@ -28,9 +28,7 @@ const Navbar = () => {
             href={
               user.is_admin
                 ? "/admin/manage-orders"
-                : !user.is_admin && user.is_enabled
-                ? "/delivery-man/start-work-day"
-                : "/delivery-man/sworn-declaration"
+                : "/delivery-man/start-work-day"
             }
           >
             <Box />

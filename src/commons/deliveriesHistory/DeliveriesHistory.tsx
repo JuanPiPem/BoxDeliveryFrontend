@@ -102,7 +102,6 @@ function DeliveriesHistory(prop: Prop) {
       }
     };
   }, [isScrollable, show, atBottom]);
-  console.log(prop.arrayPackages);
   return (
     <>
       <div
