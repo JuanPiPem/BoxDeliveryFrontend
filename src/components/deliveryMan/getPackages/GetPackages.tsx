@@ -7,10 +7,7 @@ import ButtonDarkBlue from "commons/buttonDarkBlue/ButtonDarkBlue";
 import VectorDown from "assets/img/VectorDown";
 import VectorUp from "assets/img/VectorUp";
 import SelectPackage from "commons/selectPackage/SelectPackage";
-import {
-  packageServiceAssignPackage,
-  packageServiceGetUnassigned,
-} from "services/package.service";
+import { packageServiceGetUnassigned } from "services/package.service";
 import { useSelector } from "react-redux";
 import { RootState } from "state/store";
 import { Toaster, toast } from "sonner";
@@ -73,14 +70,13 @@ const GetPackages = () => {
       try {
         const idsCopy = [...ids];
         for (const packageId of idsCopy) {
-          await packageServiceAssignPackage(packageId, user.id);
           const index = ids.indexOf(packageId);
           if (index !== -1) {
             ids.splice(index, 1);
             localStorage.setItem("selectedIds", JSON.stringify(ids));
           }
         }
-        router.push("/delivery-man/start-work-day");
+        router.push("/delivery-man/sworn-declaration");
       } catch (error) {
         const err =
           (error as ApiError).response.data ===
