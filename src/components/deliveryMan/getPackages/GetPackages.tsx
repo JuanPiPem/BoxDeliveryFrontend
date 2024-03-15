@@ -66,16 +66,7 @@ const GetPackages = () => {
       const checkedPackageIds = localStorage.getItem("selectedIds");
       if (!user.id) throw new Error();
       if (!checkedPackageIds) return console.log("no habia nada");
-      const ids: string[] = JSON.parse(checkedPackageIds);
       try {
-        const idsCopy = [...ids];
-        for (const packageId of idsCopy) {
-          const index = ids.indexOf(packageId);
-          if (index !== -1) {
-            ids.splice(index, 1);
-            localStorage.setItem("selectedIds", JSON.stringify(ids));
-          }
-        }
         router.push("/delivery-man/sworn-declaration");
       } catch (error) {
         const err =

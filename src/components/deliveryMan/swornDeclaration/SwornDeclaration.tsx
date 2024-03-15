@@ -17,9 +17,6 @@ const SwornDeclaration = () => {
   const [cuestionC, setCuestionC] = useState("");
 
   const user = useSelector((state: RootState) => state.user);
-  const checkedPackageIds = useSelector(
-    (state: RootState) => state.checkedPackages
-  );
   const navigate = useRouter();
   const dispatch = useDispatch();
 
@@ -83,8 +80,13 @@ const SwornDeclaration = () => {
         }
       )
       .then(() => {
-        checkedPackageIds.map(async (packageId) => {
-          packageServiceAssignPackage(packageId, user.id);
+        const checkedPackageIds = localStorage.getItem("selectedIds");
+        if (!user.id) throw new Error();
+        if (!checkedPackageIds) return console.log("no habia nada");
+        const ids: string[] = JSON.parse(checkedPackageIds);
+        console.log("te qiujxjhd maraysrta ", ids);
+        ids.map(async (id) => {
+          packageServiceAssignPackage(id, user.id);
         });
       })
       .then(() => {
