@@ -25,6 +25,7 @@ type Prop = {
   arrayPackages: Array<items>;
   view: string;
   section: string;
+  onStartPackage: (packageId: string) => void;
 };
 //The viewType can be: "paquetes-admin", "perfil-repartidor" o "home-repartidor"
 //The sections can be: "repartos-pendientes" "historial-repartos"
@@ -141,9 +142,8 @@ function PendingDeliveries(prop: Prop) {
               {prop.arrayPackages.map((item: items, index) => (
                 <div key={index}>
                   <div className={s.boxTrash}>
-                    {(prop.view === "home-repartidor" &&
-                      prop.section === "repartos-pendientes" &&
-                      item.status === "pending") ||
+                    {prop.view === "home-repartidor" &&
+                    prop.section === "repartos-pendientes" &&
                     item.status === "ongoing" ? (
                       <Link href={"/delivery-man/delivery-in-progress"}>
                         <TableListPackages
@@ -152,6 +152,7 @@ function PendingDeliveries(prop: Prop) {
                           viewType={prop.view}
                           section={prop.section}
                           status={item.status}
+                          onStartPackage={prop.onStartPackage}
                         />
                       </Link>
                     ) : (
@@ -161,6 +162,7 @@ function PendingDeliveries(prop: Prop) {
                         viewType={prop.view}
                         section={prop.section}
                         status={item.status}
+                        onStartPackage={prop.onStartPackage}
                       />
                     )}
                   </div>

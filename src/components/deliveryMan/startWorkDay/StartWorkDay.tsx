@@ -8,12 +8,29 @@ import PendingDeliveries from "commons/pendingDeliveries/PendingDeliveries";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../state/store";
-import { packageServiceGetPackagesByUserIdAndStatus } from "services/package.service";
+import {
+  packageServiceGetPackagesByUserIdAndStatus,
+  packageServiceStartTrip,
+} from "services/package.service";
+
+type PendingPackage = {
+  id: string;
+  receiver_name: string;
+  date: string;
+  weight: number;
+  address: string;
+  status: string;
+  user_id: number;
+  createdAt: string;
+  updatedAt: string;
+};
 
 const StartWorkDay = () => {
-  const [pendingPackages, setPendingPackages] = useState([]);
-  const [ongoingPackages, setOngoingPackages] = useState([]);
-  const [deliveredPackages, setDeliverdPackages] = useState([]);
+  const [pendingPackages, setPendingPackages] = useState<PendingPackage[]>([]);
+  const [ongoingPackages, setOngoingPackages] = useState<PendingPackage[]>([]);
+  const [deliveredPackages, setDeliveredPackages] = useState<PendingPackage[]>(
+    []
+  );
   const user = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
@@ -24,6 +41,7 @@ const StartWorkDay = () => {
             user.id,
             "pending"
           );
+          console.log("Pending packages:", response);
           setPendingPackages(response);
         } else {
           console.error("User ID is null");
@@ -44,7 +62,7 @@ const StartWorkDay = () => {
             user.id,
             "delivered"
           );
-          setDeliverdPackages(response);
+          setDeliveredPackages(response);
         } else {
           console.error("User ID is null");
         }
@@ -77,6 +95,35 @@ const StartWorkDay = () => {
 
   const combinedPackages = [...pendingPackages, ...ongoingPackages];
 
+  const handleStartPackage = async (packageId: string) => {
+    try {
+      console.log(`Intentando iniciar el paquete con ID ${packageId}`);
+      // Llama a la función de servicio para cambiar el estado del paquete a "ongoing"
+      await packageServiceStartTrip(packageId);
+
+      // Actualiza el estado de los paquetes pendientes y en curso
+      const updatedPendingPackages = pendingPackages.filter(
+        (packageItem) => packageItem.id !== packageId
+      );
+      const updatedPackage = pendingPackages.find(
+        (packageItem) => packageItem.id === packageId
+      );
+
+      // Verifica si updatedPackage no es undefined antes de usarlo
+      if (updatedPackage) {
+        setPendingPackages(updatedPendingPackages);
+        setOngoingPackages([...ongoingPackages, updatedPackage]);
+        console.log(
+          `El paquete con ID ${packageId} ha cambiado a estado "ongoing"`
+        );
+      } else {
+        console.error("Updated package is undefined");
+      }
+    } catch (error) {
+      console.error("Error updating package status:", error);
+    }
+  };
+
   return (
     <div className={s.packagesContainer}>
       <div className={s.packagesContentContainer}>
@@ -84,14 +131,14 @@ const StartWorkDay = () => {
           arrayPackages={combinedPackages}
           view="home-repartidor"
           section="repartos-pendientes"
+          onStartPackage={handleStartPackage}
         />
         <DeliveriesHistory
           arrayPackages={deliveredPackages}
           view="home-repartidor"
           section="historial-repartos"
         />
-        {/*           Corregir el botón para que siempre que pegado al final de la 
-          página a 10px de separación */}
+        {/* Corregir el botón para que siempre esté pegado al final de la página a 10px de separación */}
         <Link href={"/delivery-man/get-packages"}>
           <div className={s.buttonGetPackages}>
             <ButtonDarkBlue text="Obtener Paquetes" />

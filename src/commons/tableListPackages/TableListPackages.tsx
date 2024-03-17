@@ -13,6 +13,7 @@ type Prop = {
   status: string;
   packageNumber: string;
   address: string;
+  onStartPackage: (packageId: string) => void;
 };
 //The viewType can be: "paquetes-admin", "perfil-repartidor" o "home-repartidor"
 //The sections can be: "repartos-pendientes" "historial-repartos"
@@ -23,6 +24,7 @@ const TableListPackages = (prop: Prop) => {
   const [iniciarClicked, setIniciarClicked] = useState(false);
 
   const handleIniciarClick = () => {
+    prop.onStartPackage(prop.packageNumber);
     setIniciarClicked(true);
   };
   return (
