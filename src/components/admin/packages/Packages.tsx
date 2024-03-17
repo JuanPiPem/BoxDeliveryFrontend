@@ -28,13 +28,10 @@ const Packages = () => {
   const packagesListRef = useRef<HTMLDivElement>(null);
   const { month, day, dayOfWeek } = getFormattedDate();
   const currentDate = new Date();
-
-  // Obtener el día, mes y año por separado
-  const dayNumber = currentDate.getDate(); // Obtener el día
-  const monthNumber = currentDate.getMonth() + 1; // Obtener el mes (los meses en JavaScript son indexados desde 0)
+  const dayNumber = currentDate.getDate();
+  const monthNumber = currentDate.getMonth() + 1;
   const monthNumberFormartted = monthNumber.toString().padStart(2, "0");
   const year = currentDate.getFullYear();
-  console.log(year + "-" + monthNumberFormartted + "-" + dayNumber);
 
   const handleVectorContainerClick = () => {
     if (packagesListRef.current) {
@@ -62,7 +59,10 @@ const Packages = () => {
   };
 
   useEffect(() => {
-    packageServiceGetByStatusAndDate("delivered", "")
+    packageServiceGetByStatusAndDate(
+      "delivered",
+      year + "-" + monthNumberFormartted + "-" + dayNumber
+    )
       .then((packagesDelivered) => {
         setPackagesDelivered(packagesDelivered);
       })

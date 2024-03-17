@@ -27,6 +27,11 @@ const DeliveryMen = () => {
   const [atBottom, setAtBottom] = useState(false);
   const [deliverymen, setDeliverymen] = useState<deliveryman[]>([]);
   const packagesListRef = useRef<HTMLDivElement>(null);
+  const currentDate = new Date();
+  const dayNumber = currentDate.getDate(); // Obtener el día
+  const monthNumber = currentDate.getMonth() + 1; // Obtener el mes (los meses en JavaScript son indexados desde 0)
+  const monthNumberFormartted = monthNumber.toString().padStart(2, "0");
+  const year = currentDate.getFullYear();
 
   const handleVectorContainerClick = () => {
     if (packagesListRef.current) {
@@ -55,11 +60,11 @@ const DeliveryMen = () => {
   };
 
   useEffect(() => {
-    userServiceGetDeliverymenWithPackagesQuantityByDate("2024-03-15").then(
-      (deliverymen) => {
-        setDeliverymen(deliverymen);
-      }
-    );
+    userServiceGetDeliverymenWithPackagesQuantityByDate(
+      year + "-" + monthNumberFormartted + "-" + dayNumber
+    ).then((deliverymen) => {
+      setDeliverymen(deliverymen);
+    });
   }, []);
 
   useEffect(() => {
@@ -112,11 +117,11 @@ const DeliveryMen = () => {
                     <div className={s.percentage}>
                       {deliveryman.is_enabled === true ? (
                         <PieChart
-                          percent={
+                          percent={Math.floor(
                             (deliveryman.packagesDeliveredQuantity /
                               deliveryman.packagesQuantity) *
-                            100
-                          }
+                              100
+                          )}
                         />
                       ) : (
                         <PieChart percent={0} />
@@ -129,7 +134,7 @@ const DeliveryMen = () => {
                           deliveryman.packagesQuantity) *
                           100 ===
                         100 ? (
-                          <ColorPoint state={"delivered"} />
+                          <ColorPoint state={"entregado"} />
                         ) : deliveryman.is_enabled === false ? (
                           <ColorPoint state={"deshabilitado"} />
                         ) : (
