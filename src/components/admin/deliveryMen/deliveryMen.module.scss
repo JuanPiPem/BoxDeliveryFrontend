@@ -89,7 +89,8 @@
   font-weight: 500;
   line-height: 15px;
 }
-.ProfileState {
+.profileState {
+  display: flex;
   width: max-content;
   margin-top: 5px;
   padding: 2px 5px;
@@ -99,6 +100,10 @@
   font-size: 10px;
   font-weight: 400;
   background: #ebecef;
+}
+.colorPoint {
+  margin-top: 3px;
+  margin-right: 3px;
 }
 .profilePicture {
   width: 40px;

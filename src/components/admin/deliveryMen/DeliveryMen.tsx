@@ -28,8 +28,8 @@ const DeliveryMen = () => {
   const [deliverymen, setDeliverymen] = useState<deliveryman[]>([]);
   const packagesListRef = useRef<HTMLDivElement>(null);
   const currentDate = new Date();
-  const dayNumber = currentDate.getDate(); // Obtener el día
-  const monthNumber = currentDate.getMonth() + 1; // Obtener el mes (los meses en JavaScript son indexados desde 0)
+  const dayNumber = currentDate.getDate();
+  const monthNumber = currentDate.getMonth() + 1;
   const monthNumberFormartted = monthNumber.toString().padStart(2, "0");
   const year = currentDate.getFullYear();
 
@@ -115,7 +115,10 @@ const DeliveryMen = () => {
                 <Link href={"/admin/delivery-man-profile"}>
                   <div className={s.contentUser} key={deliveryman.id}>
                     <div className={s.percentage}>
-                      {deliveryman.is_enabled === true ? (
+                      {deliveryman.is_enabled === true ||
+                      (deliveryman.packagesQuantity ===
+                        deliveryman.packagesDeliveredQuantity &&
+                        deliveryman.packagesQuantity !== 0) ? (
                         <PieChart
                           percent={Math.floor(
                             (deliveryman.packagesDeliveredQuantity /
@@ -129,26 +132,32 @@ const DeliveryMen = () => {
                     </div>
                     <div className={s.nameAndState}>
                       <div id={s.objetoName}>{deliveryman.name}</div>
-                      <div className={s.ProfileState}>
+                      <div className={s.profileState}>
                         {(deliveryman.packagesDeliveredQuantity /
                           deliveryman.packagesQuantity) *
                           100 ===
                         100 ? (
-                          <ColorPoint state={"entregado"} />
+                          <div className={s.colorPoint}>
+                            <ColorPoint state={"entregado"} />
+                          </div>
                         ) : deliveryman.is_enabled === false ? (
-                          <ColorPoint state={"deshabilitado"} />
+                          <div className={s.colorPoint}>
+                            <ColorPoint state={"deshabilitado"} />
+                          </div>
                         ) : (
-                          <ColorPoint state={"en curso"} />
+                          <div className={s.colorPoint}>
+                            <ColorPoint state={"en curso"} />
+                          </div>
                         )}
                         {(deliveryman.packagesDeliveredQuantity /
                           deliveryman.packagesQuantity) *
                           100 ===
                         100 ? (
-                          <>{"Entregado"}</>
+                          <div>{"Entregado"}</div>
                         ) : deliveryman.is_enabled === false ? (
-                          <>{"Deshabilitado"}</>
+                          <div>{"Deshabilitado"}</div>
                         ) : (
-                          <>{"En curso"}</>
+                          <div>{"En curso"}</div>
                         )}
                       </div>
                     </div>

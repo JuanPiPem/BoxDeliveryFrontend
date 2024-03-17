@@ -1,18 +1,19 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import s from "./login.module.scss";
 import LoginBoxLogo from "assets/img/LoginBoxLogo";
 import ButtonDarkBlue from "commons/buttonDarkBlue/ButtonDarkBlue";
 import Eye from "assets/img/Eye";
 import ClosedEye from "assets/img/ClosedEye";
 import Link from "next/link";
-// import axios from "axios";
 import { Toaster, toast } from "sonner";
 import { AxiosError } from "axios";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { setUser } from "../../state/user";
 import { userServiceLogin } from "services/user.service";
+import { useSelector } from "react-redux";
+import { RootState } from "../../state/store";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -23,6 +24,17 @@ const Login = () => {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [_error, setError] = useState("");
+  const user = useSelector((state: RootState) => state.user);
+
+  useEffect(() => {
+    if (user.id) {
+      if (user.is_admin) {
+        navigate.push("/admin/manage-orders");
+      } else {
+        navigate.push("/delivery-man/start-work-day");
+      }
+    }
+  }, [user, navigate]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 import { userServiceGetNumberOfDeliverymenAndEnadledDeliverymen } from "services/user.service";
 import PieChart from "commons/pieChart/PieChart";
 import { RootState } from "../../../state/store";
-import { packageServiceGetNumberOfPacakgesAndPackagesStatusByDate } from "services/package.service";
+import { packageServiceGetNumberOfPacakgesAndPackagesDeliveredByDate } from "services/package.service";
 
 const saira = Saira({ subsets: ["latin"], weight: "700" });
 
@@ -57,7 +57,7 @@ const ManageOrders = () => {
         setDeliverymenEnabledQuantity(response.enabledDeliverymenQuantity);
       }
     );
-    packageServiceGetNumberOfPacakgesAndPackagesStatusByDate(
+    packageServiceGetNumberOfPacakgesAndPackagesDeliveredByDate(
       formatDate(currentDate, "yyyy-MM-dd")
     )
       .then((response) => {
