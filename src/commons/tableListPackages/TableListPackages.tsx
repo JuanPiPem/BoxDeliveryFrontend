@@ -31,7 +31,7 @@ const TableListPackages = (prop: Prop) => {
         <div className={`${s.div1}`}>
           <Package />
           <div className={`${s.div2}`}>
-            <p className={`${s.txt} ${s.fontBold}`}>{prop.packageNumber}</p>
+            <p className={`${s.txt} ${s.fontBold}`}>#{prop.packageNumber}</p>
             <p className={`${s.txt} ${s.fontNormal}`}>{prop.address},</p>
           </div>
         </div>

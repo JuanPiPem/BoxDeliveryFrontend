@@ -23,6 +23,16 @@ export const packageServiceGetSingleById = async (id: string) => {
   return res.data;
 };
 
+export const packageServiceGetByStatusAndDate = async (
+  status: string,
+  date: string
+) => {
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/packages/by-status-and-date/${status}/${date}`
+  );
+  return res.data;
+};
+
 export const packageServiceGetPackagesByUserIdAndStatus = async (
   userId: number | null,
   status: string

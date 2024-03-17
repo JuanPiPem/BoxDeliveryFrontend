@@ -44,7 +44,7 @@ const ManageOrders = () => {
   const [packagesQuantity, setPackagesQuantity] = useState(0);
   const [ongoingPackagesQuantity, setOngoingPackagesQuantity] = useState(0);
   const [percentPackages, setPercentPackages] = useState(0);
-  const currentDateCaptured = new Date().toLocaleDateString("es-ES", {
+  const currentDateCaptured = new Date().toLocaleDateString("es-Ar", {
     day: "2-digit",
     month: "2-digit",
     year: "numeric",

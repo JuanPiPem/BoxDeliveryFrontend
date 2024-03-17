@@ -6,75 +6,35 @@ import Header from "commons/header/Header";
 import TableListPackages from "commons/tableListPackages/TableListPackages";
 import VectorDown from "assets/img/VectorDown";
 import VectorUp from "assets/img/VectorUp";
+import { packageServiceGetByStatusAndDate } from "services/package.service";
+import { getFormattedDate } from "utils/getFormattDate";
 
-const getFormattedDate = () => {
-  const currentDate = new Date();
-  const day = currentDate.getDate();
-  const month = currentDate
-    .toLocaleString("es-ES", {
-      month: "long",
-    })
-    .toUpperCase();
-  const dayOfWeek = currentDate
-    .toLocaleString("es-ES", { weekday: "short" })
-    .slice(0, 3);
-  return { month, day, dayOfWeek };
+type packageDelivered = {
+  id: string;
+  receiver_name: string;
+  address: string;
+  status: string;
+  date: string;
+  weight: number;
+  user_id: number | null;
 };
 
 const Packages = () => {
-  interface FakeData {
-    packageNumber: string;
-    address: string;
-    city: string;
-    status: string;
-  }
-
-  const arrayFakeData: FakeData[] = [
-    {
-      packageNumber: "#0H167",
-      address: "Av. Carabobo y Rivadavia",
-      city: "CABA",
-      status: "",
-    },
-    {
-      packageNumber: "#0A903",
-      address: "Las Heras 5678",
-      city: "CABA",
-      status: "",
-    },
-    {
-      packageNumber: "#0H167",
-      address: "Av. Carabobo y Rivadavia",
-      city: "CABA",
-      status: "",
-    },
-    {
-      packageNumber: "#0A903",
-      address: "Las Heras 5678",
-      city: "CABA",
-      status: "",
-    },
-    {
-      packageNumber: "#0H167",
-      address: "Av. Carabobo y Rivadavia",
-      city: "CABA",
-      status: "",
-    },
-    {
-      packageNumber: "#0H167",
-      address: "Av. Carabobo y Rivadavia",
-      city: "CABA",
-      status: "",
-    },
-  ];
-
-  // const { month, day, dayOfWeek } = getFormattedDate();
-  getFormattedDate();
-
+  const [packagesDelivered, setPackagesDelivered] = useState<
+    packageDelivered[]
+  >([]);
   const [isScrollable, setIsScrollable] = useState(false);
   const [atBottom, setAtBottom] = useState(false);
-
   const packagesListRef = useRef<HTMLDivElement>(null);
+  const { month, day, dayOfWeek } = getFormattedDate();
+  const currentDate = new Date();
+
+  // Obtener el día, mes y año por separado
+  const dayNumber = currentDate.getDate(); // Obtener el día
+  const monthNumber = currentDate.getMonth() + 1; // Obtener el mes (los meses en JavaScript son indexados desde 0)
+  const monthNumberFormartted = monthNumber.toString().padStart(2, "0");
+  const year = currentDate.getFullYear();
+  console.log(year + "-" + monthNumberFormartted + "-" + dayNumber);
 
   const handleVectorContainerClick = () => {
     if (packagesListRef.current) {
@@ -97,10 +57,17 @@ const Packages = () => {
         top: 0,
         behavior: "auto", // Cambiado a "auto" para un desplazamiento instantáneo
       });
-
       setAtBottom(false);
     }
   };
+
+  useEffect(() => {
+    packageServiceGetByStatusAndDate("delivered", "")
+      .then((packagesDelivered) => {
+        setPackagesDelivered(packagesDelivered);
+      })
+      .catch((err) => console.error(err));
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -137,10 +104,10 @@ const Packages = () => {
         </div>
         <div className={s.headList}>
           <div>
-            <h1 className={s.month}>Enero </h1>
+            <h1 className={s.month}>{month} </h1>
             <h1 className={s.day}>
               {" "}
-              mie <span className={s.bold}>/ 03</span>
+              {dayOfWeek} <span className={s.bold}>/ {day}</span>
             </h1>
           </div>
         </div>
@@ -150,25 +117,31 @@ const Packages = () => {
           ref={packagesListRef}
         >
           <div>
-            <div className={s.packagesNumber}>58 paquetes entregados</div>
-            {arrayFakeData.map((item) => (
-              <div key={item.packageNumber}>
-                <hr className={s.hr} />
-                <div className={s.boxTrash}>
-                  <TableListPackages
-                    packageNumber={item.packageNumber}
-                    address={item.address}
-                    city={item.city}
-                    viewType="paquetes-admin"
-                    section=""
-                    status={item.status}
-                  />
-                </div>
+            {packagesDelivered.length === 1 ? (
+              <div className={s.packagesNumber}>1 paquete entregado</div>
+            ) : (
+              <div className={s.packagesNumber}>
+                {packagesDelivered.length} paquetes entregados
               </div>
-            ))}
+            )}
+            {packagesDelivered.length > 0 &&
+              packagesDelivered.map((item) => (
+                <div key={item.id}>
+                  <hr className={s.hr} />
+                  <div className={s.boxTrash}>
+                    <TableListPackages
+                      packageNumber={item.id}
+                      address={item.address}
+                      viewType="paquetes-admin"
+                      section=""
+                      status={item.status}
+                    />
+                  </div>
+                </div>
+              ))}
           </div>
         </div>
-        {arrayFakeData.length > 5 ? (
+        {packagesDelivered.length > 5 ? (
           <div
             className={s.vectorContainer}
             onClick={

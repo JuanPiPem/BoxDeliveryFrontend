@@ -99,6 +99,15 @@ export const userServiceGetDeliverymen = async () => {
   return res.data;
 };
 
+export const userServiceGetDeliverymenWithPackagesQuantityByDate = async (
+  date: string
+) => {
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/users/deliverymen-with-packages-quantity-by-date/${date}`
+  );
+  return res.data;
+};
+
 export const userServiceGetNumberOfDeliverymenAndEnadledDeliverymen =
   async () => {
     const res = await axios.get(

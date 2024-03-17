@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useRef, useState } from "react";
 import s from "./deliveryMen.module.scss";
 import Header from "commons/header/Header";
@@ -8,24 +7,25 @@ import VectorDown from "assets/img/VectorDown";
 import Link from "next/link";
 import VectorUp from "assets/img/VectorUp";
 import PieChart from "commons/pieChart/PieChart";
+import { userServiceGetDeliverymenWithPackagesQuantityByDate } from "services/user.service";
 
 const DeliveryMen = () => {
-  interface FakeData {
+  type deliveryman = {
+    id: number;
+    email: string;
     name: string;
-    state: string;
-    level: number;
-  }
-
-  const arrayFakeData: FakeData[] = [
-    { name: "Farid", state: "en curso", level: 52 },
-    { name: "Luciana", state: "entregado", level: 100 },
-    { name: "Dario", state: "en curso", level: 80 },
-    { name: "Santiago", state: "deshabilitado", level: 0 },
-    { name: "Santiago", state: "deshabilitado", level: 0 },
-  ];
+    last_name: string;
+    profile_photo: string;
+    is_admin: boolean;
+    is_confirmed: boolean;
+    is_enabled: boolean;
+    packagesQuantity: number;
+    packagesDeliveredQuantity: number;
+  };
 
   const [isScrollable, setIsScrollable] = useState(false);
   const [atBottom, setAtBottom] = useState(false);
+  const [deliverymen, setDeliverymen] = useState<deliveryman[]>([]);
   const packagesListRef = useRef<HTMLDivElement>(null);
 
   const handleVectorContainerClick = () => {
@@ -55,6 +55,14 @@ const DeliveryMen = () => {
   };
 
   useEffect(() => {
+    userServiceGetDeliverymenWithPackagesQuantityByDate("2024-03-15").then(
+      (deliverymen) => {
+        setDeliverymen(deliverymen);
+      }
+    );
+  }, []);
+
+  useEffect(() => {
     const handleScroll = () => {
       if (packagesListRef.current) {
         const scrolled =
@@ -71,13 +79,10 @@ const DeliveryMen = () => {
         setAtBottom(atBottom);
       }
     };
-
     const currentRef = packagesListRef.current;
-
     if (currentRef) {
       currentRef.addEventListener("scroll", handleScroll);
     }
-
     return () => {};
   }, [isScrollable, atBottom]);
 
@@ -99,28 +104,56 @@ const DeliveryMen = () => {
           }`}
           ref={packagesListRef}
         >
-          {arrayFakeData.map((objeto) => (
-            <>
-              <Link href={"/admin/delivery-man-profile"}>
-                <div className={s.contentUser} key={objeto.level + 1}>
-                  <div className={s.percentage}>
-                    <PieChart percent={objeto.level} />
-                  </div>
-
-                  <div className={s.nameAndState}>
-                    <div id={s.objetoName}>{objeto.name}</div>
-                    <div className={s.ProfileState}>
-                      {" "}
-                      <ColorPoint state={objeto.state} /> {objeto.state}
+          {deliverymen &&
+            deliverymen.map((deliveryman) => (
+              <>
+                <Link href={"/admin/delivery-man-profile"}>
+                  <div className={s.contentUser} key={deliveryman.id}>
+                    <div className={s.percentage}>
+                      {deliveryman.is_enabled === true ? (
+                        <PieChart
+                          percent={
+                            (deliveryman.packagesDeliveredQuantity /
+                              deliveryman.packagesQuantity) *
+                            100
+                          }
+                        />
+                      ) : (
+                        <PieChart percent={0} />
+                      )}
                     </div>
+                    <div className={s.nameAndState}>
+                      <div id={s.objetoName}>{deliveryman.name}</div>
+                      <div className={s.ProfileState}>
+                        {(deliveryman.packagesDeliveredQuantity /
+                          deliveryman.packagesQuantity) *
+                          100 ===
+                        100 ? (
+                          <ColorPoint state={"delivered"} />
+                        ) : deliveryman.is_enabled === false ? (
+                          <ColorPoint state={"deshabilitado"} />
+                        ) : (
+                          <ColorPoint state={"en curso"} />
+                        )}
+                        {(deliveryman.packagesDeliveredQuantity /
+                          deliveryman.packagesQuantity) *
+                          100 ===
+                        100 ? (
+                          <>{"Entregado"}</>
+                        ) : deliveryman.is_enabled === false ? (
+                          <>{"Deshabilitado"}</>
+                        ) : (
+                          <>{"En curso"}</>
+                        )}
+                      </div>
+                    </div>
+                    <div className={s.profilePicture}></div>
                   </div>
-                  <div className={s.profilePicture}></div>
-                </div>
-              </Link>
-            </>
-          ))}
+                </Link>
+              </>
+            ))}
         </div>
-        {arrayFakeData.length > 4 ? (
+        {deliverymen.length > 4 ? (
           <div
             className={s.vectorContainer}
             onClick={
