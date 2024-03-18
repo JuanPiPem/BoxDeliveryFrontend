@@ -145,7 +145,9 @@ function PendingDeliveries(prop: Prop) {
                     {prop.view === "home-repartidor" &&
                     prop.section === "repartos-pendientes" &&
                     item.status === "ongoing" ? (
-                      <Link href={"/delivery-man/delivery-in-progress"}>
+                      <Link
+                        href={`/delivery-man/delivery-in-progress/${item.id}`}
+                      >
                         <TableListPackages
                           packageNumber={item.id}
                           address={item.address}
