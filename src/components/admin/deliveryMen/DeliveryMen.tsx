@@ -7,6 +7,7 @@ import VectorDown from "assets/img/VectorDown";
 import Link from "next/link";
 import VectorUp from "assets/img/VectorUp";
 import PieChart from "commons/pieChart/PieChart";
+import { getFormattedDate } from "utils/getFormattDate";
 import { userServiceGetDeliverymenWithPackagesQuantityByDate } from "services/user.service";
 
 const DeliveryMen = () => {
@@ -32,6 +33,7 @@ const DeliveryMen = () => {
   const monthNumber = currentDate.getMonth() + 1;
   const monthNumberFormartted = monthNumber.toString().padStart(2, "0");
   const year = currentDate.getFullYear();
+  const { month, day, dayOfWeek } = getFormattedDate();
 
   const handleVectorContainerClick = () => {
     if (packagesListRef.current) {
@@ -99,8 +101,11 @@ const DeliveryMen = () => {
         </div>
         <div className={s.headList}>
           <div>
-            <h1 className={s.month}>Enero </h1>
-            <h1 className={s.day}> mie / 03</h1>
+            <h1 className={s.month}>{month} </h1>
+            <h1 className={s.day}>
+              {" "}
+              {dayOfWeek} <span className={s.bold}>/ {day}</span>
+            </h1>
           </div>
         </div>
         <div
