@@ -8,7 +8,6 @@ import VectorDown from "assets/img/VectorDown";
 import VectorUp from "assets/img/VectorUp";
 import DeployArrowDown from "assets/img/DeployArrowDown";
 import DeployArrowRight from "assets/img/DeployArrowRight";
-import Link from "next/link";
 
 const saira = Saira({
   weight: ["400", "500", "600", "700"],
@@ -25,6 +24,7 @@ type Prop = {
   arrayPackages: Array<items>;
   view: string;
   section: string;
+  onStartPackage: (packageId: string) => void;
 };
 
 function DeliveriesHistory(prop: Prop) {
@@ -143,15 +143,14 @@ function DeliveriesHistory(prop: Prop) {
                 <div key={index}>
                   <hr className={s.hr} />
                   <div className={s.boxTrash}>
-                    <Link href={"/delivery-man/delivery-in-progress"}>
-                      <TableListPackages
-                        packageNumber={item.id}
-                        address={item.address}
-                        viewType={prop.view}
-                        section={prop.section}
-                        status={item.status}
-                      />
-                    </Link>
+                    <TableListPackages
+                      packageNumber={item.id}
+                      address={item.address}
+                      viewType={prop.view}
+                      section={prop.section}
+                      status={item.status}
+                      onStartPackage={prop.onStartPackage}
+                    />
                   </div>
                 </div>
               ))}
