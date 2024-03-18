@@ -137,6 +137,7 @@ const StartWorkDay = () => {
           arrayPackages={deliveredPackages}
           view="home-repartidor"
           section="historial-repartos"
+          onStartPackage={handleStartPackage}
         />
         {/* Corregir el botón para que siempre esté pegado al final de la página a 10px de separación */}
         <Link href={"/delivery-man/get-packages"}>
