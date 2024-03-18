@@ -1,22 +1,38 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const checkedPackages = createSlice({
-  name: "checkedPackages",
-  initialState: [] as string[],
+export const currentPackage = createSlice({
+  name: "currentPackage",
+  initialState: {
+    id: null,
+    receiver_name: "",
+    date: "",
+    weight: "",
+    address: "",
+    status: "",
+    user_id: "",
+  },
   reducers: {
-    setCheckedPackages: (state, action) => {
-      const packageId = action.payload.id;
-      const index = state.findIndex((id) => id === packageId);
-
-      if (index !== -1) {
-        state.splice(index, 1);
-      } else {
-        state.push(packageId);
-      }
+    setCurrentPackage: (state, action) => {
+      state.id = action.payload.id;
+      state.receiver_name = action.payload.receiver_name;
+      state.date = action.payload.date;
+      state.weight = action.payload.weight;
+      state.address = action.payload.address;
+      state.status = action.payload.status;
+      state.user_id = action.payload.user_id;
+    },
+    removePackage: (state) => {
+      state.id = null;
+      state.receiver_name = "";
+      state.date = "";
+      state.weight = "";
+      state.address = "";
+      state.status = "";
+      state.user_id = "";
     },
   },
 });
 
-export const { setCheckedPackages } = checkedPackages.actions;
+export const { setCurrentPackage, removePackage } = currentPackage.actions;
 
-export default checkedPackages.reducer;
+export default currentPackage.reducer;
