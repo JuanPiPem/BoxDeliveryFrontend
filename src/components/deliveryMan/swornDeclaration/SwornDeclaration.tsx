@@ -12,6 +12,7 @@ import {
   userServiceLogout,
 } from "services/user.service";
 import { packageServiceAssignPackage } from "services/package.service";
+import { Toaster, toast } from "sonner";
 
 const SwornDeclaration = () => {
   const [cuestionA, setCuestionA] = useState("");
@@ -46,30 +47,46 @@ const SwornDeclaration = () => {
   const handleSumit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (cuestionA === "si" || cuestionA === "") {
-      alert(
-        "Usted cumple con una condición, por ende se le restringe la jornada"
+      toast.error(
+        "Usted cumple con una condición, por ende se le restringe la jornada",
+        {
+          duration: 10000,
+          action: {
+            label: "Aceptar",
+            onClick: () => handleLogout(),
+          },
+        }
       );
-      try {
-        handleLogout();
-        return;
-      } catch (error) {
-        console.error("Error fetching delivered packages:", error);
-      }
+      return;
     }
 
     if (cuestionB === "si" || cuestionB === "") {
-      alert(
-        "Usted cumple con una condición, por ende se le restringe la jornada"
+      toast.error(
+        "Usted cumple con una condición, por ende se le restringe la jornada",
+        {
+          duration: 10000,
+
+          action: {
+            label: "Aceptar",
+            onClick: () => handleLogout(),
+          },
+        }
       );
-      handleLogout();
       return;
     }
 
     if (cuestionC === "si" || cuestionC === "") {
-      alert(
-        "Usted cumple con una condición, por ende se le restringe la jornada"
+      toast.error(
+        "Usted cumple con una condición, por ende se le restringe la jornada",
+        {
+          duration: 10000,
+
+          action: {
+            label: "Aceptar",
+            onClick: () => handleLogout(),
+          },
+        }
       );
-      handleLogout();
       return;
     }
 
@@ -86,8 +103,12 @@ const SwornDeclaration = () => {
       // Esperar a que todas las promesas se resuelvan
       await Promise.all(promises);
       localStorage.removeItem("selectedIds");
-      alert("Usted puede iniciar su jornada");
-      navigate.push("/delivery-man/start-work-day");
+      toast.success("Usted puede iniciar su jornada", {
+        action: {
+          label: "Aceptar",
+          onClick: () => navigate.push("/delivery-man/start-work-day"),
+        },
+      });
     } catch (error) {
       console.error("Error:", error);
     }
@@ -101,9 +122,9 @@ const SwornDeclaration = () => {
           <div>
             <div className={s.span}>Requerido*</div>
             <form action="" className={s.cuestion}>
-              <text>
+              <p className={s.text}>
                 ¿Ha consumido bebidas alcohólicas en las últimas 12 horas?
-              </text>
+              </p>
               <div className={s.line}></div>
               <div className={s.customRadio}>
                 <label htmlFor="">
@@ -136,10 +157,10 @@ const SwornDeclaration = () => {
           <div>
             <div className={s.span}>Requerido*</div>
             <form action="" className={s.cuestion}>
-              <text>
+              <p className={s.text}>
                 ¿Usted está haciendo uso de algún tipo de medicamento
                 psicoactivo?
-              </text>
+              </p>
               <p>
                 por ejemplo, tranquilizantes, antigripales, antialergicos o para
                 insomnios
@@ -176,10 +197,10 @@ const SwornDeclaration = () => {
           <div>
             <div className={s.span}>Requerido*</div>
             <form action="" className={s.cuestion}>
-              <text>
+              <p className={s.text}>
                 ¿Tiene usted algún problema familiar, emocional o de cualquier
                 tipo que lo distraiga?
-              </text>
+              </p>
               <div className={s.line}></div>
               <div className={s.customRadio}>
                 <label htmlFor="">
@@ -213,6 +234,7 @@ const SwornDeclaration = () => {
             <ButtonDarkBlue text="continuar" />
           </div>
         </div>
+        <Toaster richColors expand={true} position="top-center" />
       </div>
     </>
   );
