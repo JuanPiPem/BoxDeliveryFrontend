@@ -25,6 +25,7 @@ type Prop = {
   arrayPackages: Array<items>;
   view: string;
   section: string;
+  onStartPackage: (packageId: string) => void;
 };
 
 function DeliveriesHistory(prop: Prop) {
@@ -150,6 +151,7 @@ function DeliveriesHistory(prop: Prop) {
                         viewType={prop.view}
                         section={prop.section}
                         status={item.status}
+                        onStartPackage={prop.onStartPackage}
                       />
                     </Link>
                   </div>
