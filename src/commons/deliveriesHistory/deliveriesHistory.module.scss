@@ -2,9 +2,9 @@
 
 .packagesList {
   width: 300px;
+  max-height: 145px;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
-  max-height: 229px;
   margin-top: 1px;
   overflow-x: hidden;
   overflow-y: auto;
@@ -85,9 +85,9 @@
 }
 
 .gradient {
-  margin-top: -60px;
+  margin-top: -51px;
   width: 279px;
-  height: 50px;
+  height: 41px;
   background-image: linear-gradient(to bottom, transparent, $white);
   z-index: 2;
 }
