@@ -135,6 +135,7 @@ const Packages = () => {
                       viewType="paquetes-admin"
                       section=""
                       status={item.status}
+                      onStartPackage={() => {}}
                     />
                   </div>
                 </div>
