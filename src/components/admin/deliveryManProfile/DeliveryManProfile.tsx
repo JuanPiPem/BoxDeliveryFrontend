@@ -10,74 +10,41 @@ import DeliveriesHistory from "commons/deliveriesHistory/DeliveriesHistory";
 
 const DeliveryManProfile = () => {
   interface FakeData {
-    packageNumber: string;
+    id: string;
     address: string;
-    city: string;
     status: string;
+    // onStartPackage: fn
   }
-
-  const arrayFakeDataPendingPackages: FakeData[] = [
-    /*     {
-      packageNumber: "#0H167",
-      address: "Av. Carabobo y Rivadavia",
-      city: "CABA",
-      status: "en-curso",
-    },
-    {
-      packageNumber: "#0A903",
-      address: "Las Heras 5678",
-      city: "CABA",
-      status: "pendiente",
-    },
-    {
-      packageNumber: "#0H167",
-      address: "Av. Carabobo y Rivadavia",
-      city: "CABA",
-      status: "en-curso",
-    },
-    {
-      packageNumber: "#0A903",
-      address: "Las Heras 5678",
-      city: "CABA",
-      status: "pendiente",
-    }, */
-  ];
 
   const arrayFakeData: FakeData[] = [
     {
-      packageNumber: "#0H167",
+      id: "#0H167",
       address: "Av. Carabobo y Rivadavia",
-      city: "CABA",
       status: "entregado",
     },
     {
-      packageNumber: "#0A903",
+      id: "#0A903",
       address: "Las Heras 5678",
-      city: "CABA",
       status: "entregado",
     },
     {
-      packageNumber: "#0H167",
+      id: "#0H167",
       address: "Av. Carabobo y Rivadavia",
-      city: "CABA",
       status: "entregado",
     },
     {
-      packageNumber: "#0H167",
+      id: "#0H167",
       address: "Av. Carabobo y Rivadavia",
-      city: "CABA",
       status: "entregado",
     },
     {
-      packageNumber: "#0A903",
+      id: "#0A903",
       address: "Las Heras 5678",
-      city: "CABA",
       status: "entregado",
     },
     {
-      packageNumber: "#0A903",
+      id: "#0A903",
       address: "Las Heras 5678",
-      city: "CABA",
       status: "entregado",
     },
   ];
@@ -109,14 +76,16 @@ const DeliveryManProfile = () => {
           <div className={s.addPackagesContainer}>
             <div className={s.addPackagesContentContainer}>
               <PendingDeliveries
-                arrayPackages={arrayFakeDataPendingPackages}
+                arrayPackages={arrayFakeData}
                 view="perfil-repartidor"
                 section="repartos-pendientes"
+                onStartPackage={() => {}}
               />
               <DeliveriesHistory
                 arrayPackages={arrayFakeData}
                 view="perfil-repartidor"
                 section="historial-repartos"
+                onStartPackage={() => {}}
               />
               <hr className={s.packages} />
             </div>
