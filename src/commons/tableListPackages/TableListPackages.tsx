@@ -6,6 +6,7 @@ import Package from "assets/img/Package";
 import StatusInProgress from "assets/img/StatusInProgress";
 import StatusPending from "assets/img/StatusPending";
 import StatusDelivered from "assets/img/StatusDelivered";
+import { packageServiceStartTrip } from "services/package.service";
 
 type Prop = {
   viewType: string;
@@ -13,7 +14,7 @@ type Prop = {
   status: string;
   packageNumber: string;
   address: string;
-  onStartPackage: (packageId: string) => void;
+  // onStartPackage: (packageId: string) => void;
 };
 //The viewType can be: "paquetes-admin", "perfil-repartidor" o "home-repartidor"
 //The sections can be: "repartos-pendientes" "historial-repartos"
@@ -21,12 +22,32 @@ type Prop = {
 //Example: <TableListPackages packageNumber="#0A235" address="Amenabar2356" city="CABA" viewType="paquetes-admin" section="repartos-pendientes" status="en-curso"/>
 
 const TableListPackages = (prop: Prop) => {
-  const [iniciarClicked, setIniciarClicked] = useState(false);
+  const [iniciarClicked, _setIniciarClicked] = useState(false);
 
-  const handleIniciarClick = () => {
-    prop.onStartPackage(prop.packageNumber);
-    setIniciarClicked(true);
-  };
+  const handleStartPackage = async () =>
+    await packageServiceStartTrip(prop.packageNumber);
+  // try {
+
+  // const updatedPendingPackages = pendingPackages.filter(
+  //   (packageItem) => packageItem.id !== packageId
+  // );
+  // const updatedPackage = pendingPackages.find(
+  //   (packageItem) => packageItem.id === packageId
+  // );
+  // if (updatedPackage) {
+  //   setPendingPackages(updatedPendingPackages);
+  //   setOngoingPackages([...ongoingPackages, updatedPackage]);
+
+  // } else {
+  //   console.error("Updated package is undefined");
+  // }
+  // } catch (error) {
+  //   console.error("Error updating package status:", error);
+  // }
+  // const handleIniciarClick = () => {
+  //   prop.onStartPackage(prop.packageNumber);
+  //   setIniciarClicked(true);
+  // };
   return (
     <>
       <div className={`${s.container}`}>
@@ -73,7 +94,7 @@ const TableListPackages = (prop: Prop) => {
           prop.section === "repartos-pendientes" &&
           prop.status === "pending" &&
           !iniciarClicked ? (
-            <button className={`${s.button}`} onClick={handleIniciarClick}>
+            <button className={`${s.button}`} onClick={handleStartPackage}>
               Iniciar
             </button>
           ) : null}

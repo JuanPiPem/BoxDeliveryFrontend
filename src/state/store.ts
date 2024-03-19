@@ -1,12 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "../state/user";
-import currentPackageReducer from "../state/packages";
+import { reducers } from "../state/packages";
 //import elementsReducer from "./elements";
 
 const store = configureStore({
   reducer: {
     user: userReducer,
-    currentPackage: currentPackageReducer,
+    currentPackage: reducers.currentPackage,
+    pendigPackages: reducers.pendingPackages,
   },
 });
 

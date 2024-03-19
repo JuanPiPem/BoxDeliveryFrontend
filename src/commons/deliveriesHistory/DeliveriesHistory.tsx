@@ -24,7 +24,7 @@ type Prop = {
   arrayPackages: Array<items>;
   view: string;
   section: string;
-  onStartPackage: (packageId: string) => void;
+  // onStartPackage: (packageId: string) => void;
 };
 
 function DeliveriesHistory(prop: Prop) {

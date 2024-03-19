@@ -6,12 +6,13 @@ import ButtonDarkBlue from "commons/buttonDarkBlue/ButtonDarkBlue";
 import DeliveriesHistory from "commons/deliveriesHistory/DeliveriesHistory";
 import PendingDeliveries from "commons/pendingDeliveries/PendingDeliveries";
 import Link from "next/link";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../state/store";
 import {
   packageServiceGetPackagesByUserIdAndStatus,
-  packageServiceStartTrip,
+  // packageServiceStartTrip,
 } from "services/package.service";
+import { addPendingPackage, removePendingPackages } from "state/packages";
 
 type PendingPackage = {
   id: string;
@@ -26,12 +27,16 @@ type PendingPackage = {
 };
 
 const StartWorkDay = () => {
+  const dispatch = useDispatch();
   const [pendingPackages, setPendingPackages] = useState<PendingPackage[]>([]);
   const [ongoingPackages, setOngoingPackages] = useState<PendingPackage[]>([]);
   const [deliveredPackages, setDeliveredPackages] = useState<PendingPackage[]>(
     []
   );
   const user = useSelector((state: RootState) => state.user);
+  const _pendingPackage = useSelector(
+    (state: RootState) => state.pendigPackages
+  );
 
   useEffect(() => {
     const fetchPendingPackages = async () => {
@@ -41,7 +46,8 @@ const StartWorkDay = () => {
             user.id,
             "pending"
           );
-          console.log("Pending packages:", response);
+          dispatch(removePendingPackages());
+          dispatch(addPendingPackage(response));
           setPendingPackages(response);
         } else {
           console.error("User ID is null");
@@ -52,7 +58,7 @@ const StartWorkDay = () => {
     };
 
     fetchPendingPackages();
-  }, [user]);
+  }, [dispatch, user]);
 
   useEffect(() => {
     const fetchDeliveredPackages = async () => {
@@ -92,52 +98,48 @@ const StartWorkDay = () => {
 
     fetchOngoingPackages();
   }, [user]);
-
   const combinedPackages = [...pendingPackages, ...ongoingPackages];
 
-  const handleStartPackage = async (packageId: string) => {
-    try {
-      console.log(`Intentando iniciar el paquete con ID ${packageId}`);
-      // Llama a la función de servicio para cambiar el estado del paquete a "ongoing"
-      await packageServiceStartTrip(packageId);
+  // const handleStartPackage = async (packageId: string) => {
+  //   try {
+  //     console.log(`Intentando iniciar el paquete con ID ${packageId}`);
+  //     await packageServiceStartTrip(packageId);
 
-      // Actualiza el estado de los paquetes pendientes y en curso
-      const updatedPendingPackages = pendingPackages.filter(
-        (packageItem) => packageItem.id !== packageId
-      );
-      const updatedPackage = pendingPackages.find(
-        (packageItem) => packageItem.id === packageId
-      );
-
-      // Verifica si updatedPackage no es undefined antes de usarlo
-      if (updatedPackage) {
-        setPendingPackages(updatedPendingPackages);
-        setOngoingPackages([...ongoingPackages, updatedPackage]);
-        console.log(
-          `El paquete con ID ${packageId} ha cambiado a estado "ongoing"`
-        );
-      } else {
-        console.error("Updated package is undefined");
-      }
-    } catch (error) {
-      console.error("Error updating package status:", error);
-    }
-  };
+  //     const updatedPendingPackages = pendingPackages.filter(
+  //       (packageItem) => packageItem.id !== packageId
+  //     );
+  //     const updatedPackage = pendingPackages.find(
+  //       (packageItem) => packageItem.id === packageId
+  //     );
+  //     if (updatedPackage) {
+  //       setPendingPackages(updatedPendingPackages);
+  //       setOngoingPackages([...ongoingPackages, updatedPackage]);
+  //       console.log(
+  //         `El paquete con ID ${packageId} ha cambiado a estado "ongoing"`
+  //       );
+  //     } else {
+  //       console.error("Updated package is undefined");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error updating package status:", error);
+  //   }
+  // };
 
   return (
     <div className={s.packagesContainer}>
       <div className={s.packagesContentContainer}>
         <PendingDeliveries
           arrayPackages={combinedPackages}
+          pending={pendingPackages}
           view="home-repartidor"
           section="repartos-pendientes"
-          onStartPackage={handleStartPackage}
+          // onStartPackage={handleStartPackage}
         />
         <DeliveriesHistory
           arrayPackages={deliveredPackages}
           view="home-repartidor"
           section="historial-repartos"
-          onStartPackage={handleStartPackage}
+          // onStartPackage={handleStartPackage}
         />
         {/* Corregir el botón para que siempre esté pegado al final de la página a 10px de separación */}
         <Link href={"/delivery-man/get-packages"}>

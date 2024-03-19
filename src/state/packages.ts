@@ -1,4 +1,14 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+interface Package {
+  id: string;
+  receiver_name: string;
+  date: string;
+  weight: string;
+  address: string;
+  status: string;
+  user_id: string;
+}
 
 export const currentPackage = createSlice({
   name: "currentPackage",
@@ -33,6 +43,38 @@ export const currentPackage = createSlice({
   },
 });
 
-export const { setCurrentPackage, removePackage } = currentPackage.actions;
+const initialState: Package[] = [];
+export const pendingPackages = createSlice({
+  name: "pendingPackages",
+  initialState,
+  reducers: {
+    addPendingPackage: (state, action: PayloadAction<Package>) => {
+      state.push(action.payload);
+    },
+    removePendingPackage: (state, action: PayloadAction<string>) => {
+      return state.filter((item) => item.id !== action.payload);
+    },
+    removePendingPackages: (state) => {
+      return state.splice(0, state.length);
+    },
+    updatePendingPackage: (state, action: PayloadAction<Package>) => {
+      const index = state.findIndex((item) => item.id === action.payload.id);
+      if (index !== -1) {
+        state[index] = action.payload;
+      }
+    },
+  },
+});
 
-export default currentPackage.reducer;
+export const { setCurrentPackage, removePackage } = currentPackage.actions;
+export const {
+  addPendingPackage,
+  removePendingPackage,
+  removePendingPackages,
+  updatePendingPackage,
+} = pendingPackages.actions;
+
+export const reducers = {
+  currentPackage: currentPackage.reducer,
+  pendingPackages: pendingPackages.reducer,
+};

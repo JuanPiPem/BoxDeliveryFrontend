@@ -25,7 +25,8 @@ type Prop = {
   arrayPackages: Array<items>;
   view: string;
   section: string;
-  onStartPackage: (packageId: string) => void;
+  pending: Array<items>;
+  // onStartPackage: (packageId: string) => void;
 };
 //The viewType can be: "paquetes-admin", "perfil-repartidor" o "home-repartidor"
 //The sections can be: "repartos-pendientes" "historial-repartos"
@@ -152,7 +153,7 @@ function PendingDeliveries(prop: Prop) {
                           viewType={prop.view}
                           section={prop.section}
                           status={item.status}
-                          onStartPackage={prop.onStartPackage}
+                          // onStartPackage={prop.onStartPackage}
                         />
                       </Link>
                     ) : (
@@ -162,7 +163,7 @@ function PendingDeliveries(prop: Prop) {
                         viewType={prop.view}
                         section={prop.section}
                         status={item.status}
-                        onStartPackage={prop.onStartPackage}
+                        // onStartPackage={prop.onStartPackage}
                       />
                     )}
                   </div>
