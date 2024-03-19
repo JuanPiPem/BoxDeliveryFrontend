@@ -94,8 +94,6 @@ const DeliveryManProfile = () => {
 
   const combinedPackages = [...pendingPackages, ...ongoingPackages];
 
-  const onStartPackage = () => {};
-
   return (
     <div className={s.addPackagesContainer}>
       <div className={s.addPackagesContentContainer}>
@@ -128,13 +126,11 @@ const DeliveryManProfile = () => {
                 arrayPackages={combinedPackages}
                 view="perfil-repartidor"
                 section="repartos-pendientes"
-                onStartPackage={onStartPackage}
               />
               <DeliveriesHistory
                 arrayPackages={deliveredPackages}
                 view="perfil-repartidor"
                 section="historial-repartos"
-                onStartPackage={onStartPackage}
               />
               <hr className={s.packages} />
             </div>
