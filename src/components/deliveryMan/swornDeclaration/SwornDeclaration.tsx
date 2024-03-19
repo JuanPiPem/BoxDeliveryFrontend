@@ -94,13 +94,11 @@ const SwornDeclaration = () => {
       await userServiceEnabledDeliveryman(user.id!);
       const checkedPackageIds = localStorage.getItem("selectedIds");
       if (!user.id) throw new Error();
-      if (!checkedPackageIds) return console.log("no había nada");
+      if (!checkedPackageIds) return;
       const ids: string[] = JSON.parse(checkedPackageIds);
-      // Mapear las promesas y almacenarlas en un array
       const promises = ids.map((id) => {
         return packageServiceAssignPackage(id, user.id);
       });
-      // Esperar a que todas las promesas se resuelvan
       await Promise.all(promises);
       localStorage.removeItem("selectedIds");
       toast.success("Usted puede iniciar su jornada", {
