@@ -41,7 +41,6 @@ const StartWorkDay = () => {
             user.id,
             "pending"
           );
-          console.log("Pending packages:", response);
           setPendingPackages(response);
         } else {
           console.error("User ID is null");
@@ -97,11 +96,8 @@ const StartWorkDay = () => {
 
   const handleStartPackage = async (packageId: string) => {
     try {
-      console.log(`Intentando iniciar el paquete con ID ${packageId}`);
-      // Llama a la función de servicio para cambiar el estado del paquete a "ongoing"
       await packageServiceStartTrip(packageId);
 
-      // Actualiza el estado de los paquetes pendientes y en curso
       const updatedPendingPackages = pendingPackages.filter(
         (packageItem) => packageItem.id !== packageId
       );
@@ -109,13 +105,9 @@ const StartWorkDay = () => {
         (packageItem) => packageItem.id === packageId
       );
 
-      // Verifica si updatedPackage no es undefined antes de usarlo
       if (updatedPackage) {
         setPendingPackages(updatedPendingPackages);
         setOngoingPackages([...ongoingPackages, updatedPackage]);
-        console.log(
-          `El paquete con ID ${packageId} ha cambiado a estado "ongoing"`
-        );
       } else {
         console.error("Updated package is undefined");
       }

@@ -24,7 +24,6 @@ const DeliveryInProgress = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const params = useParams();
-  console.log(currentPackage.status);
 
   const fetchPackage = async () => {
     return await packageServiceGetSingleById(params.id.toString()).then(
