@@ -7,13 +7,15 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { Switch } from "@chakra-ui/react";
 import PendingDeliveries from "commons/pendingDeliveries/PendingDeliveries";
 import DeliveriesHistory from "commons/deliveriesHistory/DeliveriesHistory";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "state/store";
 import { packageServiceGetPackagesByUserIdAndStatus } from "services/package.service";
 import {
   userServiceDisabledDeliveryman,
   userServiceEnabledDeliveryman,
+  userServiceMe,
 } from "services/user.service";
+import { setUser } from "state/user";
 
 type PendingPackage = {
   id: string;
@@ -33,26 +35,29 @@ const DeliveryManProfile = () => {
   const [deliveredPackages, setDeliveredPackages] = useState<PendingPackage[]>(
     []
   );
-  const [isEnabled, setIsEnabled] = useState(true);
-  const user = useSelector((state: RootState) => state.user);
+  const dispatch = useDispatch();
 
+  const user = useSelector((state: RootState) => state.user);
+  console.log(user.is_enabled);
   const toggleEnabled = async () => {
-    try {
-      if (user.id !== null) {
-        if (isEnabled) {
-          // Si está habilitado, deshabilitarlo
-          await userServiceDisabledDeliveryman(user.id);
-        } else {
-          // Si está deshabilitado, habilitarlo
-          await userServiceEnabledDeliveryman(user.id);
+    if (user.id !== null) {
+      if (user.is_enabled) {
+        await userServiceDisabledDeliveryman(user.id);
+        try {
+          const user = userServiceMe();
+          try {
+            dispatch(setUser(user));
+          } catch (error) {
+            return;
+          }
+        } catch (error) {
+          return;
         }
-        // Actualizar el estado local de habilitación
-        setIsEnabled(!isEnabled);
       } else {
-        console.error("User ID is null");
+        return await userServiceEnabledDeliveryman(user.id || 4);
       }
-    } catch (error) {
-      console.error("Error toggling deliveryman status:", error);
+    } else {
+      console.error("User ID is null");
     }
   };
 
@@ -132,7 +137,7 @@ const DeliveryManProfile = () => {
               </div>
               <div className={s.textContainer}>
                 <h5>{user.name}</h5>
-                <p>{isEnabled ? "Habilitado" : "No Habilitado"}</p>
+                <p>{user.is_enabled ? "Habilitado" : "No Habilitado"}</p>
               </div>
             </div>
             <div>
@@ -140,7 +145,7 @@ const DeliveryManProfile = () => {
                 <Switch
                   colorScheme="teal"
                   size="md"
-                  isChecked={isEnabled}
+                  isChecked={user.is_enabled}
                   onChange={toggleEnabled}
                 />
               </ChakraProvider>
