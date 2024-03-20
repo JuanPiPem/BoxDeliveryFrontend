@@ -104,7 +104,11 @@ function DeliveriesHistory(prop: Prop) {
   }, [isScrollable, show, atBottom]);
   return (
     <>
-      <div className={s.divDelivery} onClick={toggle}>
+      <div
+        className={s.divDelivery}
+        onClick={toggle}
+        style={{ marginTop: "10px" }}
+      >
         <div className={s.divDeliveryTexts}>
           <p className={`${s.textDelivery} ${saira.className}`}>
             HISTORIAL DE REPARTOS
