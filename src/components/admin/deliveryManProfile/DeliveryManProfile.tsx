@@ -126,11 +126,13 @@ const DeliveryManProfile = () => {
                 arrayPackages={combinedPackages}
                 view="perfil-repartidor"
                 section="repartos-pendientes"
+                onStartPackage={() => {}}
               />
               <DeliveriesHistory
                 arrayPackages={deliveredPackages}
                 view="perfil-repartidor"
                 section="historial-repartos"
+                onStartPackage={() => {}}
               />
               <hr className={s.packages} />
             </div>

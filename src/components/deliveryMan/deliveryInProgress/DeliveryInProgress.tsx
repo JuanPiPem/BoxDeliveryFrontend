@@ -1,5 +1,7 @@
 "use client";
-import React, { useEffect, useState } from "react";
+
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import s from "./deliveryInProgress.module.scss";
 import Header from "commons/header/Header";
 import ButtonDarkBlue from "commons/buttonDarkBlue/ButtonDarkBlue";
@@ -12,48 +14,47 @@ import {
   packageServiceStartTrip,
 } from "services/package.service";
 import { Toaster, toast } from "sonner";
+import { RootState } from "state/store";
+import { removePackage, setCurrentPackage } from "state/packages";
 
 const DeliveryInProgress = () => {
+  const currentPackage = useSelector(
+    (state: RootState) => state.currentPackage
+  );
+  const dispatch = useDispatch();
   const router = useRouter();
   const params = useParams();
-  const [singlePackage, setSinglePackage] = useState(Object);
-  const [status, setStatus] = useState("");
+  console.log(currentPackage.status);
 
-  useEffect(() => {
-    packageServiceGetSingleById(params.id.toString()).then((singlePackage) =>
-      setSinglePackage(singlePackage)
+  const fetchPackage = async () => {
+    return await packageServiceGetSingleById(params.id.toString()).then(
+      (singlePackage) => {
+        dispatch(setCurrentPackage(singlePackage));
+      }
     );
-  }, [params]);
-
+  };
   useEffect(() => {
-    singlePackage.status === `pending` &&
-      singlePackage.user_id === null &&
-      setStatus("pending unassigned");
-
-    singlePackage.status === `pending` &&
-      singlePackage.user_id !== null &&
-      setStatus("pending assigned");
-
-    singlePackage.status === `ongoing` && setStatus("ongoing");
-
-    singlePackage.status === `delivered` && setStatus("delivered");
-  }, [singlePackage.status, singlePackage.user_id]);
+    dispatch(removePackage());
+    fetchPackage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, params]);
 
   const handleClick = async () => {
-    if (status === `pending unassigned`) return router.back();
-    if (status === `pending assigned`) {
+    if (currentPackage.user_id === null) return router.back();
+    if (currentPackage.status === "pending") {
       await packageServiceStartTrip(params.id.toString());
       try {
-        return toast.success("Comenzo el reparto", {
+        toast.success("Comenzo el reparto", {
           description: "Presta atencion al camino!",
         });
+        return fetchPackage();
       } catch (error) {
         return toast.error("No se pudo iniciar el reparto", {
           description: "Refresque e intente nuevamente!",
         });
       }
     }
-    if (status === `ongoing`) {
+    if (currentPackage.status === `ongoing`) {
       await packageServiceFinishTrip(params.id.toString());
       try {
         toast.success("Finalizaste el viaje exitosamente", {
@@ -68,12 +69,12 @@ const DeliveryInProgress = () => {
         });
       }
     }
-    if (status === `delivered`)
+    if (currentPackage.status === `delivered`)
       return router.push("/delivery-man/start-work-day");
   };
 
   const handleCancelClick = async () => {
-    await packageServiceCancelTrip(singlePackage.id);
+    await packageServiceCancelTrip(currentPackage.id || "");
     try {
       return router.push("/delivery-man/start-work-day");
     } catch (error) {
@@ -81,15 +82,9 @@ const DeliveryInProgress = () => {
     }
   };
   const packageStatus = () => {
-    if (status === "pending unassigned" || status === "pending assigned") {
-      return "pendiente";
-    } else if (status === "ongoing") {
-      return "en curso";
-    } else if (status === "delivered") {
-      return "entregado";
-    } else {
-      return "pendiente";
-    }
+    if (currentPackage.status === "pending") return "pendiente";
+    if (currentPackage.status === "ongoing") return "en curso";
+    else return "entregado";
   };
   return (
     <>
@@ -102,11 +97,11 @@ const DeliveryInProgress = () => {
           <div className={s.deliveryDataContainer}>
             <div className={s.deliveryData}>
               <span className={s.bold}>Destino: </span>
-              {singlePackage.address} <br />
+              {currentPackage.address} <br />
               <span className={s.bold}> Número de paquete: </span> #
-              {singlePackage.id} <br />
+              {currentPackage.id} <br />
               <span className={s.bold}> Recibe: </span>
-              {singlePackage.receiver_name}
+              {currentPackage.receiver_name}
             </div>
           </div>
         </div>
@@ -115,15 +110,14 @@ const DeliveryInProgress = () => {
           <div className="darkblue" onClick={handleClick}>
             <ButtonDarkBlue
               text={
-                status === "pending unassigned"
+                // currentPackage.status
+                currentPackage.user_id === null
                   ? "volver"
-                  : status === "pending assigned"
-                  ? "comenzar"
-                  : status === "ongoing"
+                  : currentPackage.status === "ongoing"
                   ? "finalizar"
-                  : status === "delivered"
-                  ? "volver"
-                  : "volver"
+                  : currentPackage.status === "pending"
+                  ? "comenzar"
+                  : ""
               }
             />
           </div>
@@ -131,7 +125,7 @@ const DeliveryInProgress = () => {
             className={s.btnCancelDelivery}
             onClick={handleCancelClick}
             style={{
-              display: status === `ongoing` ? "block" : "none",
+              display: currentPackage.status === `ongoing` ? "block" : "none",
             }}
           >
             cancelar entrega
