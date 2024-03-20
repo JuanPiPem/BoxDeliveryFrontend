@@ -150,7 +150,7 @@ const DeliveryManProfile = () => {
                 <p>
                   {currentDeliveryMen.is_enabled
                     ? "Habilitado"
-                    : "No Habilitado"}
+                    : "deshabilitado"}
                 </p>
               </div>
             </div>
