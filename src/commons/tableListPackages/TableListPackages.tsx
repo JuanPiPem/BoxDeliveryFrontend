@@ -6,6 +6,7 @@ import Package from "assets/img/Package";
 import StatusInProgress from "assets/img/StatusInProgress";
 import StatusPending from "assets/img/StatusPending";
 import StatusDelivered from "assets/img/StatusDelivered";
+import Link from "next/link";
 
 type Prop = {
   viewType: string;
@@ -30,13 +31,15 @@ const TableListPackages = (prop: Prop) => {
   return (
     <>
       <div className={`${s.container}`}>
-        <div className={`${s.div1}`}>
-          <Package />
-          <div className={`${s.div2}`}>
-            <p className={`${s.txt} ${s.fontBold}`}>#{prop.packageNumber}</p>
-            <p className={`${s.txt} ${s.fontNormal}`}>{prop.address},</p>
+        <Link href={`/delivery-man/delivery-in-progress/${prop.packageNumber}`}>
+          <div className={`${s.div1}`}>
+            <Package />
+            <div className={`${s.div2}`}>
+              <p className={`${s.txt} ${s.fontBold}`}>#{prop.packageNumber}</p>
+              <p className={`${s.txt} ${s.fontNormal}`}>{prop.address},</p>
+            </div>
           </div>
-        </div>
+        </Link>
         <div className={`${s.div3}`}>
           {prop.viewType === "home-repartidor" ||
           prop.viewType === "perfil-repartidor" ? (

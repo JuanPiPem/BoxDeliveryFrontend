@@ -7,13 +7,16 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { Switch } from "@chakra-ui/react";
 import PendingDeliveries from "commons/pendingDeliveries/PendingDeliveries";
 import DeliveriesHistory from "commons/deliveriesHistory/DeliveriesHistory";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "state/store";
 import { packageServiceGetPackagesByUserIdAndStatus } from "services/package.service";
 import {
   userServiceDisabledDeliveryman,
   userServiceEnabledDeliveryman,
+  userServiceGetSingle,
 } from "services/user.service";
+import { useParams } from "next/navigation";
+import { removeCurrentDeliveryMen, setCurrentDeliveryMen } from "state/user";
 
 type PendingPackage = {
   id: string;
@@ -28,46 +31,61 @@ type PendingPackage = {
 };
 
 const DeliveryManProfile = () => {
+  const params = useParams();
+  const id = parseInt(params.id as string, 10);
+  const dispatch = useDispatch();
   const [pendingPackages, setPendingPackages] = useState<PendingPackage[]>([]);
   const [ongoingPackages, setOngoingPackages] = useState<PendingPackage[]>([]);
   const [deliveredPackages, setDeliveredPackages] = useState<PendingPackage[]>(
     []
   );
-  const [isEnabled, setIsEnabled] = useState(true);
-  const user = useSelector((state: RootState) => state.user);
+  const currentDeliveryMen = useSelector(
+    (state: RootState) => state.currentDeliveryMen
+  );
+
+  useEffect(() => {
+    const fetchDeliveryMan = async () => {
+      const deliveryMan = await userServiceGetSingle(id);
+      try {
+        dispatch(removeCurrentDeliveryMen());
+        dispatch(setCurrentDeliveryMen(deliveryMan));
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchDeliveryMan();
+  }, [params, currentDeliveryMen.is_enabled, dispatch, id]);
 
   const toggleEnabled = async () => {
-    try {
-      if (user.id !== null) {
-        if (isEnabled) {
-          // Si está habilitado, deshabilitarlo
-          await userServiceDisabledDeliveryman(user.id);
-        } else {
-          // Si está deshabilitado, habilitarlo
-          await userServiceEnabledDeliveryman(user.id);
-        }
-        // Actualizar el estado local de habilitación
-        setIsEnabled(!isEnabled);
-      } else {
-        console.error("User ID is null");
+    if (currentDeliveryMen !== undefined && currentDeliveryMen.id !== null) {
+      if (currentDeliveryMen.is_enabled) {
+        const response = await userServiceDisabledDeliveryman(
+          currentDeliveryMen.id
+        );
+        dispatch(setCurrentDeliveryMen(response));
+      } else if (!currentDeliveryMen.is_enabled) {
+        const response = await userServiceEnabledDeliveryman(
+          currentDeliveryMen.id
+        );
+        dispatch(setCurrentDeliveryMen(response));
       }
-    } catch (error) {
-      console.error("Error toggling deliveryman status:", error);
+    } else {
+      return;
     }
   };
 
   useEffect(() => {
     const fetchPendingPackages = async () => {
       try {
-        if (user.id !== null) {
+        if (currentDeliveryMen.id !== null) {
           const response = await packageServiceGetPackagesByUserIdAndStatus(
-            user.id,
+            currentDeliveryMen.id,
             "pending"
           );
 
           setPendingPackages(response);
         } else {
-          console.error("User ID is null");
+          return;
         }
       } catch (error) {
         console.error("Error fetching pending packages:", error);
@@ -75,38 +93,38 @@ const DeliveryManProfile = () => {
     };
 
     fetchPendingPackages();
-  }, [user]);
+  }, [currentDeliveryMen]);
 
   useEffect(() => {
     const fetchDeliveredPackages = async () => {
       try {
-        if (user.id !== null) {
+        if (currentDeliveryMen.id !== null) {
           const response = await packageServiceGetPackagesByUserIdAndStatus(
-            user.id,
+            currentDeliveryMen.id,
             "delivered"
           );
           setDeliveredPackages(response);
         } else {
-          console.error("User ID is null");
+          return;
         }
       } catch (error) {
         console.error("Error fetching delivered packages:", error);
       }
     };
     fetchDeliveredPackages();
-  }, [user]);
+  }, [currentDeliveryMen]);
 
   useEffect(() => {
     const fetchOngoingPackages = async () => {
       try {
-        if (user.id !== null) {
+        if (currentDeliveryMen.id !== null) {
           const response = await packageServiceGetPackagesByUserIdAndStatus(
-            user.id,
+            currentDeliveryMen.id,
             "ongoing"
           );
           setOngoingPackages(response);
         } else {
-          console.error("User ID is null");
+          return;
         }
       } catch (error) {
         console.error("Error fetching ongoing packages:", error);
@@ -114,10 +132,9 @@ const DeliveryManProfile = () => {
     };
 
     fetchOngoingPackages();
-  }, [user]);
+  }, [currentDeliveryMen]);
 
   const combinedPackages = [...pendingPackages, ...ongoingPackages];
-
   return (
     <div className={s.addPackagesContainer}>
       <div className={s.addPackagesContentContainer}>
@@ -127,12 +144,14 @@ const DeliveryManProfile = () => {
         <div className={s.welcomeCardContainer}>
           <div className={s.welcomeCard}>
             <div className={s.deliveryManData}>
-              <div className={s.profileImage}>
-                {/* <img src={user.profile_photo} alt="Profile" /> */}
-              </div>
+              <div className={s.profileImage}></div>
               <div className={s.textContainer}>
-                <h5>{user.name}</h5>
-                <p>{isEnabled ? "Habilitado" : "No Habilitado"}</p>
+                <h5>{currentDeliveryMen.name}</h5>
+                <p>
+                  {currentDeliveryMen.is_enabled
+                    ? "Habilitado"
+                    : "No Habilitado"}
+                </p>
               </div>
             </div>
             <div>
@@ -140,7 +159,7 @@ const DeliveryManProfile = () => {
                 <Switch
                   colorScheme="teal"
                   size="md"
-                  isChecked={isEnabled}
+                  isChecked={currentDeliveryMen.is_enabled}
                   onChange={toggleEnabled}
                 />
               </ChakraProvider>

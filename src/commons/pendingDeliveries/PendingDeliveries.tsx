@@ -8,7 +8,6 @@ import VectorDown from "assets/img/VectorDown";
 import VectorUp from "assets/img/VectorUp";
 import DeployArrowDown from "assets/img/DeployArrowDown";
 import DeployArrowRight from "assets/img/DeployArrowRight";
-import Link from "next/link";
 
 const saira = Saira({
   weight: ["400", "500", "600", "700"],
@@ -101,12 +100,13 @@ function PendingDeliveries(prop: Prop) {
       }
     };
   }, [isScrollable, show, atBottom]);
+
   return (
     <>
       <div
         className={s.divDelivery}
         onClick={toggle}
-        style={{ marginTop: "10px" }}
+        style={{ marginTop: "10px", marginBottom: show ? "0px" : "10px" }}
       >
         <div className={s.divDeliveryTexts}>
           <p className={`${s.textDelivery} ${saira.className}`}>
@@ -145,18 +145,14 @@ function PendingDeliveries(prop: Prop) {
                     {prop.view === "home-repartidor" &&
                     prop.section === "repartos-pendientes" &&
                     item.status === "ongoing" ? (
-                      <Link
-                        href={`/delivery-man/delivery-in-progress/${item.id}`}
-                      >
-                        <TableListPackages
-                          packageNumber={item.id}
-                          address={item.address}
-                          viewType={prop.view}
-                          section={prop.section}
-                          status={item.status}
-                          onStartPackage={prop.onStartPackage}
-                        />
-                      </Link>
+                      <TableListPackages
+                        packageNumber={item.id}
+                        address={item.address}
+                        viewType={prop.view}
+                        section={prop.section}
+                        status={item.status}
+                        onStartPackage={prop.onStartPackage}
+                      />
                     ) : (
                       <TableListPackages
                         packageNumber={item.id}

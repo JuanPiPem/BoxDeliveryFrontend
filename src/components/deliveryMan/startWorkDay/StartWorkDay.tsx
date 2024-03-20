@@ -43,7 +43,7 @@ const StartWorkDay = () => {
           );
           setPendingPackages(response);
         } else {
-          console.error("User ID is null");
+          return;
         }
       } catch (error) {
         console.error("Error fetching pending packages:", error);
@@ -63,7 +63,7 @@ const StartWorkDay = () => {
           );
           setDeliveredPackages(response);
         } else {
-          console.error("User ID is null");
+          return;
         }
       } catch (error) {
         console.error("Error fetching delivered packages:", error);
@@ -82,7 +82,7 @@ const StartWorkDay = () => {
           );
           setOngoingPackages(response);
         } else {
-          console.error("User ID is null");
+          return;
         }
       } catch (error) {
         console.error("Error fetching ongoing packages:", error);
