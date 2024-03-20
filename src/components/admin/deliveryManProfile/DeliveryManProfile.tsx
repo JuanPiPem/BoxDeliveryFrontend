@@ -10,6 +10,10 @@ import DeliveriesHistory from "commons/deliveriesHistory/DeliveriesHistory";
 import { useSelector } from "react-redux";
 import { RootState } from "state/store";
 import { packageServiceGetPackagesByUserIdAndStatus } from "services/package.service";
+import {
+  userServiceDisabledDeliveryman,
+  userServiceEnabledDeliveryman,
+} from "services/user.service";
 
 type PendingPackage = {
   id: string;
@@ -29,8 +33,28 @@ const DeliveryManProfile = () => {
   const [deliveredPackages, setDeliveredPackages] = useState<PendingPackage[]>(
     []
   );
-
+  const [isEnabled, setIsEnabled] = useState(true);
   const user = useSelector((state: RootState) => state.user);
+
+  const toggleEnabled = async () => {
+    try {
+      if (user.id !== null) {
+        if (isEnabled) {
+          // Si está habilitado, deshabilitarlo
+          await userServiceDisabledDeliveryman(user.id);
+        } else {
+          // Si está deshabilitado, habilitarlo
+          await userServiceEnabledDeliveryman(user.id);
+        }
+        // Actualizar el estado local de habilitación
+        setIsEnabled(!isEnabled);
+      } else {
+        console.error("User ID is null");
+      }
+    } catch (error) {
+      console.error("Error toggling deliveryman status:", error);
+    }
+  };
 
   useEffect(() => {
     const fetchPendingPackages = async () => {
@@ -40,7 +64,7 @@ const DeliveryManProfile = () => {
             user.id,
             "pending"
           );
-          console.log("Pending packages:", response);
+
           setPendingPackages(response);
         } else {
           console.error("User ID is null");
@@ -108,12 +132,17 @@ const DeliveryManProfile = () => {
               </div>
               <div className={s.textContainer}>
                 <h5>{user.name}</h5>
-                <p>Habilitado</p>
+                <p>{isEnabled ? "Habilitado" : "No Habilitado"}</p>
               </div>
             </div>
             <div>
               <ChakraProvider>
-                <Switch colorScheme="teal" size="md" isChecked />
+                <Switch
+                  colorScheme="teal"
+                  size="md"
+                  isChecked={isEnabled}
+                  onChange={toggleEnabled}
+                />
               </ChakraProvider>
             </div>
           </div>
