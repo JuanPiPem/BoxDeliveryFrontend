@@ -117,7 +117,7 @@ const DeliveryMen = () => {
           {deliverymen &&
             deliverymen.map((deliveryman) => (
               <>
-                <Link href={"/admin/delivery-man-profile"}>
+                <Link href={`/admin/delivery-man-profile/${deliveryman.id}`}>
                   <div className={s.contentUser} key={deliveryman.id}>
                     <div className={s.percentage}>
                       {deliveryman.is_enabled === true ||

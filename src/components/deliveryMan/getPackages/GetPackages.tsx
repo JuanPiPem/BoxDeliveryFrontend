@@ -65,7 +65,7 @@ const GetPackages = () => {
     if (typeof window !== "undefined") {
       const checkedPackageIds = localStorage.getItem("selectedIds");
       if (!user.id) throw new Error();
-      if (!checkedPackageIds) return console.log("no habia nada");
+      if (!checkedPackageIds) return;
       //const ids: string[] = JSON.parse(checkedPackageIds);
       try {
         // const idsCopy = [...ids];

@@ -94,7 +94,7 @@ const SwornDeclaration = () => {
       await userServiceEnabledDeliveryman(user.id!);
       const checkedPackageIds = localStorage.getItem("selectedIds");
       if (!user.id) throw new Error();
-      if (!checkedPackageIds) return console.log("no había nada");
+      if (!checkedPackageIds) return;
       const ids: string[] = JSON.parse(checkedPackageIds);
       // Mapear las promesas y almacenarlas en un array
       const promises = ids.map((id) => {

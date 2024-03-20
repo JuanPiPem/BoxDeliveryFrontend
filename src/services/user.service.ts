@@ -30,7 +30,7 @@ export const userServiceMe = async () => {
   return res.data;
 };
 
-export const userServiceGetSingle = async (id: number) => {
+export const userServiceGetSingle = async (id: number | null) => {
   const res = await axios.get(
     `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/users/single/${id}`
   );
@@ -118,14 +118,14 @@ export const userServiceGetNumberOfDeliverymenAndEnadledDeliverymen =
 
 export const userServiceEnabledDeliveryman = async (userId: number) => {
   const res = await axios.put(
-    `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/users/enabled-deliveryman/${userId}`
+    `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/users/enable-deliveryman/${userId}`
   );
   return res;
 };
 
 export const userServiceDisabledDeliveryman = async (userId: number) => {
   const res = await axios.put(
-    `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/users/disabled-deliveryman/${userId}`
+    `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/users/disable-deliveryman/${userId}`
   );
   return res;
 };
