@@ -138,10 +138,11 @@ const DeliveryMen = () => {
                     <div className={s.nameAndState}>
                       <div id={s.objetoName}>{deliveryman.name}</div>
                       <div className={s.profileState}>
-                        {(deliveryman.packagesDeliveredQuantity /
-                          deliveryman.packagesQuantity) *
-                          100 ===
-                        100 ? (
+                        {Math.floor(
+                          (deliveryman.packagesDeliveredQuantity /
+                            deliveryman.packagesQuantity) *
+                            100
+                        ) === 100 ? (
                           <div className={s.colorPoint}>
                             <ColorPoint state={"entregado"} />
                           </div>

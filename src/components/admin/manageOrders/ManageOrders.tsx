@@ -231,7 +231,7 @@ const ManageOrders = () => {
                   currentDateCaptured &&
                 deliverymenQuantity &&
                 deliverymenEnabledQuantity ? (
-                  <PieChart percent={percentDeliverymen} />
+                  <PieChart percent={Math.floor(percentDeliverymen)} />
                 ) : (
                   <PieChart percent={0} />
                 )}
@@ -261,7 +261,7 @@ const ManageOrders = () => {
               {formatDate(currentDate, "dd/MM/yyyy") === currentDateCaptured &&
               packagesQuantity &&
               ongoingPackagesQuantity ? (
-                <PieChart percent={percentPackages} />
+                <PieChart percent={Math.floor(percentPackages)} />
               ) : (
                 <PieChart percent={0} />
               )}
