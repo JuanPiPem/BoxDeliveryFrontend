@@ -5,7 +5,7 @@ import Box from "assets/img/Box";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
-  userServiceDisabledDeliveryman,
+  userServiceDisableDeliveryman,
   userServiceLogout,
 } from "services/user.service";
 import { removeUser } from "../../state/user";
@@ -18,7 +18,7 @@ const Navbar = () => {
   const user = useSelector((state: RootState) => state.user);
 
   const handleLogout = () => {
-    userServiceDisabledDeliveryman(user.id!)
+    userServiceDisableDeliveryman(user.id!)
       .then(() => dispatch(removeUser()))
       .then(() => userServiceLogout())
       .then(() => navigate.push("/login"))

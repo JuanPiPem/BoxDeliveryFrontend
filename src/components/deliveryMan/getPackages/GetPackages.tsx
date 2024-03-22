@@ -24,12 +24,6 @@ type item = {
   checked: boolean;
 };
 
-interface ApiError {
-  response: {
-    data: string;
-  };
-}
-
 const GetPackages = () => {
   const router = useRouter();
   const [packages, setPackages] = useState<item[]>([]);
@@ -65,28 +59,17 @@ const GetPackages = () => {
     if (typeof window !== "undefined") {
       const checkedPackageIds = localStorage.getItem("selectedIds");
       if (!user.id) throw new Error();
-      if (!checkedPackageIds) return;
+      if (!checkedPackageIds)
+        return toast.warning("Seleccione al menos un paquete");
       const ids: string[] = JSON.parse(checkedPackageIds);
-      try {
-        const idsCopy = [...ids];
-        for (const packageId of idsCopy) {
-          const index = ids.indexOf(packageId);
-          if (index !== -1) {
-            ids.splice(index, 1);
-            //localStorage.setItem("selectedIds", JSON.stringify(ids));
-          }
+      const idsCopy = [...ids];
+      for (const packageId of idsCopy) {
+        const index = ids.indexOf(packageId);
+        if (index !== -1) {
+          ids.splice(index, 1);
         }
-        router.push("/delivery-man/sworn-declaration");
-      } catch (error) {
-        const err =
-          (error as ApiError).response.data ===
-          "Error: You can't deliver more than 10 packages per day"
-            ? "Limite maximo de 10 paquetes por dia"
-            : (error as ApiError).response;
-        toast.error("Error con la asignacion de paquetes", {
-          description: `${err}`,
-        });
       }
+      return router.push("/delivery-man/sworn-declaration");
     }
   };
 
