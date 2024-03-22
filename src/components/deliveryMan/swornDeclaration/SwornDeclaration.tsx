@@ -5,23 +5,28 @@ import ButtonDarkBlue from "commons/buttonDarkBlue/ButtonDarkBlue";
 import s from "./swornDeclaration.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../state/store";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { removeUser } from "../../../state/user";
 import {
-  userServiceEnabledDeliveryman,
+  userServiceEnableDeliveryman,
   userServiceLogout,
 } from "services/user.service";
 import { packageServiceAssignPackage } from "services/package.service";
 import { Toaster, toast } from "sonner";
-
+interface ApiError {
+  response: {
+    data: string;
+  };
+}
 const SwornDeclaration = () => {
-  const [cuestionA, setCuestionA] = useState("");
-  const [cuestionB, setCuestionB] = useState("");
-  const [cuestionC, setCuestionC] = useState("");
-
   const user = useSelector((state: RootState) => state.user);
   const navigate = useRouter();
   const dispatch = useDispatch();
+  const router = useRouter();
+  const pathname = usePathname();
+  const [cuestionA, setCuestionA] = useState("");
+  const [cuestionB, setCuestionB] = useState("");
+  const [cuestionC, setCuestionC] = useState("");
 
   const handleOptionChange = (
     event: ChangeEvent<HTMLInputElement>,
@@ -43,55 +48,43 @@ const SwornDeclaration = () => {
       .then(() => navigate.push("/login"))
       .catch((err) => console.error(err));
   };
-
-  const handleSumit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const errorToast = () => {
+    setTimeout(() => {
+      return handleLogout();
+    }, 8000);
+    return toast.error(
+      "Usted cumple con una condición, por ende se le restringe la jornada",
+      {
+        duration: 10000,
+        action: {
+          label: "Aceptar",
+          onClick: () => handleLogout(),
+        },
+      }
+    );
+  };
+  const checkDeclarations = () => {
     if (cuestionA === "si" || cuestionA === "") {
-      toast.error(
-        "Usted cumple con una condición, por ende se le restringe la jornada",
-        {
-          duration: 10000,
-          action: {
-            label: "Aceptar",
-            onClick: () => handleLogout(),
-          },
-        }
-      );
-      return;
+      localStorage.removeItem("selectedIds");
+      return errorToast();
     }
 
     if (cuestionB === "si" || cuestionB === "") {
-      toast.error(
-        "Usted cumple con una condición, por ende se le restringe la jornada",
-        {
-          duration: 10000,
-
-          action: {
-            label: "Aceptar",
-            onClick: () => handleLogout(),
-          },
-        }
-      );
-      return;
+      localStorage.removeItem("selectedIds");
+      return errorToast();
     }
 
     if (cuestionC === "si" || cuestionC === "") {
-      toast.error(
-        "Usted cumple con una condición, por ende se le restringe la jornada",
-        {
-          duration: 10000,
-
-          action: {
-            label: "Aceptar",
-            onClick: () => handleLogout(),
-          },
-        }
-      );
-      return;
+      localStorage.removeItem("selectedIds");
+      return errorToast();
     }
+  };
+  const handleSumit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    checkDeclarations();
 
     try {
-      await userServiceEnabledDeliveryman(user.id!);
+      await userServiceEnableDeliveryman(user.id!);
       const checkedPackageIds = localStorage.getItem("selectedIds");
       if (!user.id) throw new Error();
       if (!checkedPackageIds) return;
@@ -102,13 +95,30 @@ const SwornDeclaration = () => {
       await Promise.all(promises);
       localStorage.removeItem("selectedIds");
       toast.success("Usted puede iniciar su jornada", {
+        duration: 4000,
         action: {
           label: "Aceptar",
           onClick: () => navigate.push("/delivery-man/start-work-day"),
         },
       });
+      setTimeout(() => {
+        if (pathname !== "/delivery-man/sworn-declaration") return;
+        return router.push("/delivery-man/start-work-day");
+      }, 4000);
     } catch (error) {
-      console.error("Error:", error);
+      const err =
+        (error as ApiError).response.data ===
+        "Error: You can't deliver more than 10 packages per day"
+          ? "Limite maximo de 10 paquetes por dia"
+          : (error as ApiError).response;
+      toast.error("Error con la asignacion de paquetes", {
+        duration: 2000,
+        description: `${err}`,
+      });
+      localStorage.removeItem("selectedIds");
+      setTimeout(() => {
+        return router.push("/delivery-man/start-work-day");
+      }, 2000);
     }
   };
 
@@ -232,7 +242,7 @@ const SwornDeclaration = () => {
             <ButtonDarkBlue text="continuar" />
           </div>
         </div>
-        <Toaster richColors expand={true} position="top-center" />
+        <Toaster richColors expand={true} position="bottom-center" />
       </div>
     </>
   );

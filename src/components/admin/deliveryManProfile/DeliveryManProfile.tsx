@@ -11,8 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "state/store";
 import { packageServiceGetPackagesByUserIdAndStatus } from "services/package.service";
 import {
-  userServiceDisabledDeliveryman,
-  userServiceEnabledDeliveryman,
+  userServiceDisableDeliveryman,
+  userServiceEnableDeliveryman,
   userServiceGetSingle,
 } from "services/user.service";
 import { useParams } from "next/navigation";
@@ -59,12 +59,12 @@ const DeliveryManProfile = () => {
   const toggleEnabled = async () => {
     if (currentDeliveryMen !== undefined && currentDeliveryMen.id !== null) {
       if (currentDeliveryMen.is_enabled) {
-        const response = await userServiceDisabledDeliveryman(
+        const response = await userServiceDisableDeliveryman(
           currentDeliveryMen.id
         );
         dispatch(setCurrentDeliveryMen(response));
       } else if (!currentDeliveryMen.is_enabled) {
-        const response = await userServiceEnabledDeliveryman(
+        const response = await userServiceEnableDeliveryman(
           currentDeliveryMen.id
         );
         dispatch(setCurrentDeliveryMen(response));

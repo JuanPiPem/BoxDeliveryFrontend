@@ -116,14 +116,14 @@ export const userServiceGetNumberOfDeliverymenAndEnadledDeliverymen =
     return res.data;
   };
 
-export const userServiceEnabledDeliveryman = async (userId: number) => {
+export const userServiceEnableDeliveryman = async (userId: number) => {
   const res = await axios.put(
     `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/users/enable-deliveryman/${userId}`
   );
   return res;
 };
 
-export const userServiceDisabledDeliveryman = async (userId: number) => {
+export const userServiceDisableDeliveryman = async (userId: number) => {
   const res = await axios.put(
     `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/users/disable-deliveryman/${userId}`
   );
