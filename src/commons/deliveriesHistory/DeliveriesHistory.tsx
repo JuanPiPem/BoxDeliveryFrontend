@@ -140,7 +140,7 @@ function DeliveriesHistory(prop: Prop) {
                 {prop.arrayPackages.length} paquetes entregados
               </div>
               {prop.arrayPackages.map((item: items, index) => (
-                <div key={index}>
+                <div key={index + 1}>
                   <hr className={s.hr} />
                   <div className={s.boxTrash}>
                     <TableListPackages

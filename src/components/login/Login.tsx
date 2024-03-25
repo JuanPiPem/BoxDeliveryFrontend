@@ -87,33 +87,35 @@ const Login = () => {
     <div className={s.loginContainer}>
       <div className={s.loginContentContainer}>
         <div className={s.content}>
-          <input
-            type="email"
-            name="email"
-            value={userData.email}
-            className={s.input}
-            id={s.margin1}
-            placeholder="Correo electronico"
-            autoFocus
-            onChange={handleInputChange}
-          />
-          <div className={s.inputPasswordContainer}>
+          <form action="submit" className="form">
             <input
-              type={showPassword ? `text` : `password`}
-              name="password"
-              value={userData.password}
-              className={`${s.input}`}
-              id={s.margin2}
-              placeholder="Contraseña"
+              type="email"
+              name="email"
+              value={userData.email}
+              className={s.input}
+              id={s.margin1}
+              placeholder="Correo electronico"
+              autoFocus
               onChange={handleInputChange}
             />
-            <div
-              className={s.eyeContainer}
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? <ClosedEye /> : <Eye />}
+            <div className={s.inputPasswordContainer}>
+              <input
+                type={showPassword ? `text` : `password`}
+                name="password"
+                value={userData.password}
+                className={`${s.input}`}
+                id={s.margin2}
+                placeholder="Contraseña"
+                onChange={handleInputChange}
+              />
+              <div
+                className={s.eyeContainer}
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <ClosedEye /> : <Eye />}
+              </div>
             </div>
-          </div>
+          </form>
           <div className={s.buttonLogin} onClick={handleSubmit}>
             <ButtonDarkBlue text="Ingresar" />
           </div>
