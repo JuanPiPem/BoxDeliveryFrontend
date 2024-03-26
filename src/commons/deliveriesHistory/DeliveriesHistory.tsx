@@ -8,6 +8,7 @@ import VectorDown from "assets/img/VectorDown";
 import VectorUp from "assets/img/VectorUp";
 import DeployArrowDown from "assets/img/DeployArrowDown";
 import DeployArrowRight from "assets/img/DeployArrowRight";
+import { usePathname } from "next/navigation";
 
 const saira = Saira({
   weight: ["400", "500", "600", "700"],
@@ -24,19 +25,35 @@ type Prop = {
   arrayPackages: Array<items>;
   view: string;
   section: string;
+  openSection: string;
+  setOpenSection: (section: string) => void;
   onStartPackage: (packageId: string) => void;
 };
 
 function DeliveriesHistory(prop: Prop) {
+  const pathname = usePathname();
   const [show, setShow] = useState(true);
   const [isScrollable, setIsScrollable] = useState(false);
   const [atBottom, setAtBottom] = useState(false);
   const [showGradient, setShowGradient] = useState(true);
 
   const toggle = () => {
-    setShow((prevState) => !prevState);
+    if (!pathname.includes("/admin/delivery-man-profile")) {
+      return setShow((prevState) => !prevState);
+    }
+    if (prop.openSection === "pendingDeliveries") {
+      prop.setOpenSection("deliveriesHistory");
+    } else {
+      prop.setOpenSection(
+        prop.openSection === "deliveriesHistory" ? "" : "deliveriesHistory"
+      );
+    }
   };
-
+  const checker = () => {
+    if (!pathname.includes("/admin/delivery-man-profile")) {
+      return show;
+    } else return prop.openSection === "deliveriesHistory";
+  };
   const packagesListRef = useRef<HTMLDivElement>(null);
 
   const handleVectorContainerClick = () => {
@@ -73,13 +90,10 @@ function DeliveriesHistory(prop: Prop) {
           packagesListRef.current.scrollHeight >
           packagesListRef.current.clientHeight;
         setIsScrollable(scrolled);
-
-        // Verifica si el scroll está cerca del final
         const atBottom =
           packagesListRef.current.scrollTop +
             packagesListRef.current.clientHeight >=
-          packagesListRef.current.scrollHeight - 1; // Cambiado a "-1" para que se considere inmediatamente al llegar al final
-
+          packagesListRef.current.scrollHeight - 1;
         setAtBottom(atBottom);
 
         if (atBottom) {
@@ -120,14 +134,14 @@ function DeliveriesHistory(prop: Prop) {
           ) : null}
         </div>
         <div className={s.arrow}>
-          {show && prop.arrayPackages.length ? (
+          {checker() && prop.arrayPackages.length ? (
             <DeployArrowDown />
           ) : (
             <DeployArrowRight />
           )}
         </div>
       </div>
-      {show && prop.arrayPackages.length ? (
+      {checker() && prop.arrayPackages.length ? (
         <>
           <div className={s.backgronudPaddingTop}></div>
           <div
