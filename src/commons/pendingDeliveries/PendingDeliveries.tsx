@@ -8,6 +8,7 @@ import VectorDown from "assets/img/VectorDown";
 import VectorUp from "assets/img/VectorUp";
 import DeployArrowDown from "assets/img/DeployArrowDown";
 import DeployArrowRight from "assets/img/DeployArrowRight";
+import { usePathname } from "next/navigation";
 
 const saira = Saira({
   weight: ["400", "500", "600", "700"],
@@ -24,19 +25,33 @@ type Prop = {
   arrayPackages: Array<items>;
   view: string;
   section: string;
+  openSection: string;
+  setOpenSection: (section: string) => void;
   onStartPackage: (packageId: string) => void;
 };
-//The viewType can be: "paquetes-admin", "perfil-repartidor" o "home-repartidor"
-//The sections can be: "repartos-pendientes" "historial-repartos"
 
 function PendingDeliveries(prop: Prop) {
+  const pathname = usePathname();
   const [show, setShow] = useState(true);
   const [isScrollable, setIsScrollable] = useState(false);
   const [atBottom, setAtBottom] = useState(false);
   const [showGradient, setShowGradient] = useState(true);
-
   const toggle = () => {
-    setShow((prevState) => !prevState);
+    if (!pathname.includes("/admin/delivery-man-profile")) {
+      return setShow((prevState) => !prevState);
+    }
+    if (prop.openSection === "deliveriesHistory") {
+      prop.setOpenSection("pendingDeliveries");
+    } else {
+      prop.setOpenSection(
+        prop.openSection === "pendingDeliveries" ? "" : "pendingDeliveries"
+      );
+    }
+  };
+  const checker = () => {
+    if (!pathname.includes("/admin/delivery-man-profile")) {
+      return show;
+    } else return prop.openSection === "pendingDeliveries";
   };
 
   const packagesListRef = useRef<HTMLDivElement>(null);
@@ -50,7 +65,6 @@ function PendingDeliveries(prop: Prop) {
         (packagesListRef.current.scrollTop +
           packagesListRef.current.clientHeight);
 
-      // Verifica si el scroll está cerca del final (ajustar el margen según sea necesario)
       const atBottom = scrollBottom <= 1;
 
       setAtBottom(atBottom);
@@ -71,12 +85,10 @@ function PendingDeliveries(prop: Prop) {
           packagesListRef.current.scrollHeight >
           packagesListRef.current.clientHeight;
         setIsScrollable(scrolled);
-
-        // Verifica si el scroll está cerca del final
         const atBottom =
           packagesListRef.current.scrollTop +
             packagesListRef.current.clientHeight >=
-          packagesListRef.current.scrollHeight - 1; // Cambiado a "-1" para que se considere inmediatamente al llegar al final
+          packagesListRef.current.scrollHeight - 1;
 
         setAtBottom(atBottom);
 
@@ -106,7 +118,10 @@ function PendingDeliveries(prop: Prop) {
       <div
         className={s.divDelivery}
         onClick={toggle}
-        style={{ marginTop: "10px", marginBottom: show ? "0px" : "10px" }}
+        style={{
+          marginTop: "10px",
+          marginBottom: prop.openSection ? "0px" : "10px",
+        }}
       >
         <div className={s.divDeliveryTexts}>
           <p className={`${s.textDelivery} ${saira.className}`}>
@@ -119,80 +134,86 @@ function PendingDeliveries(prop: Prop) {
           ) : null}
         </div>
         <div className={s.arrow}>
-          {show && prop.arrayPackages.length ? (
-            <DeployArrowDown />
-          ) : (
-            <DeployArrowRight />
-          )}
+          {
+            /*prop.openSection === "pendingDeliveries" */
+            checker() && prop.arrayPackages.length ? (
+              <DeployArrowDown />
+            ) : (
+              <DeployArrowRight />
+            )
+          }
         </div>
       </div>
-      {show && prop.arrayPackages.length ? (
-        <>
-          <div className={s.backgronudPaddingTop}></div>
-          <div
-            id="start"
-            className={`${s.packagesList} ${isScrollable ? s.scrolled : ""} ${
-              prop.view === "home-repartidor"
-                ? s.maxHeightViewDeliveryMan
-                : s.maxHeightViewAdmin
-            }`}
-            ref={packagesListRef}
-          >
-            <div>
-              {prop.arrayPackages.map((item: items, index) => (
-                <div key={index}>
-                  <div className={s.boxTrash}>
-                    {prop.view === "home-repartidor" &&
-                    prop.section === "repartos-pendientes" &&
-                    item.status === "ongoing" ? (
-                      <TableListPackages
-                        packageNumber={item.id}
-                        address={item.address}
-                        viewType={prop.view}
-                        section={prop.section}
-                        status={item.status}
-                        onStartPackage={prop.onStartPackage}
-                      />
-                    ) : (
-                      <TableListPackages
-                        packageNumber={item.id}
-                        address={item.address}
-                        viewType={prop.view}
-                        section={prop.section}
-                        status={item.status}
-                        onStartPackage={prop.onStartPackage}
-                      />
+      {
+        /*prop.openSection === "pendingDeliveries"*/ checker() &&
+        prop.arrayPackages.length ? (
+          <>
+            <div className={s.backgronudPaddingTop}></div>
+            <div
+              id="start"
+              className={`${s.packagesList} ${isScrollable ? s.scrolled : ""} ${
+                prop.view === "home-repartidor"
+                  ? s.maxHeightViewDeliveryMan
+                  : s.maxHeightViewAdmin
+              }`}
+              ref={packagesListRef}
+            >
+              <div>
+                {prop.arrayPackages.map((item: items, index) => (
+                  <div key={index}>
+                    <div className={s.boxTrash}>
+                      {prop.view === "home-repartidor" &&
+                      prop.section === "repartos-pendientes" &&
+                      item.status === "ongoing" ? (
+                        <TableListPackages
+                          packageNumber={item.id}
+                          address={item.address}
+                          viewType={prop.view}
+                          section={prop.section}
+                          status={item.status}
+                          onStartPackage={prop.onStartPackage}
+                        />
+                      ) : (
+                        <TableListPackages
+                          packageNumber={item.id}
+                          address={item.address}
+                          viewType={prop.view}
+                          section={prop.section}
+                          status={item.status}
+                          onStartPackage={prop.onStartPackage}
+                        />
+                      )}
+                    </div>
+                    {index < prop.arrayPackages.length - 1 && (
+                      <hr className={s.hr} />
                     )}
                   </div>
-                  {index < prop.arrayPackages.length - 1 && (
-                    <hr className={s.hr} />
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className={s.backgroundBorder}></div>
-          {prop.arrayPackages.length > 3 && showGradient ? (
-            <div className={s.gradient}></div>
-          ) : (
-            <div className={s.backgroundTransparent}></div>
-          )}
-          {prop.arrayPackages.length > 2 &&
-          prop.view === "perfil-repartidor" ? (
-            <div
-              className={s.vectorContainer}
-              onClick={
-                atBottom ? handleVectorUpClick : handleVectorContainerClick
-              }
-            >
-              <hr className={s.lastHr} />
-              <div className={s.vector}>
-                {atBottom ? <VectorUp /> : <VectorDown />}
+                ))}
               </div>
             </div>
-          ) : null}
-        </>
-      ) : null}
+            <div className={s.backgroundBorder}></div>
+            {prop.arrayPackages.length > 3 && showGradient ? (
+              <div className={s.gradient}></div>
+            ) : (
+              <div className={s.backgroundTransparent}></div>
+            )}
+            {prop.arrayPackages.length > 2 &&
+            prop.view === "perfil-repartidor" ? (
+              <div
+                className={s.vectorContainer}
+                onClick={
+                  atBottom ? handleVectorUpClick : handleVectorContainerClick
+                }
+              >
+                <hr className={s.lastHr} />
+                <div className={s.vector}>
+                  {atBottom ? <VectorUp /> : <VectorDown />}
+                </div>
+              </div>
+            ) : null}
+          </>
+        ) : null
+      }
     </>
   );
 }

@@ -34,6 +34,7 @@ const DeliveryManProfile = () => {
   const params = useParams();
   const id = parseInt(params.id as string, 10);
   const dispatch = useDispatch();
+  const [openSection, setOpenSection] = useState("");
   const [pendingPackages, setPendingPackages] = useState<PendingPackage[]>([]);
   const [ongoingPackages, setOngoingPackages] = useState<PendingPackage[]>([]);
   const [deliveredPackages, setDeliveredPackages] = useState<PendingPackage[]>(
@@ -174,14 +175,19 @@ const DeliveryManProfile = () => {
                 arrayPackages={combinedPackages}
                 view="perfil-repartidor"
                 section="repartos-pendientes"
+                openSection={openSection}
+                setOpenSection={setOpenSection}
                 onStartPackage={() => {}}
               />
               <DeliveriesHistory
                 arrayPackages={deliveredPackages}
                 view="perfil-repartidor"
                 section="historial-repartos"
+                openSection={openSection}
+                setOpenSection={setOpenSection}
                 onStartPackage={() => {}}
               />
+
               <hr className={s.packages} />
             </div>
           </div>
