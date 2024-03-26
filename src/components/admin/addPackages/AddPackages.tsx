@@ -7,6 +7,8 @@ import Header from "commons/header/Header";
 import { packageServiceAddPackage } from "services/package.service";
 import { Toaster, toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useLoadScript, Autocomplete } from "@react-google-maps/api";
+const libraries: ("places" | "geometry")[] = ["places", "geometry"];
 
 const AddPackages = () => {
   type FormData = {
@@ -35,25 +37,22 @@ const AddPackages = () => {
     setFormData((prevFormData) => {
       return { ...prevFormData, [fieldName]: value };
     });
-
   };
-
-  const handleCalendarInput = (e : ChangeEvent<HTMLInputElement>)=>{
-    const day = e.target.value
+  const handleCalendarInput = (e: ChangeEvent<HTMLInputElement>) => {
+    const day = e.target.value;
     const selectedDate = new Date(e.target.value);
     const dayOfWeek = selectedDate.getDay();
-  
+
     // Si la fecha seleccionada es sábado (5) o domingo (6)
     if (dayOfWeek === 6 || dayOfWeek === 5) {
       toast.warning("Por favor, seleccione una fecha entre lunes y viernes.");
-      e.target.value = ''; // Limpiar el input 
+      e.target.value = ""; // Limpiar el input
     } else {
       setFormData((prevFormData) => {
         return { ...prevFormData, ["date"]: day };
       });
     }
-  }
-
+  };
   const handleSumbit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (
@@ -74,6 +73,15 @@ const AddPackages = () => {
       return toast.error("Error al intentar agregar el paquete");
     }
   };
+
+  const { isLoaded, loadError } = useLoadScript({
+    googleMapsApiKey: "AIzaSyDg3IuEpz0H54GXQnfgPVZx37xiqax5J48",
+    libraries,
+  });
+  if (loadError) return <div>Error al cargar la API de Google Maps</div>;
+  if (!isLoaded) return <div>Cargando la API de Google Maps...</div>;
+
+  console.log("guardado de direccion =>", formData.address)
   return (
     <div className={s.addPackagesContainer}>
       <div className={s.addPackagesContentContainer}>
@@ -81,13 +89,17 @@ const AddPackages = () => {
         <div className={s.form}>
           <div className={s.content}>
             <form>
-              <input
-                type="text"
-                className={`${s.input}`}
-                placeholder="Dirección"
-                onChange={(e) => handleInputChange(e, "address")}
-                autoFocus
-              />
+              <Autocomplete
+                onLoad={() => {}}
+              >
+                <input
+                  type="text"
+                  placeholder="Dirección"
+                  onChange={(e) => handleInputChange(e, "address")}
+                  className={s.input}
+                  autoFocus
+                />
+              </Autocomplete>
               <input
                 type="text"
                 className={`${s.input}`}
