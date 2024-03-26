@@ -7,7 +7,6 @@ import VectorDown from "assets/img/VectorDown";
 import Link from "next/link";
 import VectorUp from "assets/img/VectorUp";
 import PieChart from "commons/pieChart/PieChart";
-import { getFormattedDate } from "utils/getFormattDate";
 import { userServiceGetDeliverymenWithPackagesQuantityByDate } from "services/user.service";
 
 const DeliveryMen = () => {
@@ -28,12 +27,11 @@ const DeliveryMen = () => {
   const [atBottom, setAtBottom] = useState(false);
   const [deliverymen, setDeliverymen] = useState<deliveryman[]>([]);
   const packagesListRef = useRef<HTMLDivElement>(null);
-  const currentDate = new Date();
-  const dayNumber = currentDate.getDate();
-  const monthNumber = currentDate.getMonth() + 1;
-  const monthNumberFormartted = monthNumber.toString().padStart(2, "0");
-  const year = currentDate.getFullYear();
-  const { month, day, dayOfWeek } = getFormattedDate();
+  const [dayOfWeek, setDayOfWeek] = useState("");
+  const [currentDayOfMonth, setCurrentDayOfMonth] = useState("");
+  const [currentMonth, setCurrentMonth] = useState("");
+  //const [monthNumber, setMonthNumber] = useState("");
+  //const [year, setYear] = useState("");
 
   const handleVectorContainerClick = () => {
     if (packagesListRef.current) {
@@ -62,11 +60,56 @@ const DeliveryMen = () => {
   };
 
   useEffect(() => {
-    userServiceGetDeliverymenWithPackagesQuantityByDate(
-      year + "-" + monthNumberFormartted + "-" + dayNumber
-    ).then((deliverymen) => {
-      setDeliverymen(deliverymen);
-    });
+    const fetchData = async () => {
+      try {
+        const currentDate = new Date();
+        const months = [
+          "Enero",
+          "Febrero",
+          "Marzo",
+          "Abril",
+          "Mayo",
+          "Junio",
+          "Julio",
+          "Agosto",
+          "Septiembre",
+          "Octubre",
+          "Noviembre",
+          "Diciembre",
+        ];
+        const days = ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"];
+
+        const monthIndex = currentDate.getMonth();
+        const monthName = months[monthIndex];
+        setCurrentMonth(monthName.toUpperCase());
+
+        const dayIndex = currentDate.getDay();
+        const dayName = days[dayIndex];
+        setDayOfWeek(dayName);
+
+        const dayOfMonth = currentDate.getDate();
+        setCurrentDayOfMonth(dayOfMonth.toString());
+
+        const monthNumberResult = currentDate.getMonth() + 1;
+        const monthNumberFormat = String(monthNumberResult).padStart(2, "0");
+
+        const yearResult = currentDate.getFullYear();
+
+        const deliverymen =
+          await userServiceGetDeliverymenWithPackagesQuantityByDate(
+            yearResult.toString() +
+              "-" +
+              monthNumberFormat.toString() +
+              "-" +
+              dayOfMonth.toString()
+          );
+        setDeliverymen(deliverymen);
+      } catch (error) {
+        console.error("Error al obtener datos:", error);
+      }
+    };
+
+    fetchData();
   }, []);
 
   useEffect(() => {
@@ -101,10 +144,10 @@ const DeliveryMen = () => {
         </div>
         <div className={s.headList}>
           <div>
-            <h1 className={s.month}>{month} </h1>
+            <h1 className={s.month}>{currentMonth} </h1>
             <h1 className={s.day}>
               {" "}
-              {dayOfWeek} <span className={s.bold}>/ {day}</span>
+              {dayOfWeek} <span className={s.bold}>/ {currentDayOfMonth}</span>
             </h1>
           </div>
         </div>
