@@ -25,8 +25,8 @@ type Prop = {
   arrayPackages: Array<items>;
   view: string;
   section: string;
-  openSection: string;
-  setOpenSection: (section: string) => void;
+  openSection?: string;
+  setOpenSection?: (section: string) => void;
   onStartPackage: (packageId: string) => void;
 };
 
@@ -41,9 +41,12 @@ function DeliveriesHistory(prop: Prop) {
     if (!pathname.includes("/admin/delivery-man-profile")) {
       return setShow((prevState) => !prevState);
     }
-    if (prop.openSection === "pendingDeliveries") {
+    if (
+      prop.openSection === "pendingDeliveries" &&
+      prop.setOpenSection !== undefined
+    ) {
       prop.setOpenSection("deliveriesHistory");
-    } else {
+    } else if (prop.setOpenSection !== undefined) {
       prop.setOpenSection(
         prop.openSection === "deliveriesHistory" ? "" : "deliveriesHistory"
       );

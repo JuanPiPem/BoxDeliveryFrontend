@@ -7,6 +7,7 @@ import StatusInProgress from "assets/img/StatusInProgress";
 import StatusPending from "assets/img/StatusPending";
 import StatusDelivered from "assets/img/StatusDelivered";
 import Link from "next/link";
+import { shortText } from "../../utils/textTrimmer";
 
 type Prop = {
   viewType: string;
@@ -28,6 +29,7 @@ const TableListPackages = (prop: Prop) => {
     prop.onStartPackage(prop.packageNumber);
     setIniciarClicked(true);
   };
+
   return (
     <>
       <div className={`${s.container}`}>
@@ -36,7 +38,9 @@ const TableListPackages = (prop: Prop) => {
             <Package />
             <div className={`${s.div2}`}>
               <p className={`${s.txt} ${s.fontBold}`}>#{prop.packageNumber}</p>
-              <p className={`${s.txt} ${s.fontNormal}`}>{prop.address},</p>
+              <p className={`${s.txt} ${s.fontNormal}`}>
+                {shortText(prop.address, 3)} <br />
+              </p>
             </div>
           </div>
         </Link>
