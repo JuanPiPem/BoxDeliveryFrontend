@@ -16,6 +16,7 @@ import {
 import { Toaster, toast } from "sonner";
 import { RootState } from "state/store";
 import { removePackage, setCurrentPackage } from "state/packages";
+import { shortText } from "utils/textTrimmer";
 
 const DeliveryInProgress = () => {
   const currentPackage = useSelector(
@@ -96,7 +97,7 @@ const DeliveryInProgress = () => {
           <div className={s.deliveryDataContainer}>
             <div className={s.deliveryData}>
               <span className={s.bold}>Destino: </span>
-              {currentPackage.address} <br />
+              {shortText(currentPackage.address)} <br />
               <span className={s.bold}> Número de paquete: </span> #
               {currentPackage.id} <br />
               <span className={s.bold}> Recibe: </span>

@@ -81,7 +81,6 @@ const AddPackages = () => {
   if (loadError) return <div>Error al cargar la API de Google Maps</div>;
   if (!isLoaded) return <div>Cargando la API de Google Maps...</div>;
 
-  console.log("guardado de direccion =>", formData.address)
   return (
     <div className={s.addPackagesContainer}>
       <div className={s.addPackagesContentContainer}>
@@ -89,12 +88,11 @@ const AddPackages = () => {
         <div className={s.form}>
           <div className={s.content}>
             <form>
-              <Autocomplete
-                onLoad={() => {}}
-              >
+              <Autocomplete onLoad={() => {}}>
                 <input
                   type="text"
                   placeholder="Dirección"
+                  onBlur={(e) => handleInputChange(e, "address")}
                   onChange={(e) => handleInputChange(e, "address")}
                   className={s.input}
                   autoFocus

@@ -3,6 +3,7 @@ import s from "./selectPackage.module.scss";
 import React, { useEffect, useState } from "react";
 import Checked from "assets/img/Checked";
 import Link from "next/link";
+import { shortText } from "utils/textTrimmer";
 
 type Prop = {
   package: typePackage;
@@ -35,7 +36,19 @@ function SelectPackage(prop: Prop) {
       setSelectedIds(ids);
     }
   };
-
+  // const shortText = (text: string) => {
+  //   let parts = text.split(",");
+  //   if (parts.length >= 3) {
+  //     parts = parts.slice(0, 3);
+  //     // Verificar si alguna parte contiene "Provincia de" y eliminarla
+  //     parts = parts.map((part) =>
+  //       part.trim().replace("Provincia de", "").trim()
+  //     );
+  //     return parts.join(", ").trim();
+  //   } else {
+  //     return text;
+  //   }
+  // };
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedIds = localStorage.getItem("selectedIds");
@@ -55,7 +68,7 @@ function SelectPackage(prop: Prop) {
           {checked ? <Checked /> : <Unchecked />}
         </div>
         <Link href={`/delivery-man/delivery-in-progress/${prop.package.id}`}>
-          <div className={s.address}>{prop.package.address}</div>
+          <div className={s.address}>{shortText(prop.package.address, 2)}</div>
         </Link>
       </div>
     </div>
