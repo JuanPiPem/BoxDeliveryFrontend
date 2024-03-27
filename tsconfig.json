@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "jsx": "react",
+    "strict": true,
+    "esModuleInterop": true,
     "types": ["cypress"],
     "target": "ES2021",
-    "lib": ["dom", "dom.iterable", "esnext"],
     "baseUrl": "src",
     "allowJs": true,
     "skipLibCheck": true,
-    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "module": "esnext",
@@ -18,7 +19,7 @@
     "noEmit": true,
     "checkJs": false,
     "emitDeclarationOnly": false,
-    "jsx": "preserve",
+    // "jsx": "preserve",
     "incremental": true,
     "plugins": [
       {
@@ -38,7 +39,9 @@
     "test/**/*.ts",
     "test/**/*.tsx",
     ".next/types/**/*.ts",
-    "cypress/**/*.ts"
+    "cypress/**/*.ts",
+    "cypress/component/ConfirmEmail.cy.js",
+    "cypress.d.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["cypress.config.ts", "cypress", "node_modules"]
 }
