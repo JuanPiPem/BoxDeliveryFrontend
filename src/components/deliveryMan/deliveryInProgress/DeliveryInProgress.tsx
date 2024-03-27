@@ -92,7 +92,7 @@ const DeliveryInProgress = () => {
         <Header text={`reparto ${packageStatus()}`} />
         <div className={s.inProgressMap}>
           <div className={s.map}>
-            <Map />
+            <Map destination={currentPackage.address} />
           </div>
           <div className={s.deliveryDataContainer}>
             <div className={s.deliveryData}>

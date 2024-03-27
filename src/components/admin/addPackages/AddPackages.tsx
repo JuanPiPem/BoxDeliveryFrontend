@@ -75,7 +75,7 @@ const AddPackages = () => {
   };
 
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: "AIzaSyDg3IuEpz0H54GXQnfgPVZx37xiqax5J48",
+    googleMapsApiKey:process.env.NEXT_PUBLIC_API_GOOGLE_MAPS || "UNDEFINED",
     libraries,
   });
   if (loadError) return <div>Error al cargar la API de Google Maps</div>;
