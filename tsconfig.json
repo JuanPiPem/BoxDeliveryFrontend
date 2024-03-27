@@ -1,10 +1,16 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "jsx": "react",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "jsx": "preserve",
     "strict": true,
     "esModuleInterop": true,
-    "types": ["cypress"],
+    "types": [
+      "cypress"
+    ],
     "target": "ES2021",
     "baseUrl": "src",
     "allowJs": true,
@@ -43,5 +49,9 @@
     "cypress/component/ConfirmEmail.cy.js",
     "cypress.d.ts"
   ],
-  "exclude": ["cypress.config.ts", "cypress", "node_modules"]
+  "exclude": [
+    "cypress.config.ts",
+    "cypress",
+    "node_modules"
+  ]
 }
