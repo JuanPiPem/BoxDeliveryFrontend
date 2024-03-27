@@ -11,13 +11,14 @@
     "node": true,
     "commonjs": true,
     "jest": true
-    // "cypress/globals": true
+    // "cypress": true
   },
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
-    "plugin:@next/next/recommended"
+    "plugin:@next/next/recommended",
+    "plugin:cypress/recommended"
   ],
   "parserOptions": {
     "ecmaFeatures": {
@@ -28,9 +29,7 @@
     "sourceType": "module",
     "requireConfigFile": false
   },
-  "plugins": [
-    "react" // "cypress"
-  ],
+  "plugins": ["react", "jsx", "flow", "cypress"],
   "rules": {
     "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/no-unused-vars": [
@@ -45,5 +44,6 @@
       "plugins": ["@typescript-eslint"],
       "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"]
     }
-  ]
+  ],
+  "ignorePatterns": ["*.cy.js"]
 }

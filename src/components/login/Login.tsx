@@ -119,7 +119,7 @@ const Login = () => {
           <div className={s.buttonLogin} onClick={handleSubmit}>
             <ButtonDarkBlue text="Ingresar" />
           </div>
-          <Link href={"/delivery-man/register"}>
+          <Link href={"/register"}>
             <div style={{ width: "100%" }}>
               <button className={s.buttonSignUp}>Crear Cuenta</button>
             </div>
