@@ -255,10 +255,10 @@ const Register: React.FC = () => {
               </div>
             </form>
             <div className={s.firstButtonContainer} onClick={handleSubmit}>
-              <ButtonDarkBlue text="Crear" />
+              <ButtonDarkBlue text="Crear usuario" />
             </div>
             <Link href={"/login"}>
-              <button className={s.loginButton}>Iniciar sesión</button>
+              <button className={s.loginButton}>Ir al login</button>
             </Link>
           </div>
         </div>

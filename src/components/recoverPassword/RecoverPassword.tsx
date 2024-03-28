@@ -21,7 +21,7 @@ const RecoverPassword = () => {
   const [password, setPassword] = useState(String);
   const [confirmPassword, setConfirmPassword] = useState(String);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!password || !confirmPassword)
@@ -30,21 +30,34 @@ const RecoverPassword = () => {
     if (!/^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$/.test(password)) return;
     if (password !== confirmPassword) return;
 
-    await axios.put(
-      `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/users/overwrite-password/${params.token}`,
-      { password },
-      { withCredentials: true }
-    );
-    try {
-      toast.success("Contraseña cambiada exitosamente!");
-      return setTimeout(() => {
-        return router.push("/login");
-      }, 2000);
-    } catch (error) {
-      return toast.error(
-        "Este toast no funciona por que falla la respuesta del back"
-      );
-    }
+    axios
+      .put(
+        `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/users/overwrite-password/${params.token}`,
+        { password },
+        { withCredentials: true }
+      )
+      .then(() => {
+        toast.success("Contraseña cambiada exitosamente!");
+        return setTimeout(() => {
+          return router.push("/login");
+        }, 2000);
+      })
+      .catch((err) => {
+        const errMessage =
+          err.response.data.message === "Token has expired"
+            ? "El token ha expirado"
+            : err.response.data;
+        toast.error(errMessage, {
+          action: {
+            label: "Obtener nuevo token",
+            onClick: () => router.push("/send-email"),
+          },
+          duration: 12000,
+        });
+        setTimeout(() => {
+          router.push("/send-email");
+        }, 12000);
+      });
   };
   return (
     <div className={s.recoverPasswordContainer}>

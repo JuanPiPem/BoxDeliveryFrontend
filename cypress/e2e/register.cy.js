@@ -47,7 +47,7 @@ describe("Register component", () => {
   });
 
   it("should redirect to login page when 'Iniciar sesión' button is clicked", () => {
-    cy.contains("Iniciar sesión").click();
+    cy.contains("Ir al login").click();
     cy.url().should("include", "/login");
   });
 });
