@@ -42,7 +42,7 @@ const ManageOrders = () => {
     useState(0);
   const [percentDeliverymen, setPercentDeliverymen] = useState(0);
   const [packagesQuantity, setPackagesQuantity] = useState(0);
-  const [ongoingPackagesQuantity, setOngoingPackagesQuantity] = useState(0);
+  const [deliveredPackagesQuantity, setDeliveredPackagesQuantity] = useState(0);
   const [percentPackages, setPercentPackages] = useState(0);
   const currentDateCaptured = new Date().toLocaleDateString("es-Ar", {
     day: "2-digit",
@@ -62,7 +62,7 @@ const ManageOrders = () => {
     )
       .then((response) => {
         setPackagesQuantity(response.packagesQuantity);
-        setOngoingPackagesQuantity(response.ongoingPackagesQuantity);
+        setDeliveredPackagesQuantity(response.deliveredPackagesQuantity);
       })
       .catch((err) => console.error(err));
   }, []);
@@ -79,9 +79,10 @@ const ManageOrders = () => {
   useEffect(() => {
     setPercentPackages(
       100 -
-        ((packagesQuantity - ongoingPackagesQuantity) / packagesQuantity) * 100
+        ((packagesQuantity - deliveredPackagesQuantity) / packagesQuantity) *
+          100
     );
-  }, [packagesQuantity, ongoingPackagesQuantity]);
+  }, [packagesQuantity, deliveredPackagesQuantity]);
 
   const toggle = () => {
     setShow((prevState) => !prevState);
@@ -260,7 +261,7 @@ const ManageOrders = () => {
             <div className={s.deliveryCard}>
               {formatDate(currentDate, "dd/MM/yyyy") === currentDateCaptured &&
               packagesQuantity &&
-              ongoingPackagesQuantity ? (
+              deliveredPackagesQuantity ? (
                 <PieChart percent={Math.floor(percentPackages)} />
               ) : (
                 <PieChart percent={0} />
@@ -271,7 +272,7 @@ const ManageOrders = () => {
                 currentDateCaptured ? (
                   <p>
                     {" "}
-                    {ongoingPackagesQuantity}/{packagesQuantity} Repartidos
+                    {deliveredPackagesQuantity}/{packagesQuantity} Repartidos
                   </p>
                 ) : null}
                 <div className={s.circlesContainer}>
